@@ -1,0 +1,34 @@
+import styled from 'styled-components';
+import StyleConstants from '../../styles/StyleConstants';
+
+export const SearchBlockRow = styled.div`
+position: relative;
+.input--icon {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  @media (max-width: 600px) {
+    margin-bottom: 15px;
+  }
+`
+
+export const InputBlock = styled.input`
+padding-left: 35px;
+border-radius: 10px;
+height: 40px;
+background-color: ${StyleConstants.BODY_BACKGROUND};
+border: none;
+outline: none;
+font-size: 15px;
+font-family: ${StyleConstants.FONT_FAMILY};
+&:hover {
+  background-color: #ebebeb;
+}
+@media (max-width: 600px) {
+  display: block;
+  width: 100%;
+}
+`
