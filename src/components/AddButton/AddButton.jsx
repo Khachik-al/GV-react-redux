@@ -1,10 +1,11 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { memo } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
 import { AddBut } from './styles';
 
 function AddButton({ title, clickFunc, withoutPlus }) {
     return <AddBut onClick={clickFunc}> 
-    {!withoutPlus && <AiOutlinePlus size={15} className="mr-1"/>} 
+    {!withoutPlus && <FontAwesomeIcon icon={faPlus} size='lg' className="mr-2" style={{fontWeight:'100'}}/>} 
     {title} </AddBut>
 }
 

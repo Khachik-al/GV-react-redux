@@ -300,7 +300,7 @@ export const getData = (body = { status: '', event_type: '', name: '' }) => {
         try {
             const { data } = await axios.post(`${config["API"]}api/api/customer-events/search`, body,
                 { headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } });
-
+            console.log(data);
             dispatch({
                 type: 'GET_EVENTS',
                 payload: Object.values(data).sort((a, b) => new Date(b.event_date) - new Date(a.event_date)),

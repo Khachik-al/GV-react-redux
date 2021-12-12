@@ -253,13 +253,11 @@ import { connect } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import debounce from 'lodash.debounce';
-import { Row, Col } from 'react-bootstrap';
 import Pagination from '@material-ui/core/Pagination';
 import { ActionsBlock, CreateBlock } from './styles';
 import { Main, MainContent, PaginationMain } from '../../styles/globalStyles';
 import SelectOfPagination from '../../components/Smart/SelectOfPagination/SelectForPagination';
 import Spinner from '../../components/Smart/Spinner/Spinner';
-import Modal from '../../components/Smart/Modal/Modal';
 import SearchBlock from '../../components/SearchBlock/SearchBlock';
 import AddButton from '../../components/AddButton/AddButton';
 import FilterButton from '../../components/FilterButton/FilterButton';
@@ -268,6 +266,7 @@ import Table from '../../components/Table/Table';
 import { getData, createEvent, deleteEvent } from './actions';
 import { getMenu } from '../Settings/actions';
 import warningAlert from '../../utils/warningAlert';
+import { BsChevronDown } from 'react-icons/bs';
 
 let searchVal = '';
 
@@ -305,7 +304,7 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
 
     const ActionComponent = useCallback((style, id, name) => {
         return <div className={style.dropdown}>
-            <span className={style.dropbtn}>Actions</span>
+            <span className={style.dropbtn}>Actions <BsChevronDown size={20} className='ml-3' /></span>
             <div className={style.dropdownContent}>
                 <Link to={`/eventsview/${id}`}>View</Link>
                 <Link to={`/eventsedit/${id}`}>Edit</Link>
@@ -413,9 +412,9 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
         getMenu();
     }, [])
 
-    return data ? <Main className="pb-4">
-        <MainContent className="pt-4 pb-4 pr-4 pl-4">
-            <ActionsBlock>
+    return data ? <Main className="pb-4 pt-4">
+        <MainContent className="pt-5 pb-4 pr-4 pl-5">
+            <ActionsBlock className='mb-5'>
                 <SearchBlock
                     onChange={search}
                 />
@@ -436,8 +435,9 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
                 lists={data.slice(page === 1 ? 0 : (page - 1) * pageSizes, page === 1 ? pageSizes - 1 : page * pageSizes)}
                 // lists={sortVal ? data : Object.values(data).slice(page === 1 ? 0 : (page - 1) * 10, page === 1 ? 9 : page * 10)}
                 gridCount={'27% 17% 17% 17% 14%'}
+                gridCountTitle={'27% 17% 18% 18% 12%'}
                 isMobile={isMobile}
-                titles={['NAME', 'TYPE', 'DATE', 'STATUS', 'ACTIONS']}
+                titles={['USER', 'TYPE', 'DATE', 'STATUS', 'ACTIONS']}
                 sortArray={sortArray}
             /> : <div className="p-5 text-center">No results were found for your search.</div>}
 

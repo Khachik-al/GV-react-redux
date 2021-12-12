@@ -420,10 +420,10 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
     });
 
     const paintSectionsNumber = useCallback(() => {
-        return <Container>
-            <Row>
+        return <Container style={{ paddingLeft: '30px', paddingRight: '30px' }}>
+            <Row style={{ border: '1px solid rgba(70, 156, 240, 0.3)', borderRadius: '7px' }}>
                 {['Event', 'Customer info', 'Contract'].map((sect, i) => {
-                    return <Col xs={isMobile > 600 ? 4 : 12}>
+                    return <Col xs={isMobile > 600 ? 4 : 12} className='p-0' style={{ backgroundColor: `${activeSection === i ? '#E6F1FD' : ''}`, borderRadius: '7px' }}>
                         <div class="stepper stepper-links d-flex flex-column" id="kt_create_account_stepper">
                             <div class="stepper-nav">
                                 <div class={`stepper-item ${activeSection === i ? 'current' : i < activeSection ? 'completed' : ''}`} data-kt-stepper-element="nav">
@@ -684,7 +684,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
         <DialogContent style={{ padding: `${isMobile > 600 ? '' : '0px 5px'}` }}>
             <Main>
                 <RowBody isMobile={isMobile < 600}>
-                    <BodySectionsCol className="mb-4">
+                    <BodySectionsCol className="mb-5">
                         {paintSectionsNumber()}
                     </BodySectionsCol>
 
@@ -695,7 +695,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
             </Main>
         </DialogContent>
         <DialogActions>
-            <Container className="mt-4 mb-4">
+            <Container className="mt-4 mb-4" style={{ paddingLeft: '39px', paddingRight: '39px' }}>
                 <Row>
                     <Col xs={6} className="text-left">
                         {activeSection !== 0 &&
@@ -712,12 +712,12 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
                         activeSection === 0 ? <button type="button" class={`btn ${isMobile > 650 ? 'btn-lg' : ''} btn-primary`}
                             data-kt-stepper-action="next"
                             onClick={activeSection === 2 ? createEvenet : changeSection}>
-                            {activeSection === 2 ? 'Submit' : 'Continue'} <BsArrowRight className="ml-1" />
+                            {activeSection === 2 ? 'Submit' : 'Continue'}
                         </button> : createCustomerLoad || createEventLoad ? <Spinner width="2em" borderWidth="0.25em" /> :
-                            <button type="button" class={`btn ${isMobile > 650 ? 'btn-lg' : ''} btn-primary`}
+                            <button type="button" className={`btn ${isMobile > 650 ? 'btn-lg' : ''} btn-primary`}
                                 data-kt-stepper-action="next"
                                 onClick={activeSection === 2 ? createEvenet : changeSection}>
-                                {activeSection === 2 ? 'Submit' : 'Continue'} <BsArrowRight className="ml-1" />
+                                {activeSection === 2 ? 'Submit' : 'Continue'}
                             </button>
                     }
                     </Col>

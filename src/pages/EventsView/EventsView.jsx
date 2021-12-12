@@ -119,9 +119,9 @@ function EventsView({ isMobile, data, getEvent, match }) {
     console.log(state);
 
     return state && <Main className="pb-4">
-        <div className="p-3 pb-4">
+        <div className="pb-4">
             <GridMain>
-                <div className={isMobile > 600 ? "pl-4 pr-4 pt-3" : "pl-0 pr-0 pt-3"}>
+                <div className={isMobile > 600 ? "pr-4 pt-3" : "pl-0 pr-0 pt-3"}>
                     <SectionsBlock>
                         <Container fluid>
                             <Row>

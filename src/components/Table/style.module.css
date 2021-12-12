@@ -1,4 +1,4 @@
-.dropbtn {
+/* .dropbtn {
     background-color: #eceff1;
     color: #A1A5BE;
     padding: 5px 12px;
@@ -13,7 +13,34 @@
       font-size: 12px;
     }
   }
-  
+   */
+
+   .dropbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 134px;
+    height: 40px;
+    background-color: #F6F8FA;
+    color: #86899D;
+    /* padding: 5px 12px; */
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  @media only screen and (max-width: 850px) {
+    .dropbtn {
+      font-size: 12px;
+    }
+  }
+  @media only screen and (max-width: 1600px) {
+    .dropbtn {
+      font-size: 14px;
+      width: 120px;
+    }
+  }
   .dropdown {
     position: relative;
     display: inline-block;

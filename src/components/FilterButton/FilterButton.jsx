@@ -1,5 +1,5 @@
 import React, { useState, memo, useCallback } from 'react';
-import { AiFillFilter } from 'react-icons/ai';
+import { FaFilter } from 'react-icons/fa';
 import { Container, Row, Col } from 'react-bootstrap';
 import FormControl from '@material-ui/core/FormControl';
 import Popover from '@material-ui/core/Popover';
@@ -35,7 +35,7 @@ function FilterButton({ title, state, handleChange, onReset, onApply }) {
 
     return (
         <div>
-            <FilterBut onClick={handleClick}> <AiFillFilter size={20} /> {title} </FilterBut>
+            <FilterBut onClick={handleClick}> <FaFilter size={20} className='mr-2'/> {title} </FilterBut>
             <Popover
                 id={id}
                 open={open}

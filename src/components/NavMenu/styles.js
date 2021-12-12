@@ -50,7 +50,7 @@ export const AsideBody = styled.div`
     position: 'fixed',
     zIndex: 9999,
     top: 0,
-    width: '250px',
+    width: '345px',
     paddingTop: '30px',
     boxShadow: '0px 3px 30px rgba(71, 72, 73, 0.05)'
   }}
@@ -59,7 +59,7 @@ export const AsideBody = styled.div`
 export const MenuListUl = styled.ul`
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 58px 0 0 60px;
 
   .list-item {
     &:hover {
@@ -111,10 +111,12 @@ export const MenuListUl = styled.ul`
 `;
 
 export const MenuListLi = styled.li`
+margin-bottom: 10px;
 color: ${props => props.color};
 a {
   color: #3F4254;
 }
+
 `
 
 
@@ -143,8 +145,7 @@ font-size: 15px;
 visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
 `
 export const LogoBlock = styled.div`
-display: flex;
-justify-content: center;
+padding-left: 80px;
 `
 
 

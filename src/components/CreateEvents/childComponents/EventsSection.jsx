@@ -12,7 +12,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { DataPicBlock } from '../styles';
-import { RedFont, InputTitle } from '../../../styles/globalStyles';
+import { span, InputTitle } from '../../../styles/globalStyles';
 
 function EventsSection({ state, handleChange, requiredError, isMobile, contractState }) {
 
@@ -35,14 +35,14 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
 
     return <Container>
         <Row>
-            <Col xs={12} className="mb-4">
-                <InputTitle> Event Name <RedFont className="mr-1">*</RedFont><Tooltip title="Specify your unique app name" placement="top">
+            <Col xs={6} className="mb-4">
+                <InputTitle> Event Name <span className="mr-1">*</span><Tooltip title="Specify your unique app name" placement="top">
                     <span><BsExclamationCircleFill size={15} color="grey" /></span>
                 </Tooltip> </InputTitle>
                 {paintInputs("name", requiredError[0], "", "text", false, "Event Name")}
             </Col>
 
-            <Col xs={12} className="mb-4">
+            <Col xs={6} className="mb-4">
                 <FormControl fullWidth>
                     <InputTitle> Event type </InputTitle>
                     <SelectComponent
@@ -59,7 +59,7 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
             </Col>
 
             <Col xs={isMobile > 600 ? 4 : 6} className="mb-2">
-                <InputTitle> Date <RedFont >*</RedFont></InputTitle>
+                <InputTitle> Date <span >*</span></InputTitle>
                 <DataPicBlock>
                     <DatePicker
                         selected={state['event_date']}
@@ -73,19 +73,19 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
 
 
             <Col xs={isMobile > 600 ? 4 : 6} className="mb-2">
-                <InputTitle> Start time <RedFont className="mr-1">*</RedFont></InputTitle>
+                <InputTitle> Start time <span className="mr-1">*</span></InputTitle>
                 {paintInputs("event_start", requiredError[2], "00:00", "time", false, "Start time")}
             </Col>
 
             <Col xs={isMobile > 600 ? 4 : 12} className={isMobile < 600 ? "mt-3 mb-2" : "mb-2"}>
-                <InputTitle> End time <RedFont className="mr-1">*</RedFont><Tooltip title="Specify a later time than the start time" placement="top">
+                <InputTitle> End time <span className="mr-1">*</span><Tooltip title="Specify a later time than the start time" placement="top">
                     <span><BsExclamationCircleFill size={15} color="grey" /></span></Tooltip></InputTitle>
                 {paintInputs("event_end", requiredError[3], "00:00", "time", !state['event_start'], "End time")}
             </Col>
 
 
             <Col xs={12} className="mb-2 mt-3">
-                <InputTitle> Number of guest expected <RedFont>*</RedFont></InputTitle>
+                <InputTitle> Number of guest expected <span>*</span></InputTitle>
                 {paintInputs("guests_number", requiredError[4], "", "number", false, "Number of guest expected")}
             </Col>
 

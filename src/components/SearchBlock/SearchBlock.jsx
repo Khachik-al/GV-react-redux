@@ -1,16 +1,17 @@
 import React, { memo } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { BiSearch } from 'react-icons/bi';
 import { SearchBlockRow, InputBlock } from './styles.js'
 
-function SearchBlock({ onChange }) {
+function SearchBlock({ onChange, width }) {
 
-    return <SearchBlockRow id="parent-wrapper">
-        <AiOutlineSearch
+    return <SearchBlockRow id="parent-wrapper" >
+        <BiSearch
             className="input--icon"
             color="#BBC0CE" size={25} />
 
         <InputBlock
-            placeholder="Search..."
+            width={width}
+            placeholder="Search"
             onChange={onChange}
         />
     </SearchBlockRow>

@@ -6,8 +6,9 @@ import { TableRow, TableCol, TableContainer, TextWithBack, ContBlock } from './s
 import { ForBorder, SortIcon } from '../../styles/globalStyles';
 import StyleConstants from '../../styles/StyleConstants';
 import style from './style.module.css';
+import format from 'date-fns/format'
 
-function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray, sortVal }) {
+function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray, sortVal, gridCountTitle }) {
 
     const paintMain = useCallback(() => {
         return isMobile < 501 ?
@@ -23,8 +24,8 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                                 {list.name.length > 30 ? <Tooltip
                                     title={<TableCol color="white">{list.name}</TableCol>}
                                     placement="top">
-                                    <TableCol color="#3F4254">{list.name.slice(0, 30)}...</TableCol>
-                                </Tooltip> : <TableCol color="#3F4254">{list.name}</TableCol>}
+                                    <TableCol color='#333333'>{list.name.slice(0, 30)}...</TableCol>
+                                </Tooltip> : <TableCol color='#333333'>{list.name}</TableCol>}
                             </Col>
 
                             <Col xs={3} className="text-right pl-0 pr-1">
@@ -67,7 +68,7 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
             </TableContainer>
             :
             <TableContainer>
-                <TableRow gridCount={gridCount}>
+                <TableRow gridCount={gridCountTitle ? gridCountTitle : gridCount}>
                     <TableCol color={StyleConstants.TITLE_COLOR}>{titles[0]}</TableCol>
                     <TableCol className="cursorPointer" onClick={() => { sortArray(0, 'type') }} color={StyleConstants.TITLE_COLOR}>
                         {titles[1]} <SortIcon display={sortVal[0]}>
@@ -98,15 +99,15 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                     return <TableRow gridCount={gridCount} key={list.id + ' ' + list.customer_id}>
 
                         {list.name.length > 50 ? <Tooltip title={<TableCol color="white">{list.name}</TableCol>} placement="top">
-                            <TableCol color="#3F4254">{list.name.slice(0, 50)}...</TableCol>
-                        </Tooltip> : <TableCol color="#3F4254">{list.name}</TableCol>}
+                            <TableCol color='#333333'>{list.name.slice(0, 50)}...</TableCol>
+                        </Tooltip> : <TableCol color='#333333'>{list.name}</TableCol>}
 
-                        {/* <TableCol color="#3F4254">{list.name}</TableCol> */}
+                        {/* <TableCol color='#333333'>{list.name}</TableCol> */}
 
-                        <TableCol color={StyleConstants.TITLE_COLOR}>
-                            <TextWithBack>{list.type.name}</TextWithBack>
+                        <TableCol color='#333333'>
+                            {list.type.name}
                         </TableCol>
-                        <TableCol color={StyleConstants.TITLE_COLOR}>{list.event_date}</TableCol>
+                        <TableCol color='#333333'>{format(new Date(list.event_date),'dd MMM yyyy')}</TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}>
                             <TableCol color={StyleConstants.TITLE_COLOR}>
                                 <TextWithBack color={list.status.id === 1 ? '#FFC700' : list.status.id === 2 ? '#50CD89' : '#F1416C'}

@@ -5,7 +5,7 @@
 // import { Container, Row, Col } from 'react-bootstrap';
 // import BlockInputs from '../../Smart/InputBlock/InputBlock';
 // import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
-// import { RedFont, InputTitle } from '../../../styles/globalStyles';
+// import { span, InputTitle } from '../../../styles/globalStyles';
 // import { SpanIcon } from '../styles';
 // import AccordDown from '../../Smart/AccordDown/AccordDown';
 
@@ -32,7 +32,7 @@
 //         <Row>
 //             {menues && <Col xs={12} className="mb-3">
 //                 <FormControl fullWidth className="mt-2 mb-3">
-//                     <InputTitle className="mt-3"> Menu <RedFont>*</RedFont></InputTitle>
+//                     <InputTitle className="mt-3"> Menu <span>*</span></InputTitle>
 //                     <SelectComponent
 //                         disabled={editSet}
 //                         require={requiredError[1]}
@@ -52,7 +52,7 @@
 
 //         <Row>
 //             <Col xs={12} className="mb-3">
-//                 <InputTitle> Cost per guest <RedFont>*</RedFont></InputTitle>
+//                 <InputTitle> Cost per guest <span>*</span></InputTitle>
 //                 {paintInputs("cost_per_guest", requiredError[2], 'Deposit', "number")}
 //             </Col>
 //         </Row>
@@ -110,7 +110,7 @@
 //             </Col>
 
 //             <Col xs={12} className="mb-4">
-//                 <InputTitle> Deposit <RedFont>*</RedFont></InputTitle>
+//                 <InputTitle> Deposit <span>*</span></InputTitle>
 //                 {paintInputs("deposit", requiredError[0], 'Deposit', 'number')}
 //             </Col>
 
@@ -132,7 +132,7 @@
 //             </Col>
 
 //             <Col xs={12} className="mb-4">
-//                 <InputTitle> Payment type <RedFont>*</RedFont></InputTitle>
+//                 <InputTitle> Payment type <span>*</span></InputTitle>
 //                 {paintInputs("payment_type", requiredError[3], 'Payment type')}
 //             </Col>
 
@@ -176,7 +176,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { Container, Row, Col } from 'react-bootstrap';
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
-import { RedFont, InputTitle } from '../../../styles/globalStyles';
+import { span, InputTitle } from '../../../styles/globalStyles';
 import { SpanIcon } from '../styles';
 import AccordDown from '../../Smart/AccordDown/AccordDown';
 
@@ -203,7 +203,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
         <Row>
             {menues && <Col xs={6} className="mb-0">
                 <FormControl fullWidth className="mb-3">
-                    <InputTitle className="mt-3"> Menu <RedFont>*</RedFont></InputTitle>
+                    <InputTitle className="mt-3"> Menu <span>*</span></InputTitle>
                     <SelectComponent
                         disabled={editSet}
                         require={requiredError[1]}
@@ -217,7 +217,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
             </Col>}
 
             <Col xs={6} className="mb-3 mt-3">
-                <InputTitle> Cost per guest <RedFont>*</RedFont></InputTitle>
+                <InputTitle> Cost per guest <span>*</span></InputTitle>
                 {paintInputs("cost_per_guest", requiredError[2], 'Deposit', "number")}
             </Col>
         </Row>
@@ -225,7 +225,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
         <Row>
             {menues && <Col xs={6} className="mb-3">
                 <FormControl fullWidth className="mb-3">
-                    <InputTitle className="mt-3"> Payment type <RedFont>*</RedFont></InputTitle>
+                    <InputTitle className="mt-3"> Payment type <span>*</span></InputTitle>
                     <SelectComponent
                         disabled={editSet}
                         require={requiredError[3]}
@@ -239,7 +239,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
             </Col>}
 
             {/* <Col xs={12} className="mb-4">
-                <InputTitle> Payment type <RedFont>*</RedFont></InputTitle>
+                <InputTitle> Payment type <span>*</span></InputTitle>
                 {paintInputs("payment_type", requiredError[3], 'Payment type')}
             </Col> */}
 
@@ -261,7 +261,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
 
         {/* <Row>
             <Col xs={12} className="mb-3">
-                <InputTitle> Cost per guest <RedFont>*</RedFont></InputTitle>
+                <InputTitle> Cost per guest <span>*</span></InputTitle>
                 {paintInputs("cost_per_guest", requiredError[2], 'Deposit', "number")}
             </Col>
         </Row> */}
@@ -324,7 +324,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
             </Col>
 
             <Col xs={6} className="mb-4">
-                <InputTitle> Deposit <RedFont>*</RedFont></InputTitle>
+                <InputTitle> Deposit <span>*</span></InputTitle>
                 {paintInputs("deposit", requiredError[0], 'Deposit', 'number')}
             </Col>
 
@@ -347,7 +347,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
             </Col> */}
 
             {/* <Col xs={12} className="mb-4">
-                <InputTitle> Payment type <RedFont>*</RedFont></InputTitle>
+                <InputTitle> Payment type <span>*</span></InputTitle>
                 {paintInputs("payment_type", requiredError[3], 'Payment type')}
             </Col> */}
 

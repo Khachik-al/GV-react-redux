@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import Modal from '../../Smart/Modal/Modal';
 import { DataPicBlock } from '../styles';
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
-import { RedFont, InputTitle } from '../../../styles/globalStyles';
+import { span, InputTitle } from '../../../styles/globalStyles';
 
 function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalActive, closeModal, getButtEditMod, createActive }) {
 
@@ -23,32 +23,32 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
         return <Container>
             <Row className="mb-4">
                 <Col xs={6}>
-                    <InputTitle>First name<RedFont>*</RedFont> </InputTitle>
+                    <InputTitle>First name<span>*</span> </InputTitle>
                     {paintInputs("firstName", requiredError[0], 'First name')}
                 </Col>
                 <Col xs={6}>
-                    <InputTitle>Last name<RedFont>*</RedFont> </InputTitle>
+                    <InputTitle>Last name<span>*</span> </InputTitle>
                     {paintInputs("lastName", requiredError[1], 'Last name')}
                 </Col>
             </Row>
 
             {(modalActive || createActive) && <> <Row className="mb-4">
                 <Col xs={12}>
-                    <InputTitle>Home Address <RedFont>*</RedFont></InputTitle>
+                    <InputTitle>Home Address <span>*</span></InputTitle>
                     {paintInputs("address", requiredError[2], 'Home Address')}
                 </Col>
             </Row>
 
                 <Row className="mb-4">
                     <Col xs={12}>
-                        <InputTitle>Email address <RedFont>*</RedFont></InputTitle>
+                        <InputTitle>Email address <span>*</span></InputTitle>
                         {paintInputs("email", requiredError[3], 'Email address', 'email')}
                     </Col>
                 </Row>
 
                 <Row className="mb-4">
                     <Col xs={6}>
-                        <InputTitle>Phone number <RedFont>*</RedFont></InputTitle>
+                        <InputTitle>Phone number <span>*</span></InputTitle>
                         {paintInputs("phone_number", requiredError[4], 'Alt phone', 'tel')}
                     </Col>
                     <Col xs={6}>
@@ -59,7 +59,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
 
                 <Row className="mb-4">
                     <Col xs={6}>
-                        <InputTitle> DL expiration data <RedFont >*</RedFont></InputTitle>
+                        <InputTitle> DL expiration data <span >*</span></InputTitle>
                         <DataPicBlock>
                             <DatePicker
                                 selected={state['dl_expire_date']}
@@ -73,7 +73,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
                     </Col>
 
                     <Col xs={6}>
-                        <InputTitle>DL number <RedFont>*</RedFont></InputTitle>
+                        <InputTitle>DL number <span>*</span></InputTitle>
                         {paintInputs("dl_number", requiredError[5], 'DL number', 'text', 'TS15ZC5685512')}
                     </Col>
                 </Row> </>}

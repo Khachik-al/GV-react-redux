@@ -5,7 +5,7 @@ export const CalendarBlock = styled('div')`
   background: #f5f8fa;
   height: 100%;
   width: 100%;
-  padding: ${props => props.isMobile ? '0px 0 0 0' : '40px 20px 40px 200px'};
+  padding: ${props => props.isMobile ? '0px 0 0 0' : '40px 20px 40px 300px'};
   
   .rbc-calendar{
     position: relative;

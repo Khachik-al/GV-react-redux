@@ -12,7 +12,7 @@ grid-template-columns: 80% 18%;
 export const SectionsBlock = styled.div`
 background-color: white;
 padding: 30px 20px;
-border-radius: 5px;
+border-radius: 12px;
 margin-bottom: 50px;
 @media (max-width: 600px) {
     padding: 10px 0px;
@@ -21,9 +21,9 @@ margin-bottom: 50px;
 `
 
 export const SectionsTitle = styled.div`
-color: #181C32;
+color: #469CF0;
 font-family: 'Poppins';
-font-size: 1.35rem;
+font-size: 20px;
 font-weight: 600;
 `
 

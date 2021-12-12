@@ -121,7 +121,7 @@ function SelectComponenet(props) {
                 <DropDownIcon>
                     <FontAwesomeIcon
                         icon={isOpen ? faCaretUp : faCaretDown}
-                        size={'lg'}
+                        size={'2x'}
                     />
                 </DropDownIcon>
                 {props.value ? props.value.length > 18 ? `${props.value.slice(0, 18)}...` : props.value : ''}

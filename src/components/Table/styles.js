@@ -44,22 +44,29 @@ border-bottom: 1px dashed #F0F2F5;
 `;
 
 export const TableCol = styled.div`
+padding: 11px 0;
 color: ${props => props.color};
 text-align: left;
 overflow-wrap: break-word;
 align-self: center;
-font-size: 14px;
+font-size: 18px;
 font-family: ${StyleConstants.FONT_FAMILY};
 font-weight: 500;
 @media (max-width: 880px) {
     font-size: 12px;
 }
+@media (max-width: 1500px) {
+    font-size: 14px;
+}
 `
 
 export const TextWithBack = styled.span`
-padding: 3px 5px;
-border-radius: 5px;
+padding: 5px 17px;
+border-radius: 7px;
 background-color: ${props => props.backColor ? props.backColor : '#F5F8FA'};
 color: ${props => props.color ? props.color : ''};
-font-size: 12px;
+font-size: 14px;
+@media (max-width: 1500px) {
+    font-size: 12px;
+}
 `

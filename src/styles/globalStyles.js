@@ -96,14 +96,37 @@ export const GlobalStyle = createGlobalStyle`
   .downIcMen:hover{
     background-color: rgb(108 202 255 / 20%) !important;
   }
+  .flex{
+    display: flex;
+  }
+  .flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .flex-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stepper.stepper-links .stepper-nav .stepper-item:after {
+    content: none !important;
+  }
+  .css-rnmm7m-MuiPaper-root-MuiDialog-paper{
+    border-radius: 12px !important;
+  }
   /*_______*/
 `;
 export const Main = styled.div`
-padding-left: 170px;
-padding-right: 170px;
-@media (max-width: 1300px) {
+padding-left: 330px;
+padding-right: 150px;
+@media (max-width: 1600px) {
     padding-right: 100px;
-    padding-left: 150px;
+    padding-left: 280px;
+}
+@media (max-width: 1300px) {
+    padding-right: 80px;
+    padding-left: 270px;
 }
 @media (max-width: 800px) {
     padding-right: 5px;
@@ -173,12 +196,18 @@ border-radius: 5px;
 `
 
 export const InputTitle = styled.h5`
-color: ${StyleConstants.TEXT_COLOR};
+color: #333333;
 padding-left: 0px;
 margin-bottom: 5px;
 font-family: ${StyleConstants.FONT_FAMILY};
 font-weight: 500;
-font-size: 1.15rem;
+font-size: 18px;
+@media (max-width: 880px) {
+    font-size: 12px;
+}
+@media (max-width: 1500px) {
+    font-size: 16px;
+}
 
 `
 

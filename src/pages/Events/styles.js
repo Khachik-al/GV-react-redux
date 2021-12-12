@@ -5,20 +5,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding-left: 15px;
-padding-right: 80px;
-@media (max-width: 1400px) {
-    grid-template-columns: 60% 40%;
-}
-@media (max-width: 1030px) {
-    grid-template-columns: 50% 50%;
-}
-@media (max-width: 1030px) {
-    grid-template-columns: 40% 60%;
-}
-@media (max-width: 600px) {
-    display: block;
-    margin-bottom: 15px;
-}
+padding-right: 53px;
 `
 // export const ActionsBlock = styled.div`
 // display: grid;

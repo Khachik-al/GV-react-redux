@@ -29,7 +29,7 @@ const NavMenu = ({
                         to={el.path}
                         activeClassName="selected-nav-link">
                         <a> {el.icon}</a>
-                        <span>
+                        <span style={{ fontSize: '18px' }}>
                             {el.title}
                         </span>
                     </NavLink>
@@ -42,7 +42,7 @@ const NavMenu = ({
                     to={'/staff'}
                     activeClassName="selected-nav-link">
                     <a><BiUserCircle size={20} className="menu-list-icon" /></a>
-                    <span>
+                    <span style={{ fontSize: '18px' }}>
                         Staff
                     </span>
                 </NavLink>
@@ -58,7 +58,7 @@ const NavMenu = ({
                         to={el.path}
                         activeClassName="selected-nav-link">
                         <a> {el.icon}</a>
-                        <span>
+                        <span style={{ fontSize: '18px' }}>
                             {el.title}
                         </span>
                     </NavLink>
@@ -73,8 +73,12 @@ const NavMenu = ({
     }, [isMobileView]);
 
     return (
-        <AsideWrapper isOpen={isOpen} className={isOpen ? 'aside-is--open' : ''} mobileView={isMobileView < 801}>
-            {isMobileView < 801 && <AsideHeader className="aside-header mb-4 pl-2" isOpen={isOpen} mobileView={isMobileView < 801}>
+        <AsideWrapper 
+        isOpen={isOpen} 
+        className={isOpen ? 'aside-is--open' : ''} 
+        mobileView={isMobileView < 801}>
+            {isMobileView < 801 && 
+            <AsideHeader className="aside-header mb-4 pl-2" isOpen={isOpen} mobileView={isMobileView < 801}>
                 <div onClick={() => setIsOpen(!isOpen)} className="logo-area">
                     {!isOpen ? <AiOutlineUnorderedList className="aside-close-icon" onClick={() => setIsOpen(!isOpen)} /> :
                         <AiOutlineClose className="aside-close-icon" onClick={() => setIsOpen(!isOpen)} />}
@@ -82,8 +86,8 @@ const NavMenu = ({
                 {isOpen && !(isMobileView < 801) ? <img src={grandLogo} alt="logo" className="main-logo" /> : ''}
             </AsideHeader>}
             <AsideBody isOpen={isOpen} mobileView={isMobileView < 801}>
-               {!(isMobileView < 801) && <LogoBlock className='mb-4'>
-                    <NavLink to="/"> <img src={grandLogo} height="40px" /> </NavLink>
+                {!(isMobileView < 801) && <LogoBlock className='mb-5'>
+                    <NavLink to="/"> <img src={grandLogo} height="55px" /> </NavLink>
                 </LogoBlock>}
                 {scrollBarHeight ? <SimpleBar style={{ maxHeight: scrollBarHeight }}>
                     {paintSections()}
