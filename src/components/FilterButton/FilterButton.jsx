@@ -7,8 +7,10 @@ import SelectComponent from '../Smart/SelectComponent/SelectComponent';
 import { TitlesFont, InputTitle } from '../../styles/globalStyles';
 import { FilterBut, FilterBody, ResetBut, ApplyBut } from './styles';
 import { selectorsValues } from '../../dummy/Events';
+import { useSelector } from 'react-redux';
 
 function FilterButton({ title, state, handleChange, onReset, onApply }) {
+    const isMobile = useSelector((state) => state.AppReducer.screenSize < 550);
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -35,7 +37,7 @@ function FilterButton({ title, state, handleChange, onReset, onApply }) {
 
     return (
         <div>
-            <FilterBut onClick={handleClick}> <FaFilter size={20} className='mr-2'/> {title} </FilterBut>
+            <FilterBut onClick={handleClick} isMobile={isMobile}> <FaFilter size={isMobile ? 15 : 20} className='mr-2' /> {title} </FilterBut>
             <Popover
                 id={id}
                 open={open}
@@ -67,12 +69,12 @@ function FilterButton({ title, state, handleChange, onReset, onApply }) {
                                     <SelectComponent
                                         value={state.month ? state.month.split(' ')[0] : state.month}
                                         options={[{ title: 'None', value: '' },
-                                            { title: 'January', value: 'january 1' }, { title: 'February', value: 'february 2' }, { title: 'March', value: 'March 3' },
-                                            { title: 'April', value: 'April 4' }, { title: 'May', value: 'may 5' }, { title: 'June', value: 'June 6' },
-                                            { title: 'July', value: 'July 7' }, { title: 'August', value: 'August 8' },
-                                            { title: 'September', value: 'september 9' },
-                                            { title: 'October', value: 'october 10' }, { title: 'November', value: 'november 11' },
-                                            { title: 'December', value: 'december 12' }
+                                        { title: 'January', value: 'january 1' }, { title: 'February', value: 'february 2' }, { title: 'March', value: 'March 3' },
+                                        { title: 'April', value: 'April 4' }, { title: 'May', value: 'may 5' }, { title: 'June', value: 'June 6' },
+                                        { title: 'July', value: 'July 7' }, { title: 'August', value: 'August 8' },
+                                        { title: 'September', value: 'september 9' },
+                                        { title: 'October', value: 'october 10' }, { title: 'November', value: 'november 11' },
+                                        { title: 'December', value: 'december 12' }
                                         ]}
                                         setValues={handleChange}
                                         name="month"
@@ -86,8 +88,8 @@ function FilterButton({ title, state, handleChange, onReset, onApply }) {
                                     <SelectComponent
                                         value={state.status ? state.status.split(' ')[0] : state.status}
                                         options={[{ title: 'None', value: '' },
-                                            { title: 'Booked', value: 'booked 1' }, { title: 'Pending', value: 'pending 2' },
-                                            { title: 'Completed', value: 'completed 3' }, { title: 'Canceled', value: 'canceled 4' }
+                                        { title: 'Booked', value: 'booked 1' }, { title: 'Pending', value: 'pending 2' },
+                                        { title: 'Completed', value: 'completed 3' }, { title: 'Canceled', value: 'canceled 4' }
                                         ]}
                                         setValues={handleChange}
                                         name="status"

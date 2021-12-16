@@ -290,6 +290,7 @@
 
 import React, { useCallback, useState, useEffect } from 'react';
 import config from '../../configs.json';
+import { BsChevronDown } from 'react-icons/bs';
 import axios from 'axios'
 // import _debounce from 'lodash/debounce';
 import { useSelector, useDispatch } from 'react-redux';
@@ -373,7 +374,7 @@ function Staff({ getUsers, deleteUsers, users, count, addUser, editUser, showToa
 
     const ActionComponent = useCallback((style, list) => {
         return <div className={style.dropdown}>
-            <span className={style.dropbtn}>Actions</span>
+            <span className={style.dropbtn}>Actions <BsChevronDown size={appState.screenSize < 1100 ? 12 : 20} className='ml-3' /></span>
             {appState.userType === "1" ?
                 <div className={style.dropdownContent}>
                     <Link to={`/staff/${list.id}`}>View</Link>
@@ -484,9 +485,9 @@ function Staff({ getUsers, deleteUsers, users, count, addUser, editUser, showToa
         getUsers(1, 10);
     }, []);
 
-    return users && <Main className="pb-4">
-        <MainContent className="p-3 pb-4">
-            <ActionsBlock>
+    return users && <Main className="pb-4 pt-4">
+        <MainContent className={!(appState.screenSize < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
+            <ActionsBlock className='mb-5'>
                 <SearchBlock
                     onChange={search}
                 />
@@ -498,7 +499,7 @@ function Staff({ getUsers, deleteUsers, users, count, addUser, editUser, showToa
                 ActionComponent={ActionComponent}
                 titles={['FULL NAME', 'ROLE', 'EMAIL', 'PHONE', 'ACTION']}
                 lists={users}
-                gridCount={'20% 20% 20% 20% 20%'}
+                gridCount={'20% 13% 25% 20% 20%'}
                 isMobile={appState.screenSize}
             /> : <div className="p-5 text-center">No results were found for your search.</div>}
 

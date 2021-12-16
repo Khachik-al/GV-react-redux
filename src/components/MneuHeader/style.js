@@ -5,23 +5,28 @@ export const MainContent = styled.div`
 /* position: fixed; */
 background-color: white;
 margin-bottom: 10px;
-padding-top: 35px;
-min-height: 120px;
-max-height: 120px;
-padding-left: 440px;
-padding-right: 150px;
+padding-top: 22px;
+min-height: 100px;
+max-height: 100px;
+padding-left: 365px;
+padding-right: 80px;
 box-shadow: 0 0.1rem 1rem 0.25rem rgb(0 0 0 / 5%);
 @media (max-width: 1600px) {
-    padding-right: 100px;
-    padding-left: 390px;
+    padding-right: 80px;
+    padding-left: 365px;
 }
 @media (max-width: 1300px) {
-    padding-right: 80px;
-    padding-left: 380px;
+    padding-right: 30px;
+    padding-left: 330px;
+    padding-top: 22px;
 }
 @media (max-width: 800px) {
     padding-right: 5px;
-    padding-left: 5px;
+    padding-left: 80px;
+    min-height: 80px;
+    max-height: 80px;
+    padding-top: 15px;
+    
 }
 `
 
@@ -78,6 +83,10 @@ color: black;
 display: flex;
 justify-content: center;
 align-items: center;
+
+@media (max-width: 800px) {
+  height:35px;
+}
 `
 
 export const ContentIcons = styled.div`

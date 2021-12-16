@@ -20,7 +20,7 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                                 <TableCol color={StyleConstants.TITLE_COLOR}>{titles[0]}: </TableCol>
                             </Col>
 
-                            <Col xs={6} className="mb-1">
+                            <Col xs={5} className="mb-1">
                                 {list.name.length > 30 ? <Tooltip
                                     title={<TableCol color="white">{list.name}</TableCol>}
                                     placement="top">
@@ -28,7 +28,7 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                                 </Tooltip> : <TableCol color='#333333'>{list.name}</TableCol>}
                             </Col>
 
-                            <Col xs={3} className="text-right pl-0 pr-1">
+                            <Col xs={4} className="text-right">
                                 {ActionComponent(style, list.id, index)}
                             </Col>
 
@@ -107,7 +107,7 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                         <TableCol color='#333333'>
                             {list.type.name}
                         </TableCol>
-                        <TableCol color='#333333'>{format(new Date(list.event_date),'dd MMM yyyy')}</TableCol>
+                        <TableCol color='#333333'>{format(new Date(list.event_date + ', ' + list.event_start), 'dd MMM yyyy, h:mm aaa')}</TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}>
                             <TableCol color={StyleConstants.TITLE_COLOR}>
                                 <TextWithBack color={list.status.id === 1 ? '#FFC700' : list.status.id === 2 ? '#50CD89' : '#F1416C'}
@@ -115,7 +115,7 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                                 >{list.status.name}</TextWithBack>
                             </TableCol>
                         </TableCol>
-                        <TableCol>{ActionComponent(style, list.id, list.name)}</TableCol>
+                        <TableCol className='text-right pr-4'>{ActionComponent(style, list.id, list.name)}</TableCol>
                     </TableRow>
                 })}
             </TableContainer>

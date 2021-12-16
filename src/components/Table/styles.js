@@ -3,7 +3,7 @@ import StyleConstants from '../../styles/StyleConstants';
 //   width: ${props => !props.isOpen ? StyleConstants.ASIDE_WIDTH_CLOSED : props.mobileView ? '100vw' : StyleConstants.ASIDE_WIDTH_OPEN};
 
 export const ContBlock = styled.div`
-@media (max-width: 650px) {
+@media (max-width: 1250px) {
     overflow: scroll;
 }
 @media (max-width: 500px) {
@@ -49,14 +49,17 @@ color: ${props => props.color};
 text-align: left;
 overflow-wrap: break-word;
 align-self: center;
-font-size: 18px;
+font-size: ${props => props.fontSize ? props.fontSize : '18px'};
 font-family: ${StyleConstants.FONT_FAMILY};
 font-weight: 500;
-@media (max-width: 880px) {
-    font-size: 12px;
-}
 @media (max-width: 1500px) {
     font-size: 14px;
+}
+@media (max-width: 1200px) {
+    font-size: 13px;
+}
+@media (max-width: 1102px) {
+    font-size: 12px;
 }
 `
 
@@ -68,5 +71,13 @@ color: ${props => props.color ? props.color : ''};
 font-size: 14px;
 @media (max-width: 1500px) {
     font-size: 12px;
+}
+@media (max-width: 1080px) {
+    font-size: 11px;
+    padding: 5px 13px;
+}
+@media (max-width: 1050px) {
+    font-size: 11px;
+    padding: 5px 12px;
 }
 `

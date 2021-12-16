@@ -10,9 +10,6 @@ position: relative;
     bottom: 0;
     margin: auto;
   }
-  @media (max-width: 600px) {
-    margin-bottom: 15px;
-  }
 `
 
 export const InputBlock = styled.input`
@@ -28,8 +25,8 @@ font-family: ${StyleConstants.FONT_FAMILY};
 &:hover {
   background-color: #ebebeb;
 }
-@media (max-width: 600px) {
-  display: block;
-  width: 100%;
+@media (max-width: 800px) {
+  width: 120px;
+  height: 35px;
 }
 `

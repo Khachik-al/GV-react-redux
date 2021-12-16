@@ -16,7 +16,7 @@ export const getUsers = (page, limit, serachValue = "") => {
 
             dispatch({
                 type: 'GET_CUSTOMERS',
-                payload: data,
+                payload: Object.values(data),
             });
             dispatch({ type: 'PENDING', payload: false })
 
@@ -28,7 +28,7 @@ export const getUsers = (page, limit, serachValue = "") => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
             }
@@ -41,6 +41,56 @@ export const getUsers = (page, limit, serachValue = "") => {
             }
 
 
+        }
+    }
+};
+
+
+export const deleteUsers = (id) => {
+
+    return async (dispatch) => {
+        try {
+            axios.delete(`${config["API"]}api/api/customers/${id}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }).then(res => {
+                axios.get(`${config["API"]}api/api/customers`,
+                    { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
+                ).then(re => {
+                    dispatch({
+                        type: 'GET_CUSTOMERS',
+                        payload: Object.values(re.data),
+                    });
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: 'seccessfuly deleted',
+                        errorMessage: null
+                    })
+                })
+            })
+        } catch (err) {
+            if (err.response.hasOwnProperty('status')) {
+                if (err.response.status === 401) {
+                    logout();
+                    dispatch({ type: 'saveToken', token: '' });
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: 'Log Out'
+                    })
+                }
+                else {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: 'Error'
+                    })
+                }
+            }
+            else {
+                dispatch({
+                    type: 'TOAST_MESSAGE',
+                    successMessage: null,
+                    errorMessage: 'Error'
+                })
+            }
         }
     }
 };

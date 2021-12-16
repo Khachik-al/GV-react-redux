@@ -13,6 +13,7 @@ import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { DataPicBlock } from '../styles';
 import { span, InputTitle } from '../../../styles/globalStyles';
+import DayPicker from '../../Smart/DayPicker/DayPicker';
 
 function EventsSection({ state, handleChange, requiredError, isMobile, contractState }) {
 
@@ -60,6 +61,9 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
 
             <Col xs={isMobile > 600 ? 4 : 6} className="mb-2">
                 <InputTitle> Date <span >*</span></InputTitle>
+                {/* <DataPicBlock>
+                    <DayPicker />
+                </DataPicBlock> */}
                 <DataPicBlock>
                     <DatePicker
                         selected={state['event_date']}
@@ -69,7 +73,8 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                         minDate={new Date()}
                     />
                     {requiredError[1] && <div className="fs-7 text-danger mt-2">Date Is required</div>}
-                </DataPicBlock> </Col>
+                </DataPicBlock> 
+            </Col>
 
 
             <Col xs={isMobile > 600 ? 4 : 6} className="mb-2">

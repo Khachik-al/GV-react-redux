@@ -115,18 +115,48 @@ export const GlobalStyle = createGlobalStyle`
   .css-rnmm7m-MuiPaper-root-MuiDialog-paper{
     border-radius: 12px !important;
   }
+  .css-1to7aaw-MuiButtonBase-root-MuiPaginationItem-root{
+    border-radius: 4px !important;
+    min-width: 27px !important;
+    height: 27px !important;
+    font-size:18px !important;
+
+    @media (max-width: 1600px) {
+      font-size:16px !important;
+    }
+    @media (max-width: 1300px) {
+      font-size:14px !important;
+    }
+    @media (max-width: 800px) {
+      font-size:12px !important;
+    }
+  }
+  .css-1to7aaw-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+    background-color:#469CF0 !important;
+  }
+  .Toastify__progress-bar {
+  transform-origin: right !important;
+  }
+  .react-datepicker__header{
+    background-color:#F5F8FA;
+    border-bottom:1px solid #EFF2F5;
+  }
+  .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+    width: 2rem;
+  }
+  .react-datepicker{
+    border: 1px solid #cdd1d6;
+    font-size: 12px;
+    font-family: Popins;
+  }
   /*_______*/
 `;
 export const Main = styled.div`
-padding-left: 330px;
-padding-right: 150px;
-@media (max-width: 1600px) {
-    padding-right: 100px;
-    padding-left: 280px;
-}
+padding-left: 250px;
+padding-right: 90px;
 @media (max-width: 1300px) {
-    padding-right: 80px;
-    padding-left: 270px;
+    padding-right: 40px;
+    padding-left: 220px;
 }
 @media (max-width: 800px) {
     padding-right: 5px;
@@ -159,6 +189,7 @@ export const MainSection = styled.section`
 export const PaginationMain = styled.div`
 min-height: 60px; 
 padding-top: 10px;
+padding-left: 18px;
 & ul {
   justify-content: right;
 }

@@ -695,7 +695,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
             </Main>
         </DialogContent>
         <DialogActions>
-            <Container className="mt-4 mb-4" style={{ paddingLeft: '39px', paddingRight: '39px' }}>
+            <Container className="mt-4 mb-4" style={{ paddingLeft: '42px', paddingRight: '40px' }}>
                 <Row>
                     <Col xs={6} className="text-left">
                         {activeSection !== 0 &&

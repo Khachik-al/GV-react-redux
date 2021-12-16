@@ -18,7 +18,7 @@ border-radius: 0.475rem;
 padding: calc(0.75rem + 1px) calc(1.5rem + 1px);
 outline: none !important;
 @media (max-width: 550px) {
-    padding: 0.45rem 1rem;
+    padding: 0.6rem;
 }
 &:hover {
     background-color: #009EF7;

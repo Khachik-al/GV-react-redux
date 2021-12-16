@@ -23,24 +23,36 @@
     height: 40px;
     background-color: #F6F8FA;
     color: #86899D;
-    /* padding: 5px 12px; */
     font-size: 16px;
     border: none;
     cursor: pointer;
     border-radius: 6px;
   }
 
-  @media only screen and (max-width: 850px) {
-    .dropbtn {
-      font-size: 12px;
-    }
-  }
   @media only screen and (max-width: 1600px) {
     .dropbtn {
       font-size: 14px;
       width: 120px;
+      height: 38px;
     }
   }
+
+  @media only screen and (max-width: 1300px) {
+    .dropbtn {
+      font-size: 12px;
+      width: 90px;
+      height: 37px;
+    }
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .dropbtn {
+      font-size: 12px;
+      width: 90px;
+      height: 35px;
+    }
+  }
+
   .dropdown {
     position: relative;
     display: inline-block;
@@ -60,7 +72,7 @@
   
   .dropdownContent * {
     color: #A1A5BE;
-    font-size: 10px;
+    font-size: 14px;
     border-radius: 5px;
     padding: 8px;
     text-decoration: none;
@@ -68,6 +80,16 @@
     cursor: pointer;
   }
   
+  @media only screen and (max-width: 1600px) {
+    .dropdownContent * {
+      font-size: 12px;
+    }
+  }
+  @media only screen and (max-width: 850px) {
+    .dropdownContent * {
+      font-size: 10px;
+    }
+  }
   .dropdownContent *:hover {    background-color: #EEF6FC;
     color: #029CF4;}
   

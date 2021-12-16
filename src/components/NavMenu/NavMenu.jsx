@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { BiCalendarStar, BiCalendar, BiUserCircle, BiChart, BiBarChart } from "react-icons/bi";
 import { AiOutlineClose, AiOutlineUnorderedList } from 'react-icons/ai';
 import { BsFilterCircleFill, BsFillPeopleFill } from 'react-icons/bs';
+import { FaCubes } from 'react-icons/fa';
+import { GiCubes } from 'react-icons/gi';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import { MenuListUl, MenuListLi, AsideWrapper, AsideHeader, AsideBody, LogoBlock } from './styles';
@@ -48,7 +50,10 @@ const NavMenu = ({
                 </NavLink>
             </li>}
 
-            {[{ path: '/customers', title: 'Customers', icon: <BsFillPeopleFill size={20} className="menu-list-icon" /> },
+            {[
+                { path: '/customers', title: 'Customers', icon: <BsFillPeopleFill size={20} className="menu-list-icon" /> },
+                { path: '/event', title: 'Finance Event', icon: <GiCubes size={20} className="menu-list-icon" /> },
+                { path: '/vendor', title: 'Finance Vendor', icon: <FaCubes size={20} className="menu-list-icon" /> },
             { path: '/reports', title: 'Reports', icon: <BiBarChart size={20} className="menu-list-icon" /> },
             { path: '/catering', title: 'Catering', icon: <BsFilterCircleFill size={20} className="menu-list-icon" /> }].map((el => {
                 return <MenuListLi className="list-item" key={el.title} onClick={() => { isMobileView < 801 && setIsOpen(false) }}>
@@ -74,7 +79,7 @@ const NavMenu = ({
 
     return (
         <AsideWrapper 
-        isOpen={isOpen} 
+        isOpen={isOpen}
         className={isOpen ? 'aside-is--open' : ''} 
         mobileView={isMobileView < 801}>
             {isMobileView < 801 && 

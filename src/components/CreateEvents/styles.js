@@ -128,6 +128,31 @@ padding-top: 7px;
 right: 25px; 
 `
 
+// export const DataPicBlock = styled.div`
+//    background-color: #F5F8FA;
+//    height: 45px;
+//    border-radius: 0.475rem;
+//    padding-top: 12px;
+//  div {
+//    input {
+//      position:relative;
+//      z-index:100;
+//     width:100%;
+//     background-color: #F5F8FA;
+//     border: none;
+//     padding: 0 0 0 10px;
+//     color: #5E6278;
+//     -webkit-transition: color 0.2s ease,background-color 0.2s ease;
+//     transition: color 0.2s ease,background-color 0.2s ease;
+//     font-size: 1rem;
+//     font-family: Poppins;
+//     font-weight: 500;
+//     line-height: 1.5;
+//     outline: none;
+//    }
+//  }
+//  `
+
 export const DataPicBlock = styled.div`
 .react-datepicker-wrapper{
   width: 100%;

@@ -4,28 +4,32 @@ import axios from 'axios'
 // import _debounce from 'lodash/debounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import debounce from 'lodash.debounce';
 import { Button } from 'react-bootstrap';
 import Pagination from '@material-ui/core/Pagination';
-// import { ActionsBlock, CreateBlock } from './styles';
+import { ActionsBlock, CreateBlock } from './styles';
 import { Main, MainContent, PaginationMain } from '../../styles/globalStyles';
+import CustomerInfo from '../../components/CreateEvents/childComponents/CustomerInfo';
+import AddButton from '../../components/AddButton/AddButton';
+import warningAlert from '../../utils/warningAlert';
 // import SearchBlock from '../../components/SearchBlock/SearchBlock';
 // import AddButton from '../../components/AddButton/AddButton';
 import StaffTable from '../../components/Table/StaffTable/StaffTable';
 import Modal from '../../components/Smart/Modal/Modal';
-import UserAccountEdit from '../../components/UserAccountEdit/UserAccountEdit';
+// import UserAccountEdit from '../../components/UserAccountEdit/UserAccountEdit';
 import ResetPassword from '../../components/ResetPassword/ResetPassword';
 import {
-    getUsers,
-    // deleteUsers, addUser, editUser 
+    getUsers, deleteUsers,
+    // addUser, editUser 
 } from './actions';
 import { showToastMeassage } from '../../store/appActions';
+import { BsChevronDown } from 'react-icons/bs';
 
 let searchVal = '';
 
 function Customers({ getUsers,
-    // deleteUsers, 
+    deleteUsers,
     users, count,
     // addUser, editUser, 
     showToastMeassage }) {
@@ -34,17 +38,19 @@ function Customers({ getUsers,
     const [deleteModal, setDeleteModal] = useState(false);
     const [resetPassword, setResetPassword] = useState(false);
     const [page, setPage] = useState(1);
-    const [editAndCreateValues, setEditAndCreateValues] = useState({
-        first_name: "",
-        last_name: "",
-        username: "",
-        email: "",
-        phone_number: "",
-        role_id: "2 manager",
-        position_id: "1 manager",
-        password: "",
-        confirmPassword: ""
+
+    const [customerRequired, setCustomerRequired] = useState([false, false, false, false, false, false, false]);
+    const [customerInfo, setCustomerInfo] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        address: '',
+        phone_number: '',
+        alt_phone_number: '',
+        dl_number: '',
+        dl_expire_date: ''
     });
+
     const [validations, setValidations] = useState({
         passwordLengthVal: false,
         lowerCaseVal: false,
@@ -53,55 +59,35 @@ function Customers({ getUsers,
         password: "",
         confirmPassword: ""
     });
-    const [requiredErrors, setRequiredErrors] = useState([false, false, false, false, false, false, false, false, false]);
+
     const [requiredValidation, setRequiredValidations] = useState([false, false, false]);
     const appState = useSelector((state) => state.AppReducer);
     const dispatch = useDispatch();
 
-    // const handleChange = debounce(() => {
-    //     getUsers(page, 10, searchVal);
-    //     setPage(1)
-    // }, 300);
-
-    // const search = (e) => {
-    //     searchVal = e.target.value
-    //     handleChange()
-    // };
-
     const onEdit = useCallback((list) => {
-        setEditAndCreateValues({
-            first_name: list.first_name,
-            last_name: list.last_name,
-            email: list.email,
-            phone_number: list.phone_number,
-            role_id: `${list.role.id} ${list.role.name}`,
-            position_id: `${list.position.id} ${list.position.name}`,
-            password: list.password,
-            is_active: true,
-            email_confirmed: false,
-            phone_number_confirmed: true,
-            is_removed: false,
-            confirmPassword: list.confirmPassword,
-            username: list.username
+        setShowModal(list.id.toString());
+        setCustomerInfo({
+            ...list,
+            firstName: list.full_name.split(" ")[0],
+            lastName: list.full_name.split(" ")[1],
+            dl_expire_date: new Date(list.dl_expire_date),
         });
-        setShowModal(list.id);
     }, []);
 
     const ActionComponent = useCallback((style, list) => {
         return <div className={style.dropdown}>
-            <span className={style.dropbtn}>Actions</span>
+            <span className={style.dropbtn}>Actions <BsChevronDown size={appState.screenSize < 1100 ? 12 : 20} className='ml-3' /></span>
             {appState.userType === "1" ?
                 <div className={style.dropdownContent}>
-                    {/* <Link to={`/customers/${list.id}`}>View</Link> */}
-                    <span 
-                    // onClick={() => { onEdit(list) }}
+                    <span
+                        onClick={() => { onEdit(list) }}
                     >Edit</span>
-                    <span 
-                    // onClick={() => { setResetPassword({ id: list.id, name: list.first_name }) }}
-                    >Reset password</span>
-                    <span 
-                    // onClick={() => { setDeleteModal({ id: list.id, name: `${list.first_name} ${list.last_name}` }) }}
-                    >Delete</span>
+                    <span onClick={() => {
+                        warningAlert(() => {
+                            // showToastMeassage('seccessfuly deleted', null)
+                            deleteUsers(list.id)
+                        })
+                    }}>Delete</span>
                 </div> : <div className={style.dropdownContent}>
                     {/* <Link to={`/customers/${list.id}`}>View</Link> */}
                 </div>}
@@ -115,39 +101,134 @@ function Customers({ getUsers,
 
     const cancleBtn = useCallback(() => {
         setShowModal(false);
-        setEditAndCreateValues({
-            first_name: "",
-            last_name: "",
-            username: "",
-            email: "",
-            phone_number: "",
-            role_id: "2 manager",
-            position_id: "1 manager",
-            password: "",
-            confirmPassword: ""
+        setCustomerRequired([false, false, false, false, false, false, false]);
+        setCustomerInfo({
+            firstName: '',
+            lastName: '',
+            email: '',
+            address: '',
+            phone_number: '',
+            alt_phone_number: '',
+            dl_number: '',
+            dl_expire_date: ''
         });
-        setRequiredErrors([false, false, false, false, false, false, false, false, false]);
-    })
+    }, []);
+
+    const createOrEdit = useCallback(() => {
+        let cloneReqArray = [...customerRequired];
+        ['firstName', 'lastName', 'address', 'email',
+            'phone_number', 'dl_number', 'dl_expire_date'].forEach((el, i) => customerInfo[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true);
+        if (cloneReqArray.includes(true)) {
+            setCustomerRequired(cloneReqArray);
+        }
+        else {
+            if (showModal === true) {
+                axios.post(`${config["API"]}api/api/customers`,
+                    {
+                        full_name: customerInfo.firstName + ' ' + customerInfo.lastName,
+                        email: customerInfo.email,
+                        address: customerInfo.address,
+                        phone_number: customerInfo.phone_number,
+                        alt_phone_number: customerInfo.alt_phone_number,
+                        dl_number: customerInfo.dl_number,
+                        dl_expire_date: customerInfo.dl_expire_date
+                    },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    }
+                ).then(res => {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: `${res.data.full_name} has been created`,
+                        errorMessage: null
+                    })
+
+                    dispatch({
+                        type: 'GET_CUSTOMERS',
+                        payload: Object.values([...users, res.data]),
+                    });
+
+                    cancleBtn();
+
+                }).catch(err => {
+                    if (err.response.hasOwnProperty('status')) {
+                        if (err.response.status === 422) {
+                            dispatch({
+                                type: 'TOAST_MESSAGE',
+                                successMessage: null,
+                                errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                            })
+                        }
+                    }
+                })
+            }
+            else {
+                axios.put(`${config["API"]}api/api/customers/${showModal}`, {
+                    full_name: customerInfo.firstName + ' ' + customerInfo.lastName,
+                    email: customerInfo.email,
+                    address: customerInfo.address,
+                    phone_number: customerInfo.phone_number,
+                    alt_phone_number: customerInfo.alt_phone_number,
+                    dl_number: customerInfo.dl_number,
+                    dl_expire_date: customerInfo.dl_expire_date
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                }).then(res => {
+
+                    let cloneUser = [...users];
+                    let ind = cloneUser.findIndex(el => {
+                        return el.id === Number(showModal)
+                    });
+
+                    cloneUser[ind] = res.data;
+
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: `${res.data.full_name} has been edited`,
+                        errorMessage: null
+                    });
+
+                    dispatch({
+                        type: 'GET_CUSTOMERS',
+                        payload: cloneUser,
+                    });
+
+                    cancleBtn();
+
+                }).catch(err => {
+                    if (err.response.hasOwnProperty('status')) {
+                        if (err.response.status === 422) {
+                            dispatch({
+                                type: 'TOAST_MESSAGE',
+                                successMessage: null,
+                                errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                            })
+                        }
+                    }
+                })
+            }
+        }
+    }, [customerInfo, customerRequired])
 
     const getButtons = useCallback(() => {
-        return <div>
-            <Button
-                variant="outline-secondary"
-                className="mr-2"
-                onClick={() => { setDeleteModal(false) }}
-            >Cancel
-            </Button>{' '}
-            <Button
-                variant="outline-danger"
-                className="ml-2"
-                onClick={() => {
-                    showToastMeassage('seccessfuly deleted', null)
-                    // deleteUsers(deleteModal.id, setDeleteModal, page, Math.ceil(count / 10), users.length === 1 ? true : false, searchVal)
-                }}
-            >Delete
-            </Button>{' '}
+        return <div className="text-right">
+            <button type="button"
+                onClick={cancleBtn}
+                className="btn btn-light me-3" data-kt-stepper-action="previous">
+                Cancel
+            </button>
+            <button type="button" className="btn btn-primary"
+                data-kt-stepper-action="next"
+                onClick={createOrEdit}
+            >
+                {showModal === true ? 'Create' : 'Save'}
+            </button>
         </div>
-    }, [deleteModal, page, count, users]);
+    }, [showModal, customerRequired, customerInfo]);
 
     const getButtonsForReset = useCallback(() => {
         return <div>
@@ -195,7 +276,7 @@ function Customers({ getUsers,
                                         confirmPassword: ""
                                     });
                                     setResetPassword(false);
-                                } catch(err) {
+                                } catch (err) {
                                     dispatch({
                                         type: 'TOAST_MESSAGE',
                                         successMessage: null,
@@ -216,43 +297,46 @@ function Customers({ getUsers,
         getUsers(1, 10);
     }, []);
 
-    return users && <Main className="pb-4">
-        <MainContent className="p-3 pb-4">
-            {/* <ActionsBlock>
-                <SearchBlock
+    return users && <Main className="pb-4 pt-4">
+        <MainContent className={!(appState.screenSize < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
+            <ActionsBlock>
+                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+                    Customers
+                </h1>
+                {/* <SearchBlock
                     onChange={search}
-                />
+                /> */}
                 {appState.userType === "1" && <CreateBlock>
-                    <AddButton clickFunc={(() => { setShowModal('Create') })} title="ADD USER" />
+                    <AddButton clickFunc={(() => { setShowModal(true) })} title="ADD CUSTOMER" />
                 </CreateBlock>}
-            </ActionsBlock> */}
+            </ActionsBlock>
             {count ? <StaffTable
                 ActionComponent={ActionComponent}
-                yessss={true}
                 titles={['Full name', 'Email', 'Phone']}
-                lists={Object.values(users)}
-                gridCount={'40% 30% 30%'}
+                lists={users}
+                lists={users.slice(page === 1 ? 0 : (page - 1) * 10, page === 1 ? 10 : page * 10)}
+                gridCount={'30% 30% 20% 20%'}
                 isMobile={appState.screenSize}
                 customer={true}
-            /> : <div className="p-5 text-center">No results were found for your search.</div>}
+            /> : <div className="p-5 text-center">No results.</div>}
 
-            {count > 10 && <PaginationMain>
-                <Pagination count={Math.ceil(count / 10)} color="primary" page={page} onChange={changePage} size={appState.screenSize < 450 ? "small" : ""} />
+            {users.length > 10 && <PaginationMain>
+                <div></div>
+                <Pagination count={Math.ceil(users.length / 10)} color="primary" page={page} onChange={changePage} size={appState.screenSize < 450 ? "small" : ""} />
             </PaginationMain>}
         </MainContent>
 
-        {showModal && <UserAccountEdit
-            showModal={showModal}
-            setShowModal={setShowModal}
-            cancleBtn={cancleBtn}
-            setRequiredErrors={setRequiredErrors}
-            editAndCreateValues={editAndCreateValues}
-            requiredErrors={requiredErrors}
-            userType={appState.userType}
-            // addUser={addUser}
-            // editUser={editUser}
-            setEditAndCreateValues={setEditAndCreateValues}
-        />}
+        {showModal && <Modal
+            handleOpen={cancleBtn}
+            title="Create Customer"
+            getButtons={getButtons}
+        >
+            <CustomerInfo requiredError={customerRequired} state={customerInfo}
+                disabledAll={false} createActive={true}
+                handleChange={({ target }) => { setCustomerInfo({ ...customerInfo, [target.name]: target.value }) }} />
+        </Modal>
+
+        }
 
         {deleteModal &&
             <Modal
@@ -287,7 +371,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     getUsers,
-    // deleteUsers,
+    deleteUsers,
     // addUser,
     // editUser,
     showToastMeassage

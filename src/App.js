@@ -24,6 +24,8 @@ const EventsEdit = React.lazy(() => import('./pages/EventsEdit/EventsEdit'));
 const EventsView = React.lazy(() => import('./pages/EventsView/EventsView'));
 const StaffView = React.lazy(() => import('./pages/StaffView/StaffView'));
 const Dashboard = React.lazy(() => import('./pages/Dashboard/Dashboard'));
+const Event = React.lazy(() => import('./pages/Finance/Event/Event'));
+const Vendor = React.lazy(() => import('./pages/Finance/Vendor/Vendor'));
 
 function App({ screenSize, isAuthenticated, getAllNeeds, userType, successMessage, errorMessage, showToastMeassage, pending }) {
 
@@ -112,6 +114,18 @@ function App({ screenSize, isAuthenticated, getAllNeeds, userType, successMessag
                 {userType !== 'user' && <AuthRoute
                   path='/customers'
                   component={Customers}
+                  exact
+                  type='private'
+                />}
+                {userType !== 'user' && <AuthRoute
+                  path='/event'
+                  component={Event}
+                  exact
+                  type='private'
+                />}
+                {userType !== 'user' && <AuthRoute
+                  path='/vendor'
+                  component={Vendor}
                   exact
                   type='private'
                 />}

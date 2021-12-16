@@ -304,7 +304,7 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
 
     const ActionComponent = useCallback((style, id, name) => {
         return <div className={style.dropdown}>
-            <span className={style.dropbtn}>Actions <BsChevronDown size={20} className='ml-3' /></span>
+            <span className={style.dropbtn}>Actions <BsChevronDown size={isMobile < 1100 ? 12 : 20} className='ml-3' /></span>
             <div className={style.dropdownContent}>
                 <Link to={`/eventsview/${id}`}>View</Link>
                 <Link to={`/eventsedit/${id}`}>Edit</Link>
@@ -413,7 +413,7 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
     }, [])
 
     return data ? <Main className="pb-4 pt-4">
-        <MainContent className="pt-5 pb-4 pr-4 pl-5">
+        <MainContent className={!(isMobile < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
             <ActionsBlock className='mb-5'>
                 <SearchBlock
                     onChange={search}
@@ -434,8 +434,8 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
                 sortVal={sortVal}
                 lists={data.slice(page === 1 ? 0 : (page - 1) * pageSizes, page === 1 ? pageSizes - 1 : page * pageSizes)}
                 // lists={sortVal ? data : Object.values(data).slice(page === 1 ? 0 : (page - 1) * 10, page === 1 ? 9 : page * 10)}
-                gridCount={'27% 17% 17% 17% 14%'}
-                gridCountTitle={'27% 17% 18% 18% 12%'}
+                gridCount={'27% 13% 23% 17% 12%'}
+                gridCountTitle={'27% 13% 24% 18% 9%'}
                 isMobile={isMobile}
                 titles={['USER', 'TYPE', 'DATE', 'STATUS', 'ACTIONS']}
                 sortArray={sortArray}
@@ -443,7 +443,7 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
 
             {count > pageSizes &&
                 <PaginationMain>
-                    <div style={{ position: 'relative', width: '60px' }}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
+                    <div style={{ position: 'relative', width: '60px'}}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
                     <Pagination count={Math.ceil(count / pageSizes)} color="primary" page={page}
                         onChange={changePage} size={isMobile < 450 ? "small" : ""} />
                 </PaginationMain>}

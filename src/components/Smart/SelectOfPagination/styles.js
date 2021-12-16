@@ -12,19 +12,28 @@ export const DropDownHeader = styled.div`
   border: none;
   border-radius: 5px;
   padding: 0.4em 2em 0.4em 1em;
-  font-size: 11.5px;
+  font-size: 18px;
   color: rgba(0, 0, 0, 0.87);
   font-weight: 500;
   font-family: 'Poppins';
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  /* background:#F5F8FA; */
+  background:#F6F8FA;
+  @media (max-width: 1600px) {
+      font-size:16px;
+  }
+  @media (max-width: 1300px) {
+      font-size:14px;
+  }
+  @media (max-width: 800px) {
+      font-size:12px;
+  }
 `
 
 export const DropDownListContainer = styled.div``;
 
 export const DropDownList = styled.div`
-  background: '#FFFFFF';
+  background: '#F6F8FA';
   max-height: 150px;
   overflow: auto;
   border: none;
@@ -32,11 +41,20 @@ export const DropDownList = styled.div`
   position: absolute;
   z-index: 1000;;
   box-sizing: border-box;
-  font-size: 11.5px;
+  font-size: 16px;
   color: rgba(0, 0, 0, 0.87);
   font-weight: 400;
   width: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  @media (max-width: 1600px) {
+      font-size:16px;
+  }
+  @media (max-width: 1300px) {
+      font-size:14px;
+  }
+  @media (max-width: 800px) {
+      font-size:12px;
+  }
 `;
 
 export const ListItem = styled.div`
@@ -44,7 +62,6 @@ font-family: 'Roboto';
   background-color: ${props => props.active ? '#EDF4FB' : '#FFFFFF'};
   text-align: left;
   padding: 5px 15px;
-  font-size: 11.5px;
   color: rgba(0, 0, 0, 0.87);
   cursor: pointer;
   font-weight: 500;
@@ -54,14 +71,30 @@ font-family: 'Roboto';
     background-color :${props => props.active ? '#EDF4FB' : 'rgb(236 247 254)'};
     color: #009EF7;
   }
+  font-size: 16px;
+  @media (max-width: 1600px) {
+      font-size:16px;
+  }
+  @media (max-width: 1300px) {
+      font-size:14px;
+  }
+  @media (max-width: 800px) {
+      font-size:12px;
+  }
 `;
 
 export const DropDownIcon = styled.div`
   position: absolute;
-  right: 12px;
+  right: 14px;
   font-size: 11.3px;
   color: rgba(0, 0, 0, 0.87);
   font-weight: 400;
+  @media (max-width: 1600px) {
+      font-size:14px;
+  }
+  @media (max-width: 1300px) {
+      font-size:12px;
+  }
 `;
 
 export const IconCont = styled.span`

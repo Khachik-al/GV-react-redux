@@ -21,7 +21,7 @@ export const AsideHeader = styled.div`
   overflow: hidden;
   position: relative;
   z-index: 22;
-  color: #3F4254;
+  color: #333333;
   background-color: ${StyleConstants.BLOCK_COLOR};
   .logo-area {
     width: 40px;
@@ -50,7 +50,7 @@ export const AsideBody = styled.div`
     position: 'fixed',
     zIndex: 9999,
     top: 0,
-    width: '345px',
+    width: '300px',
     paddingTop: '30px',
     boxShadow: '0px 3px 30px rgba(71, 72, 73, 0.05)'
   }}
@@ -59,7 +59,8 @@ export const AsideBody = styled.div`
 export const MenuListUl = styled.ul`
   list-style-type: none;
   margin: 0;
-  padding: 58px 0 0 60px;
+  padding: 8px 0 0 22px;
+  
 
   .list-item {
     &:hover {
@@ -71,7 +72,7 @@ export const MenuListUl = styled.ul`
       border: none;
       font-family: ${StyleConstants.FONT_FAMILY};
       padding: 7px 20px 7px 10px;
-      color: #3F4254;
+      color: #333333;
       display: flex;
       align-items: center;
       margin-bottom: 0px;
@@ -114,7 +115,7 @@ export const MenuListLi = styled.li`
 margin-bottom: 10px;
 color: ${props => props.color};
 a {
-  color: #3F4254;
+  color: #333333;
 }
 
 `
@@ -133,19 +134,23 @@ export const ShortLogo = styled.div`
   font-family: ${StyleConstants.FONT_FAMILY};
   font-weight: 900;
   cursor: pointer;
+  @media (max-width: 1300px) {
+  font-size: 28px;
+  }
 `;
 
 export const DashMenu = styled.div`
 font-family: ${StyleConstants.FONT_FAMILY};
 padding-left: 20px;
 padding-top: 25px;
-color: #3F4254;
+color: #333333;
 margin-bottom: 0px;
 font-size: 15px;
 visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
 `
 export const LogoBlock = styled.div`
 padding-left: 80px;
+
 `
 
 

@@ -5,7 +5,14 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding-left: 15px;
-padding-right: 53px;
+padding-right: 23px;
+@media (max-width: 1600px) {
+padding-right: 28px;
+}
+@media (max-width: 800px) {
+    padding-right: 0px;
+    padding-left: 0px;
+}
 `
 // export const ActionsBlock = styled.div`
 // display: grid;

@@ -121,7 +121,7 @@ function StaffTable({ titles, lists, gridCount, checkBoxesValues, ActionComponen
                     return <TableRow eRow gridCount={gridCount} key={list.id}>
                         <TableCol color="black">{customer ? list['full_name'] : `${list['first_name']} ${list['last_name']}`}</TableCol>
                         {!customer && <TableCol color={StyleConstants.TITLE_COLOR}>{list.position['name']}</TableCol>}
-                        <TableCol color={StyleConstants.TITLE_COLOR}>{list['email']}</TableCol>
+                        <TableCol color={StyleConstants.TITLE_COLOR} fontSize='14px'>{list['email']}</TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}><TextWithBack>{list['phone_number']}</TextWithBack></TableCol>
                         {!yessss && <TableCol>{ActionComponent(style, list)}</TableCol>}
                     </TableRow>

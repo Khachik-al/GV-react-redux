@@ -5,8 +5,19 @@ export const CalendarBlock = styled('div')`
   background: #f5f8fa;
   height: 100%;
   width: 100%;
-  padding: ${props => props.isMobile ? '0px 0 0 0' : '40px 20px 40px 300px'};
-  
+  padding: 20px 20px 40px 250px;
+@media (max-width: 1600px) {
+    padding-right: 100px;
+    padding-left: 250px;
+}
+@media (max-width: 1300px) {
+    padding-right: 80px;
+    padding-left: 220px;
+}
+@media (max-width: 800px) {
+    padding-right: 5px;
+    padding-left: 5px;
+}
   .rbc-calendar{
     position: relative;
     height: ${props => props.isMobile ? '87vh' : '900px'};
