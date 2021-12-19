@@ -17,7 +17,7 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                     <Container>
                         <Row className="mb-2">
                             <Col xs={3}>
-                                <TableCol color={StyleConstants.TITLE_COLOR}>{titles[0]}: </TableCol>
+                                <TableCol color={'#469CF0'}>{titles[0]}: </TableCol>
                             </Col>
 
                             <Col xs={5} className="mb-1">
@@ -33,28 +33,28 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                             </Col>
 
                             <Col xs={3}>
-                                <TableCol color={StyleConstants.TITLE_COLOR}>{titles[1]}: </TableCol>
+                                <TableCol color={'#469CF0'}>{titles[1]}: </TableCol>
                             </Col>
 
                             <Col xs={9} className="mb-1">
-                                <TableCol color={StyleConstants.TITLE_COLOR}>
+                                <TableCol color={'#469CF0'}>
                                     <TextWithBack>{list.type.name}</TextWithBack>
                                 </TableCol>
                             </Col>
 
                             <Col xs={3}>
-                                <TableCol color={StyleConstants.TITLE_COLOR}>{titles[2]}: </TableCol>
+                                <TableCol color={'#469CF0'}>{titles[2]}: </TableCol>
                             </Col>
                             <Col xs={9} className="mb-1">
-                                <TableCol color={StyleConstants.TITLE_COLOR}>{list.event_date}</TableCol>
+                                <TableCol color={'#469CF0'}>{list.event_date}</TableCol>
                             </Col>
 
                             <Col xs={3}>
-                                <TableCol color={StyleConstants.TITLE_COLOR}>{titles[3]}: </TableCol>
+                                <TableCol color={'#469CF0'}>{titles[3]}: </TableCol>
                             </Col>
 
                             <Col xs={9}>
-                                <TableCol color={StyleConstants.TITLE_COLOR}>
+                                <TableCol color={'#469CF0'}>
                                     <TextWithBack color={list.status.id === 1 ? '#FFC700' : list.status.id === 2 ? '#50CD89' : '#F1416C'}
                                         backColor={list.status.id === 1 ? '#FFF8DD' : list.status.id === 2 ? '#E8FFF3' : '#FFF5F8'}
                                     >{list.status.name}</TextWithBack>
@@ -69,25 +69,25 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
             :
             <TableContainer>
                 <TableRow gridCount={gridCountTitle ? gridCountTitle : gridCount}>
-                    <TableCol color={StyleConstants.TITLE_COLOR}>{titles[0]}</TableCol>
-                    <TableCol className="cursorPointer" onClick={() => { sortArray(0, 'type') }} color={StyleConstants.TITLE_COLOR}>
+                    <TableCol color={'#469CF0'}>{titles[0]}</TableCol>
+                    <TableCol className="cursorPointer" onClick={() => { sortArray(0, 'type') }} color={'#469CF0'}>
                         {titles[1]} <SortIcon display={sortVal[0]}>
                             {sortVal[0] === true ? <BsArrowUpShort size={15} /> : <BsArrowDownShort size={15} />}
                         </SortIcon>
                     </TableCol>
-                    <TableCol className="cursorPointer" onClick={() => { sortArray(1, 'event_date') }} color={StyleConstants.TITLE_COLOR}>
+                    <TableCol className="cursorPointer" onClick={() => { sortArray(1, 'event_date') }} color={'#469CF0'}>
                         {titles[2]} <SortIcon display={sortVal[1]}>
                             {sortVal[1] === true ? <BsArrowUpShort size={15} /> : <BsArrowDownShort size={15} />}
                         </SortIcon>
                     </TableCol>
 
-                    <TableCol className="cursorPointer" onClick={() => { sortArray(2, 'status') }} color={StyleConstants.TITLE_COLOR}>
+                    <TableCol className="cursorPointer" onClick={() => { sortArray(2, 'status') }} color={'#469CF0'}>
                         {titles[3]} <SortIcon display={sortVal[2]}>
                             {sortVal[2] === true ? <BsArrowUpShort size={15} /> : <BsArrowDownShort size={15} />}
                         </SortIcon>
                     </TableCol>
 
-                    <TableCol color={StyleConstants.TITLE_COLOR}>{titles[4]}</TableCol>
+                    <TableCol color={'#469CF0'}>{titles[4]}</TableCol>
 
 
                     {/* {titles.map(tit => <TableCol 
@@ -110,8 +110,8 @@ function Table({ titles, lists, gridCount, ActionComponent, isMobile, sortArray,
                         <TableCol color='#333333'>{format(new Date(list.event_date + ', ' + list.event_start), 'dd MMM yyyy, h:mm aaa')}</TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}>
                             <TableCol color={StyleConstants.TITLE_COLOR}>
-                                <TextWithBack color={list.status.id === 1 ? '#FFC700' : list.status.id === 2 ? '#50CD89' : '#F1416C'}
-                                    backColor={list.status.id === 1 ? '#FFF8DD' : list.status.id === 2 ? '#E8FFF3' : '#FFF5F8'}
+                                <TextWithBack color={list.status.id === 2 ? '#FFC700' : list.status.id === 1 ? '#50CD89' :list.status.id === 3 ? '#5f67cf' : '#F1416C'}
+                                    backColor={list.status.id === 2 ? '#FFF8DD' : list.status.id === 1 ? '#E8FFF3' :list.status.id === 3 ? '#d9e8fc' : '#f8dfe7'}
                                 >{list.status.name}</TextWithBack>
                             </TableCol>
                         </TableCol>

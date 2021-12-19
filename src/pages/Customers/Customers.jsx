@@ -307,7 +307,7 @@ function Customers({ getUsers,
                     onChange={search}
                 /> */}
                 {appState.userType === "1" && <CreateBlock>
-                    <AddButton clickFunc={(() => { setShowModal(true) })} title="ADD CUSTOMER" />
+                    {/* <AddButton clickFunc={(() => { setShowModal(true) })} title="ADD CUSTOMER" /> */}
                 </CreateBlock>}
             </ActionsBlock>
             {count ? <StaffTable

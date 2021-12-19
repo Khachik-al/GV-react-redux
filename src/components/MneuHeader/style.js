@@ -93,7 +93,7 @@ export const ContentIcons = styled.div`
 display: inline-block;
 `
 export const IconsText = styled.span`
-font-size: 11px;
+font-size: 13px;
 font-family: ${StyleConstants.FONT_FAMILY};
 font-weight: 500;
 `
