@@ -75,8 +75,8 @@ outline: none !important;
 
 export const BellButton = styled.div`
 background-color: #F6F8FA;
-width: 52px;
-height: 52px;
+width: 40px;
+height: 40px;
 cursor: pointer;
 border-radius: 50px;
 color: black;

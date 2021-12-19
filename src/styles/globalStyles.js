@@ -138,16 +138,54 @@ export const GlobalStyle = createGlobalStyle`
   transform-origin: right !important;
   }
   .react-datepicker__header{
-    background-color:#F5F8FA;
-    border-bottom:1px solid #EFF2F5;
+    background-color: #fff;
+    border-bottom: none;
+    /* background-color:#F5F8FA;
+    border-bottom:1px solid #EFF2F5; */
   }
   .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
     width: 2rem;
   }
   .react-datepicker{
-    border: 1px solid #cdd1d6;
+    /* border: 1px solid #393d42; */
+    border: none;
     font-size: 12px;
     font-family: Popins;
+    box-shadow: 0 3px 11px rgba(0, 0, 0, 0.15);
+  }
+  .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before{
+    display: none;
+  }
+  .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow, .react-datepicker__month-read-view--down-arrow, .react-datepicker__month-year-read-view--down-arrow, .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before, .react-datepicker__month-read-view--down-arrow::before, .react-datepicker__month-year-read-view--down-arrow::before {
+    display: none;
+    border-bottom: none;
+    border-top-color: #fff;
+  }
+  .react-datepicker-popper[data-placement^="bottom"] {
+    margin-top: 3px;
+  }
+  .react-datepicker-popper[data-placement^="top"] {
+    margin-bottom: 3px;
+    transform: translate3d(15px, -185px, 0px);
+  }
+  .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
+    margin-top: 0;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.stepper-title{
+  font-size: 15px !important;
+  @media (max-width: 1500px) {
+    font-size: 14px !important;
+  }
+  @media (max-width: 880px) {
+    font-size: 12px !important;
+  }
+  
+ }
+.css-3bmhjh-MuiPaper-root-MuiPopover-paper{
+    top: 68px !important;
   }
   /*_______*/
 `;
@@ -232,12 +270,12 @@ padding-left: 0px;
 margin-bottom: 5px;
 font-family: ${StyleConstants.FONT_FAMILY};
 font-weight: 500;
-font-size: 18px;
+font-size: 16px;
+@media (max-width: 1500px) {
+    font-size: 14px;
+}
 @media (max-width: 880px) {
     font-size: 12px;
-}
-@media (max-width: 1500px) {
-    font-size: 16px;
 }
 
 `

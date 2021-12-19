@@ -49,7 +49,7 @@ color: ${props => props.color};
 text-align: left;
 overflow-wrap: break-word;
 align-self: center;
-font-size: ${props => props.fontSize ? props.fontSize : '18px'};
+font-size: ${props => props.fontSize ? props.fontSize : '15px'};
 font-family: ${StyleConstants.FONT_FAMILY};
 font-weight: 500;
 @media (max-width: 1500px) {

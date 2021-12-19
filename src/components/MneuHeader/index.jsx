@@ -58,15 +58,15 @@ function MenuHeader() {
     return <MainContent className="text-right">
             <div className='flex-between'>
                 <div>
-                    <SearchMainBlock>
+                    {/* <SearchMainBlock>
                         <SearchBlock width='292px'/>
-                    </SearchMainBlock>
+                    </SearchMainBlock> */}
                 </div>
 
                 <div className="text-right pr-0">
                     <ContentIcons>
                         <BellButton className="downIcMen">
-                            <BiBell size={25} color="grey" />
+                            <BiBell size={23} color="grey" />
                         </BellButton>
                     </ContentIcons>
 
@@ -75,7 +75,7 @@ function MenuHeader() {
                         <div>
                             <ContentIcons aria-describedby={id} onClick={handleClick}>
                                 <BellButton className="downIcMen">
-                                    <BiCaretDown size={30} color="grey" />
+                                    <BiCaretDown size={25} color="grey" />
                                 </BellButton>
                             </ContentIcons>
 
