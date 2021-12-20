@@ -439,7 +439,7 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
                 isMobile={isMobile}
                 titles={['USER', 'TYPE', 'DATE', 'STATUS', 'ACTIONS']}
                 sortArray={sortArray}
-            /> : <div className="p-5 text-center">No results were found for your search.</div>}
+            /> : <div className="p-5 text-center">No result.</div>}
 
             {count > pageSizes &&
                 <PaginationMain>

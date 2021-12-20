@@ -24,7 +24,7 @@
 //                     dispatch({
 //                         type: 'TOAST_MESSAGE',
 //                         successMessage: null,
-//                         errorMessage: 'Your profile was deleted'
+//                         errorMessage: 'Log Out'
 //                     })
 //                 }
 //             }
@@ -61,7 +61,7 @@
 //                     dispatch({
 //                         type: 'TOAST_MESSAGE',
 //                         successMessage: null,
-//                         errorMessage: 'Your profile was deleted'
+//                         errorMessage: 'Log Out'
 //                     })
 //                 }
 //             }
@@ -110,7 +110,7 @@
 //                     dispatch({
 //                         type: 'TOAST_MESSAGE',
 //                         successMessage: null,
-//                         errorMessage: 'Your profile was deleted'
+//                         errorMessage: 'Log Out'
 //                     })
 //                 }
 
@@ -165,7 +165,7 @@
 //                     dispatch({
 //                         type: 'TOAST_MESSAGE',
 //                         successMessage: null,
-//                         errorMessage: 'Your profile was deleted'
+//                         errorMessage: 'Log Out'
 //                     })
 //                 }
 
@@ -267,7 +267,7 @@
 //                     dispatch({
 //                         type: 'TOAST_MESSAGE',
 //                         successMessage: null,
-//                         errorMessage: 'Your profile was deleted'
+//                         errorMessage: 'Log Out'
 //                     })
 //                 }
 
@@ -315,7 +315,7 @@ export const getData = (body = { status: '', event_type: '', name: '' }) => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
             }
@@ -348,7 +348,7 @@ export const getEvent = (id) => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
             }
@@ -397,7 +397,7 @@ export const createEvent = (body, onClose, setPage) => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
 
@@ -452,7 +452,7 @@ export const editEvent = (body, id, closeLoad) => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
 
@@ -513,7 +513,7 @@ export const deleteEvent = (id, page, lastPage, changePage, searchVal = "", setP
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
                 else {
@@ -539,7 +539,8 @@ export const deleteEvent = (id, page, lastPage, changePage, searchVal = "", setP
 export const createCustomer = (body, id, closeModal) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.put(`${config["API"]}api/api/customers/${id}`, body, {
+            await axios.put(`${config["API"]}api/api/customers/${id}`, body, {
+            // const { data } = await axios.put(`${config["API"]}api/api/customers/${id}`, body, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -561,7 +562,7 @@ export const createCustomer = (body, id, closeModal) => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
 

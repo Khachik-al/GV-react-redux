@@ -99,7 +99,7 @@ function SelectComponenet(props) {
     };
 
     const paintOptions = useCallback(() => {
-        return <DropDownList>
+        return <DropDownList maxHeight={props.maxHeight}>
             {props.options.map((option, index, arr) => (
                 <ListItem
                     onClick={onOptionClicked(option.value)}

@@ -59,7 +59,6 @@ function EventsView({ isMobile, data, getEvent, match }) {
 
             let total = Number(data.guests_number) * Number(data.contract.cost_per_guest);
 
-            console.log(data);
 
             let newDate = {
                 name: data.name,
@@ -72,7 +71,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                 id: data.id,
                 updated_at: data.updated_at,
                 notes: data.notes,
-                menu_id: `${data.contract.menu.name}&&&&&${data.contract.menu.id}`,
+                menu_id: `${data.contract.menu.name}`,
                 balance_due: data.contract.balance_due,
                 cost_per_guest: data.contract.cost_per_guest,
                 created_at: data.contract.created_at,
@@ -116,7 +115,6 @@ function EventsView({ isMobile, data, getEvent, match }) {
     }, [data]);
 
 
-    console.log(state);
 
     return state && <Main className="pb-4">
         <div className="pb-4">

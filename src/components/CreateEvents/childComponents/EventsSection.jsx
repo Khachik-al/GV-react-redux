@@ -36,10 +36,12 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
     return <Container>
         <Row>
             <Col xs={isMobile > 600 ? 4 : 12} className="mb-4">
-                <InputTitle> Event Name <span className="mr-1">*</span><Tooltip title="Specify your unique app name" placement="top">
-                    <span><BsExclamationCircleFill size={15} color="grey" /></span>
-                </Tooltip> </InputTitle>
-                {paintInputs("name", requiredError[0], "", "text", false, "Event Name")}
+                <InputTitle> Event Name <span className="mr-1">*</span>
+                    {/* <Tooltip title="Specify your unique app name" placement="top">
+                        <span><BsExclamationCircleFill size={15} color="grey" /></span>
+                    </Tooltip> */}
+                </InputTitle>
+                {paintInputs("name", requiredError[0], "", "text", false, "Event name")}
             </Col>
             <Col xs={isMobile > 600 ? 4 : 12} className="mb-2">
                 <InputTitle> Event Date <span >*</span></InputTitle>
@@ -51,7 +53,7 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                         style={{ width: '100%' }}
                         minDate={new Date()}
                     />
-                    {requiredError[1] && <div className="fs-7 text-danger mt-2">Date Is required</div>}
+                    {requiredError[1] && <div className="fs-7 text-danger mt-2">Event date is required</div>}
                 </DataPicBlock>
             </Col>
 
@@ -76,20 +78,20 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                 </FormControl>
             </Col>
             <Col xs={isMobile > 600 ? 6 : 12}>
-                <InputTitle>Phone <span>*</span></InputTitle>
-                {paintInputs("phone_number", requiredError[3], '', 'tel')}
+                <InputTitle>Phone </InputTitle>
+                {paintInputs("phone_number", '', '', 'tel', true)}
             </Col>
             <Col xs={isMobile > 600 ? 6 : 12}>
-                <InputTitle> Amount of deposit collected <span>*</span></InputTitle>
-                {paintInputs("deposit", requiredError[4], '$', 'number')}
+                <InputTitle> Amount of deposit collected </InputTitle>
+                {paintInputs("deposit", '', '$', 'number', true)}
             </Col>
             <Col xs={isMobile > 600 ? 6 : 12}>
-                <InputTitle>Email <span>*</span></InputTitle>
-                {paintInputs("email", requiredError[5], '', 'email')}
+                <InputTitle>Email </InputTitle>
+                {paintInputs("email", '', '', 'email', true)}
             </Col>
             <Col xs={isMobile > 600 ? 4 : 12} className="mt-4">
-                <InputTitle>Fax <span>*</span></InputTitle>
-                {paintInputs("fax", requiredError[6], '', 'number')}
+                <InputTitle>Fax</InputTitle>
+                {paintInputs("fax", '', '', 'number', true)}
             </Col>
 
             <Col xs={isMobile > 600 ? 4 : 12} className="mt-4">
@@ -101,15 +103,15 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                             handleChange({ target: { value: date, name: 'date_created' } })}
                         style={{ width: '100%' }}
                         minDate={new Date()}
+                        disabled
                     />
                     {/* {requiredError[7] && <div className="fs-7 text-danger mt-2">Date Is required</div>} */}
                 </DataPicBlock>
             </Col>
 
-
             <Col xs={isMobile > 600 ? 4 : 12} className="mb-2 mt-4">
                 <InputTitle> Minimum of # Guests <span>*</span></InputTitle>
-                {paintInputs("guests_number", requiredError[7], "", "number", false, "Number of guest expected")}
+                {paintInputs("guests_number", requiredError[3], "", "number", false, "Guests number")}
             </Col>
 
             {/* <Col xs={4} className="mb-4">

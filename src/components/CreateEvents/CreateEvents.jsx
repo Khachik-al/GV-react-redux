@@ -378,16 +378,16 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
     const dispatch = useDispatch();
     const createCustomerLoad = useSelector((state) => state.EventsReducer.pending_create_customer);
     const createEventLoad = useSelector((state) => state.EventsReducer.pending_create);
-    const [activeSection, setActiveSection] = useState(2);
-    const [requiredEvents, setRequiredEvents] = useState([false, false, false, false, false, false, false, false]);
+    const [activeSection, setActiveSection] = useState(0);
+    const [requiredEvents, setRequiredEvents] = useState([false, false, false, false]);
     const [eventsState, setEventsState] = useState({
         name: '',
         event_date: '',
         event_start: '',
         type_id: 'Wedding 1',
-        phone_number: '(323) 800-0003',
+        phone_number: '',
         fax: '',
-        email: 'grandvenuela@gmail.com',
+        email: '',
         deposit: "",
         date_created: new Date(),
         guests_number: '',
@@ -533,7 +533,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
                         }
 
                         setEventsState({ ...eventsState, [target.name]: target.value })
-                        setContractState({ ...contractState, payment: newTotal, balance_due: isNaN(Number(newTotal) - Number(contractState.deposit)) ? 'not nan' : Number(newTotal) - Number(contractState.deposit) })
+                        setContractState({ ...contractState, payment: newTotal, balance_due: Number(newTotal) - Number(contractState.deposit)})
                     }
                     else {
                         setEventsState({ ...eventsState, [target.name]: target.value })
@@ -551,8 +551,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
             if (activeSection === 1) {
                 let cloneReqArray = [...requiredEvents];
 
-                ['name', 'event_date', 'event_start', 'phone_number', 'deposit', 'email', 'fax',
-                    'guests_number'].map((el, i) => {
+                ['name', 'event_date', 'event_start','guests_number'].map((el, i) => {
                         eventsState[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
                     });
 

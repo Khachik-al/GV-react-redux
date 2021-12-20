@@ -38,7 +38,7 @@ export const login = (body) => {
             dispatch({
                 type: 'TOAST_MESSAGE',
                 successMessage: null,
-                errorMessage: 'The given data was invalid.'
+                errorMessage: 'Log Out'
             })
         };
     };

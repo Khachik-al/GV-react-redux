@@ -205,6 +205,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                 <FormControl fullWidth className="mb-3">
                     <InputTitle className="mt-3"> Menu <span>*</span></InputTitle>
                     <SelectComponent
+                        maxHeight='200px'
                         disabled={editSet}
                         require={requiredError[1]}
                         value={state.menu_id.split("&&&&&")[0]}
@@ -381,9 +382,6 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                 </div>
             </Col>
         </Row>
-
-
-
 
             <Row>
                 <Col xs={6}> <div className="text-left"

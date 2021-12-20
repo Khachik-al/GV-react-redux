@@ -58,7 +58,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
 
                     <Col xs={4}>
                         <InputTitle>DL# <span>*</span></InputTitle>
-                        {paintInputs("dl_number", requiredError[4], 'DL number', 'text', 'TS15ZC5685512')}
+                        {paintInputs("dl_number", requiredError[4], 'DL number', 'text', '')}
                     </Col>
                     <Col xs={4}>
                         <InputTitle> DL expiration date <span >*</span></InputTitle>
@@ -75,7 +75,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
                     </Col>
                     <Col xs={4}>
                         <InputTitle>Number of Guests Expected <span>*</span></InputTitle>
-                        {paintInputs("guests_number", requiredError[6], 'Number is required', 'number', '')}
+                        {paintInputs("guests_number", requiredError[6], 'Guests number', 'number', '')}
                     </Col>
                 </Row> </>}
         </Container>

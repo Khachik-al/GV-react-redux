@@ -21,7 +21,7 @@ export const DropDownListContainer = styled.div``;
 
 export const DropDownList = styled.div`
   background: '#FFFFFF';
-  max-height: 150px;
+  max-height: ${props => props.maxHeight ? props.maxHeight : '150px'};
   overflow: auto;
   border: none;
   border-radius: 7px 7px 7px 7px;

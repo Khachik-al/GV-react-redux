@@ -236,7 +236,7 @@ export const getUsers = (page, limit, serachValue = "") => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
             }
@@ -285,7 +285,7 @@ export const deleteUsers = (id, page, lastPage, changePage, searchVal = "") => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
                 else {
@@ -344,21 +344,21 @@ export const addUser = (body) => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
                 if (err.response.status === 422) {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: '422'
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
                 if (err.response.status !== 422 && err.response.status !== 401) {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: '500'
+                        errorMessage: 'Error'
                     })
                 }
 
@@ -367,7 +367,7 @@ export const addUser = (body) => {
                 dispatch({
                     type: 'TOAST_MESSAGE',
                     successMessage: null,
-                    errorMessage: err.response.data.errors.email[0]
+                    errorMessage: 'Error'
                 })
             }
 

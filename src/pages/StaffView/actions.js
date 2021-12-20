@@ -22,7 +22,7 @@ export const getUser = (id) => {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
             }
