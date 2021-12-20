@@ -1,29 +1,35 @@
 import { Calendar } from 'react-big-calendar'
+import { BsFillCalendarEventFill } from "react-icons/bs";
 import { connect } from 'react-redux';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap';
-import { formats, eventStyleGetter, events, localizer } from './helpers'
+import { formats, eventStyleGetter, localizer } from './helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { RedFont, InputTitle } from '../../styles/globalStyles';
 import BlockInputs from '../../components/Smart/InputBlock/InputBlock';
 import {
     CalendarBlock, ShowEventModal, ShowEventTitle, ShowEventTitleBlock, GreenPoint, RedPoint,
-    TrashIconBlock, EditIconBlock, TextWithBack
+    TrashIconBlock, EditIconBlock
 } from './styles';
 import { ReactComponent as CalendarIcon } from './icons/19632188291548141930.svg';
 import { ReactComponent as EditIcon } from './icons/icons8-edit.svg';
 import { ReactComponent as TrashIcon } from './icons/icons8-trash.svg';
 import { format } from 'date-fns';
 import { getData, createEvent, deleteEvent } from '../Events/actions';
+import { getCalendarData } from './actions';
 import { getMenu } from '../Settings/actions';
 import { useEffect } from 'react';
 
-function CalendarComponent({ getData, getMenu, createEvent, deleteEvent, data, count, screenSize }) {
+const thisDate = new Date();
+// let monthThis = thisDate.getMonth();
+let yearThis = thisDate.getFullYear();
+
+function CalendarComponent({ data, screenSize, getCalendarData }) {
+
     let isMobile = screenSize < 800
     const [newEvent, setNewEvent] = useState({ title: '', description: '' })
-    const [allEvents, setAllEvents] = useState(events)
     const [createOrEditModalShow, setCreateOrEditModalShow] = useState(false)
     const [eventModalShow, setEventModalShow] = useState(false)
     const [requireInput, setRequireInput] = useState(false)
@@ -34,20 +40,28 @@ function CalendarComponent({ getData, getMenu, createEvent, deleteEvent, data, c
     // }, [])
 
     useEffect(() => {
-        getData(10, 1, '');
-        getMenu();
+        getCalendarData(1, yearThis);
+        // getData(10, 1, '');
+        // getMenu();
     }, []);
 
+    // useEffect(()=>{
+    //     if(data){
+    //         setAllEvents(data)
+    //     }
+    // }, [data])
+
     const handleAddEvent = (e) => {
-        setCreateOrEditModalShow(false)
-        setAllEvents([...allEvents, {
-            ...newEvent,
-            start: e.start,
-            end: e.end,
-            allDay: !(e.start.getMinutes() + e.end.getMinutes() + e.end.getHours() + e.start.getHours())
-        }])
-        setNewEvent({ title: '', description: '' })
+        // setCreateOrEditModalShow(false)
+        // setAllEvents([...allEvents, {
+        //     ...newEvent,
+        //     start: e.start,
+        //     end: e.end,
+        //     allDay: !(e.start.getMinutes() + e.end.getMinutes() + e.end.getHours() + e.start.getHours())
+        // }])
+        // setNewEvent({ title: '', description: '' })
     }
+
     return (
         <CalendarBlock isMobile={isMobile}>
             <div>
@@ -100,16 +114,16 @@ function CalendarComponent({ getData, getMenu, createEvent, deleteEvent, data, c
                         onHide={() => setEventModalShow(false)}
                         centered
                     >
-                        <Modal.Body >
+                        <Modal.Body>
                             <ShowEventModal isMobile={isMobile}>
                                 <ShowEventTitleBlock >
                                     <div style={{ marginRight: '15px' }}>
                                         <CalendarIcon />
                                     </div>
                                     <ShowEventTitle>
-                                        {eventModalShow.title} {eventModalShow.allDay &&
-                                            <TextWithBack backColor='#E8FFF3' color='#50CD89'>All Day</TextWithBack>}
-                                        <h6 className='mt-1'>{eventModalShow.description}lorem ipsum lorem ipsum</h6>
+                                        {eventModalShow.title}
+                                        {/* {eventModalShow.allDay &&
+                                            <TextWithBack backColor='#E8FFF3' color='#50CD89'>All Day</TextWithBack>} */}
                                     </ShowEventTitle>
                                 </ShowEventTitleBlock>
                                 <div style={{ position: 'absolute', right: '20px', top: '15px' }}>
@@ -126,33 +140,38 @@ function CalendarComponent({ getData, getMenu, createEvent, deleteEvent, data, c
                                     <TrashIconBlock>
                                         <TrashIcon />
                                     </TrashIconBlock>
-                                    <FontAwesomeIcon icon={faTimes} size='lg' color='#808080'
+                                    <FontAwesomeIcon icon={faTimes} size='lg' color='#b5b5c3'
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => setEventModalShow(false)}
                                     />
                                 </div>
-                                <div style={{ marginBottom: '10px', fontSize: '15px' }}>
+                                <div style={{ marginBottom: '10px' }}>
                                     <GreenPoint></GreenPoint><span style={{ fontWeight: '600' }}>Starts
-                                    </span>  <span style={{ fontSize: '13.5px' }}>
+                                    </span>  <span>
                                         {format(eventModalShow.start, 'do MMM, y - h:mm aaa')} </span>
                                 </div>
-                                <div style={{ fontSize: '15px' }}>
+                                <div>
                                     <RedPoint></RedPoint><span style={{ fontWeight: '600' }}>Ends
-                                    </span>  <span style={{ fontSize: '13.5px' }}>
+                                    </span>  <span>
                                         {format(eventModalShow.end, 'do MMM, y - h:mm aaa')} </span>
                                 </div>
 
 
 
+                                <div style={{ marginTop: '25px', }}>
+                                    <BsFillCalendarEventFill size={15} color='#b5b5c3' style={{ marginRight: '11px' }} />
+                                    <span style={{ fontWeight: '600' }}>Created by:
+                                    </span>  <span style={{ fontSize: '13.5px' }}>
+                                        {eventModalShow.creator} </span>
+                                </div>
                             </ShowEventModal>
-
                         </Modal.Body>
                     </Modal>}
             </div>
 
             <Calendar
                 localizer={localizer}
-                events={allEvents}
+                events={data ? data : []}
                 startAccessor='start'
                 endAccessor='end'
                 onSelectSlot={(e) => {
@@ -163,8 +182,32 @@ function CalendarComponent({ getData, getMenu, createEvent, deleteEvent, data, c
                 eventPropGetter={eventStyleGetter}
                 formats={formats}
                 messages={{
-                    "previous": <FontAwesomeIcon icon={faChevronLeft} size='1x' />,
-                    "next": <FontAwesomeIcon icon={faChevronRight} size='1x' />,
+                    "previous": <FontAwesomeIcon icon={faChevronLeft} size='1x'
+                        // onClick={(e) => {
+                        //     if (monthThis !== 1) {
+                        //         monthThis = monthThis - 1;
+                        //     }
+                        //     else {
+                        //         monthThis = 12;
+                        //         yearThis = yearThis - 1
+                        //     }
+
+                        //     getCalendarData(monthThis, yearThis);
+                        // }}
+                    />,
+                    "next": <FontAwesomeIcon icon={faChevronRight} size='1x'
+                    // onClick={(e) => {
+                    //     if (monthThis !== 12) {
+                    //         monthThis = monthThis + 1;
+                    //     }
+                    //     else {
+                    //         monthThis = 1;
+                    //         yearThis = yearThis + 1
+                    //     }
+
+                    //     getCalendarData(monthThis, yearThis);
+                    // }}
+                    />,
                     'today': "Today"
                 }}
                 selectable
@@ -183,9 +226,10 @@ function CalendarComponent({ getData, getMenu, createEvent, deleteEvent, data, c
 
 const mapStateToProps = (state) => {
     return {
-        data: state.EventsReducer.data,
+        // data: state.EventsReducer.data,
         count: state.EventsReducer.count,
-        screenSize: state.AppReducer.screenSize
+        screenSize: state.AppReducer.screenSize,
+        data: state.CalendarReducer.data
     };
 };
 
@@ -193,6 +237,7 @@ const mapDispatchToProps = {
     getData,
     getMenu,
     createEvent,
+    getCalendarData,
     deleteEvent
 };
 

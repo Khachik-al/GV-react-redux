@@ -61,7 +61,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
                         {paintInputs("dl_number", requiredError[4], 'DL number', 'text', 'TS15ZC5685512')}
                     </Col>
                     <Col xs={4}>
-                        <InputTitle> DL expiration data <span >*</span></InputTitle>
+                        <InputTitle> DL expiration date <span >*</span></InputTitle>
                         <DataPicBlock>
                             <DatePicker
                                 selected={state['dl_expire_date']}

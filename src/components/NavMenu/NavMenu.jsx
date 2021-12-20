@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { BiCalendarStar, BiCalendar, BiUserCircle, BiChart, BiBarChart } from "react-icons/bi";
 import { AiOutlineClose, AiOutlineUnorderedList } from 'react-icons/ai';
-import { BsFilterCircleFill, BsFillPeopleFill } from 'react-icons/bs';
+import {  BsFillPeopleFill } from 'react-icons/bs';
+import {  MdFastfood } from 'react-icons/md';
 import { FaCubes } from 'react-icons/fa';
 import { GiCubes } from 'react-icons/gi';
 import SimpleBar from 'simplebar-react';
@@ -55,7 +56,7 @@ const NavMenu = ({
                 // { path: '/event', title: 'Finance Event', icon: <GiCubes size={20} className="menu-list-icon" /> },
                 // { path: '/vendor', title: 'Finance Vendor', icon: <FaCubes size={20} className="menu-list-icon" /> },
             { path: '/reports', title: 'Reports', icon: <BiBarChart size={20} className="menu-list-icon" /> },
-            { path: '/catering', title: 'Catering', icon: <BsFilterCircleFill size={20} className="menu-list-icon" /> }].map((el => {
+            { path: '/catering', title: 'Catering', icon: <MdFastfood size={20} className="menu-list-icon" /> }].map((el => {
                 return <MenuListLi className="list-item" key={el.title} onClick={() => { isMobileView < 801 && setIsOpen(false) }}>
                     <NavLink
                         activeClassName="selected-nav-link"

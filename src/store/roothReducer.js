@@ -7,6 +7,7 @@ import StaffReducer from './reducers/StaffReducer';
 import StaffEditReducer from './reducers/StaffEditReducer';
 import SettingsReducer from './reducers/SettingsReducer';
 import CustomersReducer from './reducers/CustomersReducer';
+import CalendarReducer from './reducers/CalendarReducer';
 
 export const roothReducer = combineReducers({
   AppReducer,
@@ -15,5 +16,6 @@ export const roothReducer = combineReducers({
   StaffEditReducer,
   SettingsReducer,
   EditEventReducer,
-  CustomersReducer
+  CustomersReducer,
+  CalendarReducer
 });

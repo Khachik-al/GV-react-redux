@@ -377,7 +377,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                         fontSize: '1.15rem'
                     }}
                 >{`$ `}
-                    {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))}
+                    {isNaN(parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))) ? 0 : parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))}
                 </div>
             </Col>
         </Row>

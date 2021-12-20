@@ -18,6 +18,7 @@ export const CalendarBlock = styled('div')`
     padding-right: 5px;
     padding-left: 5px;
 }
+  
   .rbc-calendar{
     position: relative;
     height: ${props => props.isMobile ? '87vh' : '900px'};
@@ -117,7 +118,7 @@ export const RedPoint = styled('div')`
     display: inline-block;
     height: 15px;
     width: 15px;
-    background-color: red;
+    background-color: #F1416C;
     border-radius: 50%;
     margin-right: 10px;
     position: relative;
@@ -127,7 +128,7 @@ export const GreenPoint = styled('div')`
     display: inline-block;
     height: 15px;
     width: 15px;
-    background-color: green;
+    background-color: #50cd89;
     border-radius: 50%;
     margin-right: 10px;
     position: relative;

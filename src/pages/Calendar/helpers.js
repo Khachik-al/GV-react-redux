@@ -48,16 +48,6 @@ export const events = [
         end: new Date(2021, 11, 0)
     },
     {
-        title: 'AAAAA',
-        start: new Date(2021, 11, 0),
-        end: new Date(2021, 11, 0)
-    },
-    {
-        title: 'AAAAA',
-        start: new Date(2021, 11, 0),
-        end: new Date(2021, 11, 0)
-    },
-    {
         title: 'Vacation',
         allDay: true,
         start: new Date(2021, 10, 7),

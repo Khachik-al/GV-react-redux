@@ -378,7 +378,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
     const dispatch = useDispatch();
     const createCustomerLoad = useSelector((state) => state.EventsReducer.pending_create_customer);
     const createEventLoad = useSelector((state) => state.EventsReducer.pending_create);
-    const [activeSection, setActiveSection] = useState(0);
+    const [activeSection, setActiveSection] = useState(2);
     const [requiredEvents, setRequiredEvents] = useState([false, false, false, false, false, false, false, false]);
     const [eventsState, setEventsState] = useState({
         name: '',
@@ -533,7 +533,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
                         }
 
                         setEventsState({ ...eventsState, [target.name]: target.value })
-                        setContractState({ ...contractState, payment: newTotal, balance_due: Number(newTotal) - Number(contractState.deposit) })
+                        setContractState({ ...contractState, payment: newTotal, balance_due: isNaN(Number(newTotal) - Number(contractState.deposit)) ? 'not nan' : Number(newTotal) - Number(contractState.deposit) })
                     }
                     else {
                         setEventsState({ ...eventsState, [target.name]: target.value })
