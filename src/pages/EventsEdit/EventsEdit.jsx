@@ -29,7 +29,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
         let cloneReqArray = [...requiredValues];
         let cloneReqCon = [...requiredContract];
 
-        ['name', 'event_date', 'event_start', 'phone_number', 'deposit', 'email', 'fax', 'guests_number']
+        ['name', 'event_date', 'event_start','guests_number']
             .map((el, i) => {
                 state[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
             });
@@ -111,7 +111,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
 
                         let cloneReqArray = [...requiredCustomerValues];
                         ['fullName', 'address', 'phone_number', 'email',
-                            'dl_number', 'dl_expire_date', 'guests_number'].map((el, i) => {
+                            'dl_number', 'dl_expire_date'].map((el, i) => {
                                 customerState[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
                             });
 
