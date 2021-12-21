@@ -8,6 +8,7 @@ grid-template-columns: 50% 50%;
 }
 `
 export const CreateBlock = styled.div`
+padding-right: 80px;
 text-align: right;
 `
 

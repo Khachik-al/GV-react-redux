@@ -26,6 +26,7 @@ import {
 import { showToastMeassage } from '../../store/appActions';
 import { BsChevronDown } from 'react-icons/bs';
 import { logout } from '../../utils/auth';
+import SelectOfPagination from '../../components/Smart/SelectOfPagination/SelectForPagination';
 
 let searchVal = '';
 
@@ -39,6 +40,7 @@ function Customers({ getUsers,
     const [deleteModal, setDeleteModal] = useState(false);
     const [resetPassword, setResetPassword] = useState(false);
     const [page, setPage] = useState(1);
+    const [pageSizes, setPageSizes] = useState(10)
 
     const [customerRequired, setCustomerRequired] = useState([false, false, false, false, false, false, false]);
     const [customerInfo, setCustomerInfo] = useState({
@@ -96,7 +98,7 @@ function Customers({ getUsers,
     }, []);
 
     const changePage = useCallback((event, page) => {
-        getUsers(page, 10, searchVal);
+        getUsers(page, pageSizes, searchVal);
         setPage(page);
     });
 
@@ -345,17 +347,17 @@ function Customers({ getUsers,
             </ActionsBlock>
             {count ? <StaffTable
                 ActionComponent={ActionComponent}
-                titles={['Full name', 'Email', 'Phone', 'Actions']}
+                titles={['Full name', 'Email', 'Phone']}
                 lists={users}
-                lists={users.slice(page === 1 ? 0 : (page - 1) * 10, page === 1 ? 10 : page * 10)}
-                gridCount={'30% 30% 20% 20%'}
+                lists={users.slice(page === 1 ? 0 : (page - 1) * pageSizes, page === 1 ? pageSizes : page * pageSizes)}
+                gridCount={'38% 40% 20% 1%'}
                 isMobile={appState.screenSize}
                 customer={true}
             /> : <div className="p-5 text-center">No results.</div>}
 
-            {users.length > 10 && <PaginationMain>
-                <div></div>
-                <Pagination count={Math.ceil(users.length / 10)} color="primary" page={page} onChange={changePage} size={appState.screenSize < 450 ? "small" : ""} />
+            {users.length > pageSizes && <PaginationMain>
+                <div style={{ position: 'relative', width: '60px'}}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
+                <Pagination count={Math.ceil(users.length / pageSizes)} color="primary" page={page} onChange={changePage} size={appState.screenSize < 450 ? "small" : ""} />
             </PaginationMain>}
         </MainContent>
 

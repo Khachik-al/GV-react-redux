@@ -12,16 +12,14 @@ export const DropDownHeader = styled.div`
   border: none;
   border-radius: 5px;
   padding: 0.4em 2em 0.4em 1em;
-  font-size: 18px;
+  font-size: 15px;
   color: rgba(0, 0, 0, 0.87);
   font-weight: 500;
   font-family: 'Poppins';
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   background:#F6F8FA;
-  @media (max-width: 1600px) {
-      font-size:16px;
-  }
+  
   @media (max-width: 1300px) {
       font-size:14px;
   }
