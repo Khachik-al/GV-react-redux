@@ -308,17 +308,26 @@ export const getData = (body = { status: '', event_type: '', name: '' }) => {
             })
         }
         catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
-                    // logout();
-                    // dispatch({ type: 'saveToken', token: '' });
+                    logout();
+                    dispatch({ type: 'saveToken', token: '' });
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
                         errorMessage: 'Log Out'
                     })
                 }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                    })
+                }
             }
+
             dispatch({
                 type: 'TOAST_MESSAGE',
                 successMessage: null,
@@ -341,7 +350,7 @@ export const getEvent = (id) => {
             })
             dispatch({ type: 'PENDING', payload: false })
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -351,13 +360,21 @@ export const getEvent = (id) => {
                         errorMessage: 'Log Out'
                     })
                 }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                    })
+                }
             }
+
             dispatch({
                 type: 'TOAST_MESSAGE',
                 successMessage: null,
                 errorMessage: 'Error'
             })
-            // }
         }
     }
 }
@@ -390,7 +407,7 @@ export const createEvent = (body, onClose, setPage) => {
             setPage(1);
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -409,13 +426,12 @@ export const createEvent = (body, onClose, setPage) => {
                     })
                 }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
-                });
-            }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
             dispatch({ type: 'PENDING_CREATE_EVENT', payload: false });
             // }
         }
@@ -445,7 +461,7 @@ export const editEvent = (body, id, closeLoad) => {
             closeLoad(false)
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -461,17 +477,15 @@ export const editEvent = (body, id, closeLoad) => {
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
                         errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
-                    });
+                    })
                 }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
-                });
-            }
 
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
 
 
             closeLoad(false)
@@ -506,56 +520,7 @@ export const deleteEvent = (id, page, lastPage, changePage, searchVal = "", setP
             })
         }).catch(err => {
 
-            if (err.response.hasOwnProperty('status')) {
-                if (err.response.status === 401) {
-                    logout();
-                    dispatch({ type: 'saveToken', token: '' });
-                    dispatch({
-                        type: 'TOAST_MESSAGE',
-                        successMessage: null,
-                        errorMessage: 'Log Out'
-                    })
-                }
-                else {
-                    dispatch({
-                        type: 'TOAST_MESSAGE',
-                        successMessage: null,
-                        errorMessage: 'Error'
-                    })
-                }
-            }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
-                })
-            }
-        });
-    };
-};
-
-
-export const createCustomer = (body, id, closeModal) => {
-    return async (dispatch) => {
-        try {
-            await axios.put(`${config["API"]}api/api/customers/${id}`, body, {
-            // const { data } = await axios.put(`${config["API"]}api/api/customers/${id}`, body, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-
-            dispatch({
-                type: 'TOAST_MESSAGE',
-                successMessage: 'Customer has been editted',
-                errorMessage: null
-            });
-
-            closeModal(false);
-
-        } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -574,13 +539,87 @@ export const createCustomer = (body, id, closeModal) => {
                     })
                 }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
-                });
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
+        
+            // if (err.response.hasOwnProperty('status')) {
+            //     if (err.response.status === 401) {
+            //         logout();
+            //         dispatch({ type: 'saveToken', token: '' });
+            //         dispatch({
+            //             type: 'TOAST_MESSAGE',
+            //             successMessage: null,
+            //             errorMessage: 'Log Out'
+            //         })
+            //     }
+            //     else {
+            //         dispatch({
+            //             type: 'TOAST_MESSAGE',
+            //             successMessage: null,
+            //             errorMessage: 'Error'
+            //         })
+            //     }
+            // }
+            // else {
+            //     dispatch({
+            //         type: 'TOAST_MESSAGE',
+            //         successMessage: null,
+            //         errorMessage: 'Error'
+            //     })
+            // }
+        });
+};
+};
+
+
+export const createCustomer = (body, id, closeModal) => {
+    return async (dispatch) => {
+        try {
+            await axios.put(`${config["API"]}api/api/customers/${id}`, body, {
+                // const { data } = await axios.put(`${config["API"]}api/api/customers/${id}`, body, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: 'Customer has been editted',
+                errorMessage: null
+            });
+
+            closeModal(false);
+
+        } catch (err) {
+            if (err.response && err.response.hasOwnProperty('status')) {
+                if (err.response.status === 401) {
+                    logout();
+                    dispatch({ type: 'saveToken', token: '' });
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: 'Log Out'
+                    })
+                }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                    })
+                }
             }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
         }
     }
 }

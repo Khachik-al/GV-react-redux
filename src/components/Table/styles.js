@@ -63,8 +63,13 @@ font-weight: 500;
 }
 `
 
-export const TextWithBack = styled.span`
-padding: 5px 17px;
+export const TextWithBack = styled.div`
+height: 30px;
+width: 90px;
+display: flex;
+justify-content: center;
+align-items: center;
+/* padding: 5px 17px; */
 border-radius: 7px;
 background-color: ${props => props.backColor ? props.backColor : '#F5F8FA'};
 color: ${props => props.color ? props.color : ''};
@@ -74,10 +79,29 @@ font-size: 14px;
 }
 @media (max-width: 1080px) {
     font-size: 11px;
-    padding: 5px 13px;
+    /* padding: 5px 13px; */
 }
 @media (max-width: 1050px) {
     font-size: 11px;
-    padding: 5px 12px;
+    /* padding: 5px 12px; */
 }
 `
+
+// export const TextWithBack = styled.span`
+// padding: 5px 17px;
+// border-radius: 7px;
+// background-color: ${props => props.backColor ? props.backColor : '#F5F8FA'};
+// color: ${props => props.color ? props.color : ''};
+// font-size: 14px;
+// @media (max-width: 1500px) {
+//     font-size: 12px;
+// }
+// @media (max-width: 1080px) {
+//     font-size: 11px;
+//     padding: 5px 13px;
+// }
+// @media (max-width: 1050px) {
+//     font-size: 11px;
+//     padding: 5px 12px;
+// }
+// `

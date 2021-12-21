@@ -89,12 +89,12 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                 <InputTitle>Email </InputTitle>
                 {paintInputs("email", '', '', 'email', true)}
             </Col>
-            <Col xs={isMobile > 600 ? 4 : 12} className="mt-4">
+            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
                 <InputTitle>Fax</InputTitle>
                 {paintInputs("fax", '', '', 'number', true)}
             </Col>
 
-            <Col xs={isMobile > 600 ? 4 : 12} className="mt-4">
+            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
                 <InputTitle> Date </InputTitle>
                 <DataPicBlock>
                     <DatePicker
@@ -104,14 +104,20 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                         style={{ width: '100%' }}
                         minDate={new Date()}
                         disabled
+                        popperPlacement="top-start"
                     />
                     {/* {requiredError[7] && <div className="fs-7 text-danger mt-2">Date Is required</div>} */}
                 </DataPicBlock>
             </Col>
 
-            <Col xs={isMobile > 600 ? 4 : 12} className="mb-2 mt-4">
+            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
                 <InputTitle> Minimum of # Guests <span>*</span></InputTitle>
                 {paintInputs("guests_number", requiredError[3], "", "number", false, "Guests number")}
+            </Col>
+            
+            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
+                <InputTitle>Number of Guests Expected </InputTitle>
+                {paintInputs("guests_number_expected", false, '', 'number', true)}
             </Col>
 
             {/* <Col xs={4} className="mb-4">

@@ -197,7 +197,7 @@ export const getMenu = () => {
             dispatch({ type: 'PENDING', payload: false })
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -207,14 +207,21 @@ export const getMenu = () => {
                         errorMessage: 'Log Out'
                     })
                 }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                    })
+                }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'The given data was invalid.'
-                })
-            }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
         }
     }
 }
@@ -243,7 +250,7 @@ export const createMenu = (body, onClose) => {
             onClose();
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -261,15 +268,6 @@ export const createMenu = (body, onClose) => {
                         errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
-
-                if (err.response.status !== 422 && err.response.status !== 401) {
-                    dispatch({
-                        type: 'TOAST_MESSAGE',
-                        successMessage: null,
-                        errorMessage: 'Internal server error'
-                    })
-                }
-
             }
             else {
                 dispatch({
@@ -306,24 +304,31 @@ export const editMenu = (body, id, onClose) => {
             onClose();
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
+                    })
+                }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'The given data was invalid.'
-                })
-            }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
         }
     }
 }
@@ -337,7 +342,7 @@ export const deleteMenuF = (id, length, setPage, page) => {
             const { data } = await axios.delete(`${config["API"]}api/api/event-menus/${id}`,
                 { headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } });
 
-                console.log(data);
+            console.log(data);
 
             dispatch({
                 type: 'DELETE_MENU',
@@ -353,21 +358,22 @@ export const deleteMenuF = (id, length, setPage, page) => {
             if (length === 1) { setPage(page - 1) }
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
                     })
                 }
-                else{
+
+                if (err.response.status === 422) {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Internal server error'
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
             }

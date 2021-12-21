@@ -127,7 +127,7 @@ function CalendarComponent({ data, screenSize, getCalendarData }) {
                                     </ShowEventTitle>
                                 </ShowEventTitleBlock>
                                 <div style={{ position: 'absolute', right: '20px', top: '15px' }}>
-                                    <EditIconBlock
+                                    {/* <EditIconBlock
                                         onClick={() => {
                                             setNewEvent(eventModalShow)
                                             setCreateOrEditModalShow(eventModalShow)
@@ -139,7 +139,7 @@ function CalendarComponent({ data, screenSize, getCalendarData }) {
 
                                     <TrashIconBlock>
                                         <TrashIcon />
-                                    </TrashIconBlock>
+                                    </TrashIconBlock> */}
                                     <FontAwesomeIcon icon={faTimes} size='lg' color='#b5b5c3'
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => setEventModalShow(false)}
@@ -174,10 +174,10 @@ function CalendarComponent({ data, screenSize, getCalendarData }) {
                 events={data ? data : []}
                 startAccessor='start'
                 endAccessor='end'
-                onSelectSlot={(e) => {
-                    if (newEvent.title) { setNewEvent({ title: '', description: '' }) }
-                    setCreateOrEditModalShow(e)
-                }}
+                // onSelectSlot={(e) => {
+                //     if (newEvent.title) { setNewEvent({ title: '', description: '' }) }
+                //     setCreateOrEditModalShow(e)
+                // }}
                 onSelectEvent={(e) => setEventModalShow(e)}
                 eventPropGetter={eventStyleGetter}
                 formats={formats}

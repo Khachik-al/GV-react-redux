@@ -25,6 +25,7 @@ import {
 } from './actions';
 import { showToastMeassage } from '../../store/appActions';
 import { BsChevronDown } from 'react-icons/bs';
+import { logout } from '../../utils/auth';
 
 let searchVal = '';
 
@@ -76,7 +77,7 @@ function Customers({ getUsers,
 
     const ActionComponent = useCallback((style, list) => {
         return <div className={style.dropdown}>
-            <span className={style.dropbtn}>Actions <BsChevronDown size={appState.screenSize < 1100 ? 12 : 20} className='ml-3' /></span>
+            {/* <span className={style.dropbtn}>Actions <BsChevronDown size={appState.screenSize < 1100 ? 12 : 20} className='ml-3' /></span> */}
             {appState.userType === "1" ?
                 <div className={style.dropdownContent}>
                     <span
@@ -153,7 +154,17 @@ function Customers({ getUsers,
                     cancleBtn();
 
                 }).catch(err => {
-                    if (err.response.hasOwnProperty('status')) {
+                    if (err.response && err.response.hasOwnProperty('status')) {
+                        if (err.response.status === 401) {
+                            logout();
+                            dispatch({ type: 'saveToken', token: '' });
+                            dispatch({
+                                type: 'TOAST_MESSAGE',
+                                successMessage: null,
+                                errorMessage: 'Log Out'
+                            })
+                        }
+        
                         if (err.response.status === 422) {
                             dispatch({
                                 type: 'TOAST_MESSAGE',
@@ -162,6 +173,12 @@ function Customers({ getUsers,
                             })
                         }
                     }
+        
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: 'Error'
+                    })
                 })
             }
             else {
@@ -200,7 +217,17 @@ function Customers({ getUsers,
                     cancleBtn();
 
                 }).catch(err => {
-                    if (err.response.hasOwnProperty('status')) {
+                    if (err.response && err.response.hasOwnProperty('status')) {
+                        if (err.response.status === 401) {
+                            logout();
+                            dispatch({ type: 'saveToken', token: '' });
+                            dispatch({
+                                type: 'TOAST_MESSAGE',
+                                successMessage: null,
+                                errorMessage: 'Log Out'
+                            })
+                        }
+        
                         if (err.response.status === 422) {
                             dispatch({
                                 type: 'TOAST_MESSAGE',
@@ -209,6 +236,12 @@ function Customers({ getUsers,
                             })
                         }
                     }
+        
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: 'Error'
+                    })
                 })
             }
         }
@@ -312,7 +345,7 @@ function Customers({ getUsers,
             </ActionsBlock>
             {count ? <StaffTable
                 ActionComponent={ActionComponent}
-                titles={['Full name', 'Email', 'Phone']}
+                titles={['Full name', 'Email', 'Phone', 'Actions']}
                 lists={users}
                 lists={users.slice(page === 1 ? 0 : (page - 1) * 10, page === 1 ? 10 : page * 10)}
                 gridCount={'30% 30% 20% 20%'}

@@ -128,15 +128,39 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                 </Col>
                             </Row>
 
-                            <Row>{
-                                [{
+                            <Row>{[
+                                {
                                     title: 'Event Name', name: "name"
                                 },
                                 {
-                                    title: 'Event type', name: "type_id"
-                                }
+                                    title: 'Event Date', name: "event_date"
+                                },
+                                {
+                                    title: 'Event Time', name: "event_start"
+                                },
+                            ].map((el, ind) => {
+                                return <Col xs={4} className="mb-4">
+                                    <InputTitle>{el.title}</InputTitle>
+                                    <div style={{ borderColor: '1px solid red' }}>
+                                        <BlockInputs
+                                            value={state[el.name]}
+                                            disabled={true}
+                                        />
+                                    </div>
+                                </Col>
+                            })
+                            }</Row>
+
+
+                            <Row>{
+                                [{
+                                    title: 'Event Type', name: "type_id"
+                                },
+                                {
+                                    title: 'Phone', name: ""
+                                },
                                 ].map((el, ind) => {
-                                    return <Col xs={12} className="mb-4">
+                                    return <Col xs={6} className="mb-4">
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -147,20 +171,15 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     </Col>
                                 })
                             }</Row>
-
-
                             <Row>{
                                 [{
-                                    title: 'Date', name: "event_date"
+                                    title: 'Amount of deposit collected', name: ""
                                 },
                                 {
-                                    title: 'Start time', name: "event_start"
-                                },
-                                {
-                                    title: 'End time', name: "event_end"
+                                    title: 'Email', name: ""
                                 }
                                 ].map((el, ind) => {
-                                    return <Col xs={4} className="mb-4">
+                                    return <Col xs={6} className="mb-4">
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -171,19 +190,34 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     </Col>
                                 })
                             }</Row>
-
-
-
-
                             <Row>{
                                 [{
-                                    title: 'Number of guest expected', name: "guests_number"
+                                    title: 'Fax', name: ""
                                 },
                                 {
-                                    title: 'Description', name: "notes"
+                                    title: 'Date', name: ""
                                 }
                                 ].map((el, ind) => {
-                                    return <Col xs={12} className="mb-4">
+                                    return <Col xs={6} className="mb-4">
+                                        <InputTitle>{el.title}</InputTitle>
+                                        <div style={{ borderColor: '1px solid red' }}>
+                                            <BlockInputs
+                                                value={state[el.name]}
+                                                disabled={true}
+                                            />
+                                        </div>
+                                    </Col>
+                                })
+                            }</Row>
+                            <Row>{
+                                [{
+                                    title: 'Minimum of # Guests', name: "guests_number"
+                                },
+                                {
+                                    title: 'Number of Guests Expected', name: ""
+                                }
+                                ].map((el, ind) => {
+                                    return <Col xs={6} className="mb-4">
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -210,34 +244,12 @@ function EventsView({ isMobile, data, getEvent, match }) {
 
                             <Row>{
                                 [{
-                                    title: 'First name', name: "firstName"
+                                    title: 'Full Name', name: "fullName"
                                 },
                                 {
-                                    title: 'Last name', name: "lastName"
+                                    title: 'Home Address', name: "address"
                                 }
                                 ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4">
-                                        <InputTitle>{el.title}</InputTitle>
-                                        <div style={{ borderColor: '1px solid red' }}>
-                                            <BlockInputs
-                                                value={customerState[el.name]}
-                                                disabled={true}
-                                            />
-                                        </div>
-                                    </Col>
-                                })
-                            }</Row>
-
-
-
-
-                            <Row>{
-                                [{
-                                    title: 'Home Address', name: "address"
-                                },
-                                {
-                                    title: 'Email address', name: "email"
-                                }].map((el, ind) => {
                                     return <Col xs={12} className="mb-4">
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
@@ -253,20 +265,42 @@ function EventsView({ isMobile, data, getEvent, match }) {
 
 
 
+                            <Row>{
+                                [
+                                    {
+                                        title: 'Home Phone', name: "phone_number"
+                                    },
+                                    {
+                                        title: 'Alternate Phone', name: "alt_phone_number"
+                                    },
+                                    {
+                                        title: 'Email', name: "email"
+                                    }].map((el, ind) => {
+                                        return <Col xs={4} className="mb-4">
+                                            <InputTitle>{el.title}</InputTitle>
+                                            <div style={{ borderColor: '1px solid red' }}>
+                                                <BlockInputs
+                                                    value={customerState[el.name]}
+                                                    disabled={true}
+                                                />
+                                            </div>
+                                        </Col>
+                                    })
+                            }</Row>
+
+
+
+
 
                             <Row>{
-                                [{
-                                    title: 'Phone number', name: "phone_number"
-                                },
-                                {
-                                    title: 'Alt phone', name: "alt_phone_number"
-                                },
-                                {
-                                    title: 'DL expiration data', name: "dl_expire_date"
-                                },
-                                {
-                                    title: 'DL number', name: "dl_number"
-                                }].map((el, ind) => {
+                                [
+                                    {
+                                        title: 'DL number', name: "dl_number"
+                                    },
+                                    {
+                                        title: 'DL expiration data', name: "dl_expire_date"
+                                    }
+                                ].map((el, ind) => {
                                     return <Col xs={6} className="mb-4">
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
@@ -507,9 +541,9 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ 
-                                    {/* {parseInt(state.payment - state.deposit)} */}
-                                    {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))}
+                                    >$
+                                        {/* {parseInt(state.payment - state.deposit)} */}
+                                        {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))}
                                     </div>
                                 </Col>
                             </Row>
@@ -631,7 +665,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(EventsView);
 
 //             let total = Number(data.guests_number) * Number(data.contract.cost_per_guest);
 
-//             console.log(data);
 
 //             let newDate = {
 //                 name: data.name,
@@ -644,7 +677,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(EventsView);
 //                 id: data.id,
 //                 updated_at: data.updated_at,
 //                 notes: data.notes,
-//                 menu_id: `${data.contract.menu.name}&&&&&${data.contract.menu.id}`,
+//                 menu_id: `${data.contract.menu.name}`,
 //                 balance_due: data.contract.balance_due,
 //                 cost_per_guest: data.contract.cost_per_guest,
 //                 created_at: data.contract.created_at,
@@ -674,8 +707,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(EventsView);
 //             });
 
 //             setCustomerState({
-//                 firstName: data.customer.full_name.split(" ")[0],
-//                 lastName: data.customer.full_name.split(" ")[1],
+//                 fullName: data.customer.full_name,
 //                 email: data.customer.email,
 //                 address: data.customer.address,
 //                 phone_number: data.customer.phone_number,
@@ -683,12 +715,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(EventsView);
 //                 dl_number: data.customer.dl_number,
 //                 customer_id: data.customer.id,
 //                 dl_expire_date: new Date(data.customer.dl_expire_date).toISOString().slice(0, 10),
+//                 guests_number: data.guests_number,
 //             })
 //         }
 //     }, [data]);
 
 
-//     console.log(state);
 
 //     return state && <Main className="pb-4">
 //         <div className="pb-4">
@@ -702,8 +734,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(EventsView);
 //                                 </Col>
 //                             </Row>
 
-//                             <Row>{
-//                                 [{
+//                             <Row>{[
+//                                 {
 //                                     title: 'Event Name', name: "name"
 //                                 },
 //                                 {

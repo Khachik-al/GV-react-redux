@@ -119,11 +119,9 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 4px !important;
     min-width: 27px !important;
     height: 27px !important;
-    font-size:18px !important;
+    font-size:15px !important;
 
-    @media (max-width: 1600px) {
-      font-size:16px !important;
-    }
+    
     @media (max-width: 1300px) {
       font-size:14px !important;
     }
@@ -166,7 +164,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   .react-datepicker-popper[data-placement^="top"] {
     margin-bottom: 3px;
-    transform: translate3d(15px, -185px, 0px);
+    transform: translate3d(15px, -180px, 0px) !important;
   }
   .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
     margin-top: 0;

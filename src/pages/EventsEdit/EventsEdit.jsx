@@ -293,8 +293,8 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
 
 
     return state && <Main className="pb-4">
-        <div className="p-3 pb-4">
-            <GridMain> <div className={isMobile > 600 ? "pl-4 pr-4 pt-3" : "pl-0 pr-0 pt-3"}>
+        <div className="pb-4">
+            <GridMain> <div className={isMobile > 600 ? "pr-4 pt-3" : "pl-0 pr-0 pt-3"}>
                 <SectionsBlock>
                     <Container>
                         <Row>
@@ -355,29 +355,29 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                         values={[{
                                             value: '1',
                                             label: <TableCol color='#A1A5BE'>
-                                                <TextWithBack color='#FFC700'
-                                                    backColor='#FFF8DD'
+                                                <TextWithBack color='#50CD89'
+                                                    backColor='#E8FFF3'
                                                 >booked</TextWithBack>
                                             </TableCol>
                                         }, {
                                             value: '2', label:
                                                 <TableCol color='#A1A5BE'>
-                                                    <TextWithBack color='#50CD89'
-                                                        backColor='#E8FFF3'
+                                                    <TextWithBack color='#FFC700'
+                                                        backColor='#FFF8DD'
                                                     >pending</TextWithBack>
                                                 </TableCol>
                                         },
                                         {
                                             value: '3', label: <TableCol color='#A1A5BE'>
-                                                <TextWithBack color='#F1416C'
-                                                    backColor='#FFF5F8'
+                                                <TextWithBack color='#5f67cf'
+                                                    backColor='#d9e8fc'
                                                 >completed</TextWithBack>
                                             </TableCol>
                                         },
                                         {
                                             value: '4', label: <TableCol color='#A1A5BE'>
-                                                <TextWithBack color='#ff0040'
-                                                    backColor='#fff5f899'
+                                                <TextWithBack color='#F1416C'
+                                                    backColor='#f8dfe7'
                                                 >canceled</TextWithBack>
                                             </TableCol>
                                         }

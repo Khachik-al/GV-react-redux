@@ -229,7 +229,7 @@ export const getUsers = (page, limit, serachValue = "") => {
             dispatch({ type: 'PENDING', payload: false })
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -239,14 +239,21 @@ export const getUsers = (page, limit, serachValue = "") => {
                         errorMessage: 'Log Out'
                     })
                 }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                    })
+                }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'The given data was invalid.'
-                })
-            }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
 
 
         }
@@ -278,7 +285,7 @@ export const deleteUsers = (id, page, lastPage, changePage, searchVal = "") => {
             dispatch({ type: 'PENDING', payload: false })
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -288,21 +295,21 @@ export const deleteUsers = (id, page, lastPage, changePage, searchVal = "") => {
                         errorMessage: 'Log Out'
                     })
                 }
-                else {
+
+                if (err.response.status === 422) {
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Error'
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
-                })
-            }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
         }
     }
 };
@@ -337,7 +344,7 @@ export const addUser = (body) => {
             });
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
@@ -347,6 +354,7 @@ export const addUser = (body) => {
                         errorMessage: 'Log Out'
                     })
                 }
+
                 if (err.response.status === 422) {
                     dispatch({
                         type: 'TOAST_MESSAGE',
@@ -354,22 +362,13 @@ export const addUser = (body) => {
                         errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
-                if (err.response.status !== 422 && err.response.status !== 401) {
-                    dispatch({
-                        type: 'TOAST_MESSAGE',
-                        successMessage: null,
-                        errorMessage: 'Error'
-                    })
-                }
+            }
 
-            }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
-                })
-            }
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
 
         }
     }
@@ -414,24 +413,31 @@ export const editUser = (body, id) => {
             });
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
+                    })
+                }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'The given data was invalid.'
-                })
-            }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
         }
     }
 }

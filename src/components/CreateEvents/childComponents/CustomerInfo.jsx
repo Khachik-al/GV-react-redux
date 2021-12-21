@@ -56,11 +56,11 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
 
                 <Row className="mb-4">
 
-                    <Col xs={4}>
+                    <Col xs={6}>
                         <InputTitle>DL# <span>*</span></InputTitle>
                         {paintInputs("dl_number", requiredError[4], 'DL number', 'text', '')}
                     </Col>
-                    <Col xs={4}>
+                    <Col xs={6}>
                         <InputTitle> DL expiration date <span >*</span></InputTitle>
                         <DataPicBlock>
                             <DatePicker
@@ -69,14 +69,15 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
                                     handleChange({ target: { value: date, name: 'dl_expire_date' } })}
                                 style={{ width: '100%' }}
                                 minDate={new Date()}
+                                popperPlacement="top-start"
                             />
                             {requiredError[5] && <div className="fs-7 text-danger mt-2">Date Is required</div>}
                         </DataPicBlock>
                     </Col>
-                    <Col xs={4}>
+                    {/* <Col xs={4}>
                         <InputTitle>Number of Guests Expected <span>*</span></InputTitle>
                         {paintInputs("guests_number", requiredError[6], 'Guests number', 'number', '')}
-                    </Col>
+                    </Col> */}
                 </Row> </>}
         </Container>
     }

@@ -391,11 +391,12 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
         deposit: "",
         date_created: new Date(),
         guests_number: '',
+        guests_number_expected: '',
         // event_end: '',
         // notes: '' ['name', 'event_date', 'event_start','phone_number', 'fax', 'email', 'deposit', 'date_created', 'guests_number']
     });
 
-    const [customerRequired, setCustomerRequired] = useState([false, false, false, false, false, false, false]);
+    const [customerRequired, setCustomerRequired] = useState([false, false, false, false, false, false]);
     const [customerInfo, setCustomerInfo] = useState({
         fullName: '',
         address: '',
@@ -404,7 +405,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
         email: '',
         dl_number: '',
         dl_expire_date: '',
-        guests_number: '',
+        // guests_number: '',
     });
 
     const [contractRequired, setContractRequired] = useState([false, false, false, false]);
@@ -564,7 +565,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
             else {
                 let cloneReqArray = [...customerRequired];
                 ['fullName', 'address', 'phone_number', 'email',
-                    'dl_number', 'dl_expire_date', 'guests_number'].forEach((el, i) => customerInfo[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true);
+                    'dl_number', 'dl_expire_date'].forEach((el, i) => customerInfo[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true);
                 if (cloneReqArray.includes(true)) {
                     setCustomerRequired(cloneReqArray);
                 } else {
@@ -582,7 +583,6 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage, pending_create 
                                 alt_phone_number: customerInfo.alt_phone_number,
                                 dl_number: customerInfo.dl_number,
                                 dl_expire_date: customerInfo.dl_expire_date,
-                                guests_number: customerInfo.guests_number
                             },
                             {
                                 headers: {

@@ -39,24 +39,31 @@ export const editAccount = (body, id) => {
             });
 
         } catch (err) {
-            if (err.response.hasOwnProperty('status')) {
+            if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
-                        errorMessage: 'Your profile was deleted'
+                        errorMessage: 'Log Out'
+                    })
+                }
+
+                if (err.response.status === 422) {
+                    dispatch({
+                        type: 'TOAST_MESSAGE',
+                        successMessage: null,
+                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
             }
-            else {
-                dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'The given data was invalid.'
-                })
-            }
+
+            dispatch({
+                type: 'TOAST_MESSAGE',
+                successMessage: null,
+                errorMessage: 'Error'
+            })
         }
     }
 }
