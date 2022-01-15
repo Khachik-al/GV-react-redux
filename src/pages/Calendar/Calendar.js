@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap';
-import { formats, eventStyleGetter, localizer } from './helpers'
+import CustomEvent, { formats, eventStyleGetter, localizer } from './helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { RedFont, InputTitle } from '../../styles/globalStyles';
@@ -170,6 +170,7 @@ function CalendarComponent({ data, screenSize, getCalendarData }) {
             </div>
 
             <Calendar
+                components={{ event: CustomEvent }}
                 localizer={localizer}
                 events={data ? data : []}
                 startAccessor='start'
@@ -183,17 +184,17 @@ function CalendarComponent({ data, screenSize, getCalendarData }) {
                 formats={formats}
                 messages={{
                     "previous": <FontAwesomeIcon icon={faChevronLeft} size='1x'
-                        // onClick={(e) => {
-                        //     if (monthThis !== 1) {
-                        //         monthThis = monthThis - 1;
-                        //     }
-                        //     else {
-                        //         monthThis = 12;
-                        //         yearThis = yearThis - 1
-                        //     }
+                    // onClick={(e) => {
+                    //     if (monthThis !== 1) {
+                    //         monthThis = monthThis - 1;
+                    //     }
+                    //     else {
+                    //         monthThis = 12;
+                    //         yearThis = yearThis - 1
+                    //     }
 
-                        //     getCalendarData(monthThis, yearThis);
-                        // }}
+                    //     getCalendarData(monthThis, yearThis);
+                    // }}
                     />,
                     "next": <FontAwesomeIcon icon={faChevronRight} size='1x'
                     // onClick={(e) => {

@@ -171,8 +171,8 @@ export const GlobalStyle = createGlobalStyle`
     color: #000;
     font-weight: bold;
     font-size: 1.1rem;
-}
-.stepper-title{
+  }
+  .stepper-title{
   font-size: 15px !important;
   @media (max-width: 1500px) {
     font-size: 14px !important;
@@ -181,9 +181,20 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 12px !important;
   }
   
- }
-.css-3bmhjh-MuiPaper-root-MuiPopover-paper{
+  }
+  .css-3bmhjh-MuiPaper-root-MuiPopover-paper{
     top: 68px !important;
+  }
+  .rbc-day-slot .rbc-event, .rbc-day-slot .rbc-background-event {
+    border: currentcolor !important;
+  }
+  .rbc-day-slot .rbc-event-content{
+    line-height: 1.5 !important;
+  }
+  input[type=text] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
   /*_______*/
 `;

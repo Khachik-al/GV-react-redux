@@ -1,22 +1,22 @@
 import axios from 'axios'
-import config from '../../configs.json';
-import { logout } from '../../utils/auth';
+import config from '../../../configs.json';
+import { logout } from '../../../utils/auth';
 
-export const getUsers = (page, limit, serachValue = "") => {
+export const getEventContracts = (page, limit, serachValue = "") => {
     return async (dispatch) => {
         try {
             dispatch({ type: 'PENDING', payload: true })
-            const { data } = await axios.get(`${config["API"]}api/api/customers?per_page=${limit}&page=${page}&name=${serachValue}`,
+            // const { data } = await axios.get(`${config["API"]}api/api/event-contacts?per_page=${limit}&page=${page}&name=${serachValue}`,
+            const { data } = await axios.get(`${config["API"]}api/api/event-contacts`,
                 {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 }
             );
-
+            console.log(data);
             dispatch({
-                type: 'GET_CUSTOMERS',
-                payload: Object.values(data),
+                type: 'GET_EVENT_CONTRACTS', payload: Object.values(data),
             });
             dispatch({ type: 'PENDING', payload: false })
 
@@ -31,7 +31,6 @@ export const getUsers = (page, limit, serachValue = "") => {
                         errorMessage: 'Log Out'
                     })
                 }
-
                 if (err.response.status === 422) {
                     dispatch({
                         type: 'TOAST_MESSAGE',
@@ -41,35 +40,30 @@ export const getUsers = (page, limit, serachValue = "") => {
                 }
             } else {
                 dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
+                    type: 'TOAST_MESSAGE', errorMessage: 'Error'
                 })
             }
+
         }
     }
 };
-
-
-export const deleteUsers = (id) => {
-
+export const createEventContract = (body) => {
     return async (dispatch) => {
         try {
-            axios.delete(`${config["API"]}api/api/customers/${id}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }).then(res => {
-                axios.get(`${config["API"]}api/api/customers`,
-                    { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
-                ).then(re => {
-                    dispatch({
-                        type: 'GET_CUSTOMERS',
-                        payload: Object.values(re.data),
-                    });
-                    dispatch({
-                        type: 'TOAST_MESSAGE',
-                        successMessage: 'seccessfuly deleted',
-                        errorMessage: null
-                    })
-                })
-            })
+            dispatch({ type: 'PENDING', payload: true })
+            const { data } = await axios.get(`${config["API"]}api/api/event-contacts`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                }, body
+            );
+            console.log(data);
+            dispatch({
+                type: 'CREATE_EVENT_CONTRACTS', payload: Object.values(data),
+            });
+            dispatch({ type: 'PENDING', payload: false })
+
         } catch (err) {
             if (err.response && err.response.hasOwnProperty('status')) {
                 if (err.response.status === 401) {
@@ -81,7 +75,6 @@ export const deleteUsers = (id) => {
                         errorMessage: 'Log Out'
                     })
                 }
-
                 if (err.response.status === 422) {
                     dispatch({
                         type: 'TOAST_MESSAGE',
@@ -91,9 +84,7 @@ export const deleteUsers = (id) => {
                 }
             } else {
                 dispatch({
-                    type: 'TOAST_MESSAGE',
-                    successMessage: null,
-                    errorMessage: 'Error'
+                    type: 'TOAST_MESSAGE', errorMessage: 'Error'
                 })
             }
         }

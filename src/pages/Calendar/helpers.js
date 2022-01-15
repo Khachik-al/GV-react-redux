@@ -22,10 +22,8 @@ export let formats = {
     weekdayFormat: 'eee',
     dayFormat: 'eee MM/d',
     timeGutterFormat: 'haaa',
-    // dayRangeHeaderFormat: ({ start, end }, culture, localizer) =>
-    //     localizer.format(start, { date: 'MM' }, culture) + ' — ' +
-    //     localizer.format(end, { date: 'MM' }, culture),
-    dayHeaderFormat: 'MMMM d,yyyy'
+    dayHeaderFormat: 'MMMM d,yyyy',
+    eventTimeRangeFormat: () => null
 }
 
 export function eventStyleGetter(event, start, end, isSelected) {
@@ -40,6 +38,14 @@ export function eventStyleGetter(event, start, end, isSelected) {
     return {
         style: style
     };
+}
+export default function CustomEvent(props) {
+    console.log(props);
+    return (
+        <div>
+            {props.title}
+        </div>
+    );
 }
 export const events = [
     {

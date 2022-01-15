@@ -1,16 +1,26 @@
-import React, { useCallback } from 'react';
+import { Pagination } from '@material-ui/core';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { connect, useSelector } from 'react-redux';
-import { TableCol, TableContainer, TableRow, TextWithBack } from '../../../components/Table/styles';
-import { ForBorder, Main, MainContent } from '../../../styles/globalStyles';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { ContBlock, TableCol, TableContainer, TableRow, TextWithBack } from '../../../components/Table/styles';
+import { ForBorder, Main, MainContent, PaginationMain } from '../../../styles/globalStyles';
 import StyleConstants from '../../../styles/StyleConstants';
+import { getVendors } from './actions';
+import SelectOfPagination from '../../../components/Smart/SelectOfPagination/SelectForPagination'
 
 function Vendor() {
-    const isMobile = useSelector((state) => state.AppReducer.screenSize);
-
+    const dispatch = useDispatch();
+    const { vendors, vendorsCount } = useSelector(state => state.VendorReducer)
+    const isMobile = useSelector((state) => state.AppReducer.screenSize);    
+    const [pageSizes, setPageSizes] = useState(10);
+    const [page, setPage] = useState(1);
+    const changePage = useCallback((event, page) => {
+        setPage(page);
+    });
+    useEffect(() => dispatch(getVendors()), [dispatch])
     const paintView = useCallback(() => {
         return isMobile < 501 ? <TableContainer className="mt-5">
-            {['asdsad', 'asdasd', 'sadasd'].map((menu) => {
+            {vendors.map(el => {
                 return <ForBorder className="mb-5 pt-2 pb-2">
                     <Container>
                         <Row key={Math.random()}>
@@ -43,21 +53,31 @@ function Vendor() {
                     {['Cash Flow type', 'Payment Type', 'Vendors', 'Status', 'Date', 'Amount'].map(
                         tit => <TableCol key={tit}>{tit}</TableCol>)}
                 </TableRow>
-                {['sdfsdf', 'ewfewfewf', 'wefwefewf'].map(() => {
+                {vendors.map(el => {
                     return <TableRow gridCount={'15% 15% 15% 15% 15% 15%'} key={Math.random()} className='pl-4'>
                         <TableCol color={StyleConstants.TITLE_COLOR}>Income</TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}>Cash</TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}>PROTEIN</TableCol>
-                        <TableCol color={StyleConstants.TITLE_COLOR}><TextWithBack color='#50CD89' backColor='#E8FFF3'>Success</TextWithBack></TableCol>
+                        <TableCol color={StyleConstants.TITLE_COLOR}>
+                            <TextWithBack color='#50CD89' backColor='#E8FFF3'>Success</TextWithBack>
+                        </TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}>10/12/2021</TableCol>
                         <TableCol color={StyleConstants.TITLE_COLOR}>500$</TableCol>
                     </TableRow>
                 })}
             </TableContainer>
-    }, [isMobile])
-    return <Main style={{ paddingTop: isMobile < 800 ? '' : '200px' }}>
+    }, [isMobile, vendors])
+    return vendors && <Main className="pb-4 pt-4">
         <MainContent className={!(isMobile < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
-            {paintView()}
+            <ContBlock>
+                {paintView()}
+            </ContBlock>
+            {vendorsCount > pageSizes &&
+                <PaginationMain>
+                    <div style={{ position: 'relative', width: '60px'}}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
+                    <Pagination count={Math.ceil(vendorsCount / pageSizes)} color="primary" page={page}
+                        onChange={changePage} size={isMobile < 450 ? "small" : ""} />
+                </PaginationMain>}
         </MainContent>
     </Main>
 }

@@ -10,7 +10,7 @@ export const getCalendarData = (month, year) => {
     return async (dispatch) => {
         try {
 
-            let body = {month: month, year: year}
+            let body = { month: month, year: year }
 
             const { data } = await axios.post(`${config["API"]}api/api/google-calendar/search`, body,
                 { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
@@ -21,7 +21,7 @@ export const getCalendarData = (month, year) => {
             dispatch({
                 type: 'GET_CALENDAR_DATA',
                 payload: data.map(el => {
-                    
+
                     // let startDate = el.googleEvent.start.dateTime ? new Date(el.googleEvent.start.dateTime) : new Date(el.googleEvent.start.date);
                     let endDate = el.googleEvent.end.dateTime ? new Date(el.googleEvent.end.dateTime) : new Date(el.googleEvent.end.date);
 
@@ -58,14 +58,13 @@ export const getCalendarData = (month, year) => {
                         errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                     })
                 }
+            } else {
+                dispatch({
+                    type: 'TOAST_MESSAGE',
+                    successMessage: null,
+                    errorMessage: 'Error'
+                })
             }
-
-            dispatch({
-                type: 'TOAST_MESSAGE',
-                successMessage: null,
-                errorMessage: 'Error'
-            })
-
         }
     }
 };
