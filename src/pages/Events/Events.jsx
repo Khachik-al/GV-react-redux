@@ -308,6 +308,7 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
             <div className={style.dropdownContent}>
                 <Link to={`/eventsview/${id}`}>View</Link>
                 <Link to={`/eventsedit/${id}`}>Edit</Link>
+                <span>Export</span>
                 <span onClick={() => {
                     warningAlert(() => {
                         deleteEvent(id, page, Math.ceil(count / pageSizes),

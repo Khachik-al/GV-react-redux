@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { BsFillPlusSquareFill, BsFillDashSquareFill } from "react-icons/bs";
+import { BsFillPlusSquareFill, BsFillDashSquareFill, BsChevronDown } from "react-icons/bs";
 import { connect, useDispatch } from 'react-redux';
-import { BiEditAlt } from "react-icons/bi";
 import { NavLink } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import AccordDown from '../../components/Smart/AccordDown/AccordDown';
 import { SpanIcon } from '../../components/CreateEvents/styles';
 import { GridMain, FixedBlock } from '../EventsEdit/styles';
 import RadioGro from '../../components/Smart/Radio/Radio';
-import { TableCol, TextWithBack } from '../../components/Table/styles';
+import { TableCol, TableRow, TextWithBack } from '../../components/Table/styles';
 import BlockInputs from '../../components/Smart/InputBlock/InputBlock';
 import { UpdateButton } from '../EventsEdit/styles';
 import { SectionsBlock, SectionsTitle } from '../EventsEdit/styles';
 import { Main, InputTitle } from '../../styles/globalStyles';
 import { getEvent } from '../Events/actions';
 
-
 function EventsView({ isMobile, data, getEvent, match }) {
-
     const [state, setState] = useState(null);
     const [customerState, setCustomerState] = useState(null);
     const [accordIsOpen, setAccordIsOpen] = useState(false);
@@ -63,7 +60,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
             let newDate = {
                 name: data.name,
                 type_id: `${data.type.name} ${data.type.id}`,
-                created_at: data.created_at,
+                created_at: data.created_at.split(' ')[0],
                 event_date: new Date(data.event_date).toISOString().slice(0, 10),
                 event_end: data.event_end,
                 event_start: data.event_start,
@@ -74,7 +71,6 @@ function EventsView({ isMobile, data, getEvent, match }) {
                 menu_id: `${data.contract.menu.name}`,
                 balance_due: data.contract.balance_due,
                 cost_per_guest: data.contract.cost_per_guest,
-                created_at: data.contract.created_at,
                 deposit: data.contract.deposit,
                 id: data.contract.id,
                 payment_type: data.contract.payment_type,
@@ -115,7 +111,6 @@ function EventsView({ isMobile, data, getEvent, match }) {
     }, [data]);
 
 
-
     return state && <Main className="pb-4">
         <div className="pb-4">
             <GridMain>
@@ -139,7 +134,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     title: 'Event Time', name: "event_start"
                                 },
                             ].map((el, ind) => {
-                                return <Col xs={4} className="mb-4">
+                                return <Col xs={4} className="mb-4" key={ind}>
                                     <InputTitle>{el.title}</InputTitle>
                                     <div style={{ borderColor: '1px solid red' }}>
                                         <BlockInputs
@@ -160,7 +155,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     title: 'Phone', name: ""
                                 },
                                 ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4">
+                                    return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -179,7 +174,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     title: 'Email', name: ""
                                 }
                                 ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4">
+                                    return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -195,10 +190,10 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     title: 'Fax', name: ""
                                 },
                                 {
-                                    title: 'Date', name: ""
+                                    title: 'Date', name: "created_at"
                                 }
                                 ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4">
+                                    return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -217,7 +212,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     title: 'Number of Guests Expected', name: ""
                                 }
                                 ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4">
+                                    return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -250,7 +245,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     title: 'Home Address', name: "address"
                                 }
                                 ].map((el, ind) => {
-                                    return <Col xs={12} className="mb-4">
+                                    return <Col xs={12} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -276,7 +271,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     {
                                         title: 'Email', name: "email"
                                     }].map((el, ind) => {
-                                        return <Col xs={4} className="mb-4">
+                                        return <Col xs={4} className="mb-4" key={ind}>
                                             <InputTitle>{el.title}</InputTitle>
                                             <div style={{ borderColor: '1px solid red' }}>
                                                 <BlockInputs
@@ -301,7 +296,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         title: 'DL expiration data', name: "dl_expire_date"
                                     }
                                 ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4">
+                                    return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -339,7 +334,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     title: 'Service fee', name: "serviceFee"
                                 },
                                 ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4">
+                                    return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
@@ -379,7 +374,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             {
                                                 title: 'Tax', name: "tax"
                                             }].map((el, ind) => {
-                                                return <Col xs={6} className="mb-4">
+                                                return <Col xs={6} className="mb-4" key={ind}>
                                                     <InputTitle>{el.title}</InputTitle>
                                                     <div style={{ borderColor: '1px solid red' }}>
                                                         <BlockInputs
@@ -406,6 +401,73 @@ function EventsView({ isMobile, data, getEvent, match }) {
                             </Row>
 
                             <Row>
+                                {/* <Col xs={12} className='text-right pr-0 mb-2'>
+                                    <Button variant='success' className='pl-4 pr-4 pt-1 pb-1'>+</Button>
+                                </Col> */}
+                                <Col xs={12} style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
+                                    <TableRow gridCount={'22% 18.4% 18.4% 18.4% 18%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
+                                        {['Payment type', 'type', 'Date', 'Amount', ''].map(
+                                            tit => <TableCol key={tit}>{tit}</TableCol>)}
+                                    </TableRow>
+                                    <hr style={{ margin: '0px' }} />
+                                    {[
+                                        { payment_type: 'Deposit', type: 'cash', date: '10/20/21', amount: '1200' },
+                                        { payment_type: 'Payment', type: 'check', date: '11/10/22', amount: '3200' }
+                                    ].map(el => {
+                                        return <TableRow gridCount={'22% 18.4% 18.4% 17% 18%'} key={Math.random()} className='pl-4'>
+                                            <TableCol>{el.payment_type}</TableCol>
+                                            <TableCol>{el.type}</TableCol>
+                                            <TableCol>{el.date}</TableCol>
+                                            <TableCol >{el.amount}</TableCol>
+                                            <TableCol >
+                                                {/* <div className={style.dropdown}>
+                                                    <span className={style.dropbtn}>
+                                                        Actions
+                                                        <BsChevronDown size={14} className='ml-3' />
+                                                    </span>
+                                                    <div className={style.dropdownContent}>
+                                                        <span>Edit</span>
+                                                        <span>Delete</span>
+                                                    </div>
+                                                </div> */}
+                                            </TableCol>
+                                        </TableRow>
+                                    })}
+                                    {/* <TableRow
+                                        gridCount='22% 18.4% 18.4% 17% 18%'
+                                        className='pl-4'
+                                        style={{ boxShadow: '0 0 5px grey', borderRadius: '5px' }}>
+                                        <TableCol style={{position:'relative'}}>
+                                            <SelectComponent
+                                                value='Payment'
+                                                options={[
+                                                    { value: "deposit", title: "deposit" },
+                                                    { value: "payment", title: "payment" },
+                                                ]}
+                                                setValues={()=>{}}
+                                                name="payment_type"
+                                            />
+                                        </TableCol>
+                                        <TableCol style={{position:'relative'}}>
+                                            <SelectComponent
+                                                value='type'
+                                                options={[
+                                                    { value: "cash", title: "cash" },
+                                                    { value: "check", title: "check" },
+                                                ]}
+                                                setValues={()=>{}}
+                                                name="payment_type"
+                                            />
+                                        </TableCol>
+                                        <TableCol>date</TableCol>
+                                        <TableCol >amount</TableCol>
+                                        <TableCol >
+                                            < Button variant='success' className='pl-2 pr-2 pt-1 pb-1'>save</Button>
+                                        </TableCol>
+                                    </TableRow> */}
+                                </Col>
+                            </Row>
+                            {/* <Row>
                                 <Col xs={6} className="mb-4">
                                     <InputTitle>Deposit</InputTitle>
                                     <div style={{ borderColor: '1px solid red' }}>
@@ -424,7 +486,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         value={state.payment_tes}
                                     />
                                 </Col>
-                            </Row>
+                            </Row> */}
 
 
                         </Container>
@@ -436,6 +498,19 @@ function EventsView({ isMobile, data, getEvent, match }) {
                 <div className="pt-3 text-left">
                     <FixedBlock>
                         <Container>
+                            <Row>
+                                <div className="text-right m-2"
+                                    style={{
+                                        color: '#51545D',
+                                        fontFamily: 'Poppins',
+                                        fontWeight: '500',
+                                        fontSize: '1rem',
+                                    }}
+                                ><span
+                                    style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
+                                        Export pdf
+                                    </span></div>
+                            </Row>
                             <Row>
                                 <Col xs={12}>
                                     <RadioGro
@@ -1113,7 +1188,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(EventsView);
 //                                             fontWeight: '500',
 //                                             fontSize: '1.15rem'
 //                                         }}
-//                                     >$ 
+//                                     >$
 //                                     {/* {parseInt(state.payment - state.deposit)} */}
 //                                     {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))}
 //                                     </div>

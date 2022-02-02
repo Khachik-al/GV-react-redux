@@ -171,14 +171,17 @@
 
 import React, { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { BsFillPlusSquareFill, BsFillDashSquareFill } from "react-icons/bs";
+import { BsFillPlusSquareFill, BsFillDashSquareFill, BsChevronDown } from "react-icons/bs";
 import FormControl from '@material-ui/core/FormControl';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { span, InputTitle } from '../../../styles/globalStyles';
-import { SpanIcon } from '../styles';
+import { DataPicBlock, SpanIcon } from '../styles';
 import AccordDown from '../../Smart/AccordDown/AccordDown';
+import { TableCol, TableRow } from '../../Table/styles';
+import DatePicker from "react-datepicker";
+import style from '../style.module.css'
 
 function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
     const menues = useSelector((state) => state.SettingsReducer.menues);
@@ -323,8 +326,91 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                 </AccordDown>
                 <hr style={{ height: '0px' }} />
             </Col>
-
-            <Col xs={6} className="mb-4">
+            <Row>
+                <Col xs={12} className='text-right pr-0 mb-2'>
+                    <Button variant='success' className='pl-4 pr-4 pt-1 pb-1'>+</Button>
+                </Col>
+                <Col xs={12} style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
+                    <TableRow gridCount={'24% 18.4% 18.4% 18.4% 18%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
+                        {['Payment type', 'type', 'Date', 'Amount', 'Action'].map(
+                            tit => <TableCol key={tit}>{tit}</TableCol>)}
+                    </TableRow>
+                    <hr style={{ margin: '0px' }} />
+                    {[
+                        { payment_type: 'Deposit', type: 'cash', date: '10/20/21', amount: '1200' },
+                        { payment_type: 'Payment', type: 'check', date: '11/10/22', amount: '3200' }
+                    ].map(el => {
+                        return <TableRow gridCount={'24% 18.4% 18.4% 17% 18%'} key={Math.random()} className='pl-4'>
+                            <TableCol>{el.payment_type}</TableCol>
+                            <TableCol>{el.type}</TableCol>
+                            <TableCol>{el.date}</TableCol>
+                            <TableCol >{el.amount}</TableCol>
+                            <TableCol >
+                                <div className={style.dropdown}>
+                                    <span className={style.dropbtn}>
+                                        Actions
+                                        <BsChevronDown size={14} className='ml-3' />
+                                    </span>
+                                    <div className={style.dropdownContent}>
+                                        <span>Edit</span>
+                                        <span>Delete</span>
+                                    </div>
+                                </div>
+                            </TableCol>
+                        </TableRow>
+                    })}
+                    <TableRow
+                        gridCount='24% 18.4% 18.4% 17% 18%'
+                        className='pl-4'
+                        style={{ boxShadow: '0 0 5px grey', borderRadius: '5px' }}>
+                        <TableCol style={{ position: 'relative' }}>
+                            <SelectComponent
+                                value={state.paymentType || 'Payment type'}
+                                options={[
+                                    { value: "deposit", title: "deposit" },
+                                    { value: "payment", title: "payment" },
+                                ]}
+                                setValues={handleChange}
+                                name="paymentType"
+                            />
+                        </TableCol>
+                        <TableCol style={{ position: 'relative' }}>
+                            <SelectComponent
+                                value={state._type || 'Type'}
+                                options={[
+                                    { value: "cash", title: "cash" },
+                                    { value: "check", title: "check" },
+                                ]}
+                                setValues={handleChange}
+                                name="_type"
+                            />
+                        </TableCol>
+                        <TableCol>
+                            <DataPicBlock>
+                                <DatePicker
+                                    selected={state['payment_date'] || new Date()}
+                                    onChange={(date) =>
+                                        handleChange({ target: { value: date, name: 'payment_date' } })}
+                                    style={{ width: '100%' }}
+                                />
+                            </DataPicBlock>
+                        </TableCol>
+                        <TableCol >
+                            <BlockInputs
+                                onChange={handleChange}
+                                name="payment_amount"
+                                type="text"
+                                placeholder="amount"
+                                value={state.payment_amount}
+                            />
+                        </TableCol>
+                        <TableCol >
+                            < Button variant='success' className='pl-2 pr-2 pt-1 pb-1'>save</Button>
+                        </TableCol>
+                    </TableRow>
+                </Col>
+            </Row>
+            {/* <Col xs={6} className="mb-4">
                 <InputTitle> Deposit <span>*</span></InputTitle>
                 {paintInputs("deposit", requiredError[0], 'Deposit', 'number')}
             </Col>
@@ -340,7 +426,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                     placeholder=""
                     value={state.payment_tes}
                 />
-            </Col>
+            </Col> */}
 
             {/* <Col xs={12} className="mb-4">
                 <InputTitle> Balance due </InputTitle>

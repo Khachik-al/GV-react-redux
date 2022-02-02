@@ -29,7 +29,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
         let cloneReqArray = [...requiredValues];
         let cloneReqCon = [...requiredContract];
 
-        ['name', 'event_date', 'event_start','guests_number']
+        ['name', 'event_date', 'event_start', 'guests_number']
             .map((el, i) => {
                 state[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
             });
@@ -257,7 +257,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
             setState({
                 name: data.name,
                 type_id: `${data.type.name} ${data.type.id}`,
-                created_at: data.created_at,
+                date_created: new Date(data.created_at),
                 event_date: new Date(data.event_date),
                 // event_end: data.event_end.slice(0, 5),
                 event_start: data.event_start.slice(0, 5),
@@ -345,6 +345,21 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                 <div className={isMobile > 900 ? 'pr-3 pl-3 pb-3 pt-3 text-left' : 'pt-3 text-left'}>
                     <FixedBlock>
                         <Container>
+                            <Row>
+                                <div className="text-right m-2"
+                                    style={{
+                                        color: '#51545D',
+                                        fontFamily: 'Poppins',
+                                        fontWeight: '500',
+                                        fontSize: '1rem',
+                                    }}
+                                >
+                                    <span
+                                        style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
+                                        Export pdf
+                                    </span>
+                                </div>
+                            </Row>
                             <Row className="pt-2">
                                 <Col xs={12} className="mb-4">
                                     <RadioGro
