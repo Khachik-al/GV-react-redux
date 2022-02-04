@@ -155,20 +155,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BsFillPlusSquareFill, BsFillDashSquareFill, BsChevronDown } from "react-icons/bs";
@@ -186,7 +172,18 @@ import style from '../style.module.css'
 function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
     const menues = useSelector((state) => state.SettingsReducer.menues);
     const [accordIsOpen, setAccordIsOpen] = useState(false);
-
+    const [addPaymentView, setAddPaymentView] = useState(false);
+    const [addPayment, setAddPayment] = useState([]);
+    const [addDeposit, setAddDeposit] = useState([]);
+    const [addPaymentInputs, setAddPaymentInputs] = useState(
+        {
+            type: '',
+            date: '',
+            amount: ''
+        }
+    );
+    console.log(addDeposit);
+    console.log(addPaymentInputs);
     const paintInputs = useCallback((name, requiredValue, title, type) => {
         return <BlockInputs title={title}
             disabled={editSet}
@@ -289,11 +286,6 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                             }}
                         >Total: {state["payment"]}</div></Col>} */}
 
-
-
-
-
-
                         {/* <Col xs={6} className="pt-2"> <FormControl fullWidth className="mt-2 mb-3">
                             <InputTitle> Service fee </InputTitle>
                             <SelectComponent
@@ -326,27 +318,90 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                 </AccordDown>
                 <hr style={{ height: '0px' }} />
             </Col>
-            <Row>
+            <Row >
                 <Col xs={12} className='text-right pr-0 mb-2'>
-                    <Button variant='success' className='pl-4 pr-4 pt-1 pb-1'>+</Button>
+                    <Button onClick={() => setAddPaymentView(true)} variant='primary' className='pl-4 pr-4 pt-1 pb-1' disabled={!addDeposit.length}>Add Payment</Button>
                 </Col>
-                <Col xs={12} style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
-                    <TableRow gridCount={'24% 18.4% 18.4% 18.4% 18%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
+                <Col xs={12} >
+                    <TableRow gridCount={'20% 20% 20% 20% 18%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
                         {['Payment type', 'type', 'Date', 'Amount', 'Action'].map(
-                            tit => <TableCol key={tit}>{tit}</TableCol>)}
+                            tit => <TableCol color='#469CF0' key={tit}>{tit}</TableCol>)}
                     </TableRow>
-                    <hr style={{ margin: '0px' }} />
-                    {[
-                        { payment_type: 'Deposit', type: 'cash', date: '10/20/21', amount: '1200' },
-                        { payment_type: 'Payment', type: 'check', date: '11/10/22', amount: '3200' }
-                    ].map(el => {
-                        return <TableRow gridCount={'24% 18.4% 18.4% 17% 18%'} key={Math.random()} className='pl-4'>
-                            <TableCol>{el.payment_type}</TableCol>
+                    {addDeposit.length ? addDeposit.map(el => {
+                        return <TableRow gridCount={'20% 20% 20% 20% 18%'} key={Math.random()} className='pl-4'>
+                            <TableCol>Deposit</TableCol>
                             <TableCol>{el.type}</TableCol>
-                            <TableCol>{el.date}</TableCol>
+                            <TableCol>{new Date(el.date).toISOString().split('T')[0]}</TableCol>
                             <TableCol >{el.amount}</TableCol>
                             <TableCol >
-                                <div className={style.dropdown}>
+                                <span className={style.dropdown}>
+                                    <span className={style.dropbtn}>
+                                        Actions
+                                        <BsChevronDown size={14} className='ml-3' />
+                                    </span>
+                                    <div className={style.dropdownContent}>
+                                        <span>Edit</span>
+                                    </div>
+                                </span>
+                            </TableCol>
+                        </TableRow>
+                    }) :
+                        <TableRow
+                            gridCount='20% 20% 20% 20% 18%'
+                            className='pl-4'
+                        >
+                            <TableCol style={{ position: 'relative' }}>
+                                Deposit
+                            </TableCol>
+                            <TableCol style={{ position: 'relative' }}>
+                                <SelectComponent
+                                    value={addPaymentInputs.type || 'Type'}
+                                    options={[
+                                        { value: "cash", title: "cash" },
+                                        { value: "check", title: "check" },
+                                    ]}
+                                    setValues={({ target }) => { setAddPaymentInputs({ ...addPaymentInputs, type: target.value }) }}
+                                    name="type"
+                                />
+                            </TableCol>
+                            <TableCol>
+                                <DataPicBlock style={{ position: 'relative' }}>
+                                    <DatePicker
+                                        selected={addPaymentInputs['date'] || new Date()}
+                                        onChange={(date) =>
+                                            setAddPaymentInputs({ ...addPaymentInputs, date })}
+                                        style={{ width: '100%' }}
+                                    />
+                                </DataPicBlock>
+                            </TableCol>
+                            <TableCol >
+                                <BlockInputs
+                                    onChange={({ target }) => { setAddPaymentInputs({ ...addPaymentInputs, amount: target.value }) }}
+                                    name="amount"
+                                    type="number"
+                                    placeholder="amount"
+                                    value={addPaymentInputs.amount}
+                                />
+                            </TableCol>
+                            <TableCol className='pl-4'>
+                                < Button
+                                    onClick={() => {
+                                        if (addPaymentInputs.type && addPaymentInputs.date && addPaymentInputs.amount) {
+                                            setAddDeposit([{ ...addPaymentInputs }])
+                                            setAddPaymentInputs({ type: '', date: '', amount: '' })
+                                        }
+                                    }}
+                                    variant='primary' className='pl-2 pr-2 pt-1 pb-1'>save</Button>
+                            </TableCol>
+                        </TableRow>}
+                    {addPayment.map(el => {
+                        return <TableRow gridCount={'20% 20% 20% 20% 18%'} key={Math.random()} className='pl-4'>
+                            <TableCol>Payment</TableCol>
+                            <TableCol>{el.type}</TableCol>
+                            <TableCol>{new Date(el.date).toISOString().split('T')[0]}</TableCol>
+                            <TableCol >{el.amount}</TableCol>
+                            <TableCol >
+                                <span className={style.dropdown}>
                                     <span className={style.dropbtn}>
                                         Actions
                                         <BsChevronDown size={14} className='ml-3' />
@@ -355,59 +410,65 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
                                         <span>Edit</span>
                                         <span>Delete</span>
                                     </div>
-                                </div>
+                                </span>
                             </TableCol>
                         </TableRow>
                     })}
-                    <TableRow
-                        gridCount='24% 18.4% 18.4% 17% 18%'
+                    {addPaymentView && <TableRow
+                        gridCount='20% 20% 20% 20% 18%'
                         className='pl-4'
-                        style={{ boxShadow: '0 0 5px grey', borderRadius: '5px' }}>
+                    >
                         <TableCol style={{ position: 'relative' }}>
-                            <SelectComponent
-                                value={state.paymentType || 'Payment type'}
-                                options={[
-                                    { value: "deposit", title: "deposit" },
-                                    { value: "payment", title: "payment" },
-                                ]}
-                                setValues={handleChange}
-                                name="paymentType"
-                            />
+                            Payment
                         </TableCol>
                         <TableCol style={{ position: 'relative' }}>
                             <SelectComponent
-                                value={state._type || 'Type'}
+                                value={addPaymentInputs.type || 'Type'}
                                 options={[
                                     { value: "cash", title: "cash" },
                                     { value: "check", title: "check" },
                                 ]}
-                                setValues={handleChange}
-                                name="_type"
+                                setValues={({ target }) => { setAddPaymentInputs({ ...addPaymentInputs, type: target.value }) }}
+                                name="type"
                             />
                         </TableCol>
                         <TableCol>
-                            <DataPicBlock>
+                            <DataPicBlock style={{ position: 'relative' }}>
                                 <DatePicker
-                                    selected={state['payment_date'] || new Date()}
+                                    selected={addPaymentInputs['date'] || new Date()}
                                     onChange={(date) =>
-                                        handleChange({ target: { value: date, name: 'payment_date' } })}
+                                        setAddPaymentInputs({ ...addPaymentInputs, date })}
                                     style={{ width: '100%' }}
                                 />
                             </DataPicBlock>
                         </TableCol>
                         <TableCol >
                             <BlockInputs
-                                onChange={handleChange}
-                                name="payment_amount"
+                                onChange={({ target }) => { setAddPaymentInputs({ ...addPaymentInputs, amount: target.value }) }}
+                                name="amount"
                                 type="text"
                                 placeholder="amount"
-                                value={state.payment_amount}
+                                value={addPaymentInputs.amount}
                             />
                         </TableCol>
-                        <TableCol >
-                            < Button variant='success' className='pl-2 pr-2 pt-1 pb-1'>save</Button>
+                        <TableCol className='pl-2'>
+                            < Button
+                                onClick={() => {
+                                    if (addPaymentInputs.type && addPaymentInputs.amount) {
+                                        setAddPayment([...addPayment, addPaymentInputs]);
+                                        setAddPaymentInputs({ type: '', date: '', amount: '' });
+                                        setAddPaymentView(false)
+                                    }
+                                }}
+                                variant='primary' className='pl-2 pr-2 pt-1 pb-1 mr-3'>save</Button>
+                            < Button
+                                onClick={() => {
+                                    setAddPaymentInputs({ type: '', date: '', amount: '' })
+                                    setAddPaymentView(false)
+                                }}
+                                variant='secondary' className='pl-2 pr-2 pt-1 pb-1'>x</Button>
                         </TableCol>
-                    </TableRow>
+                    </TableRow>}
                 </Col>
             </Row>
             {/* <Col xs={6} className="mb-4">
@@ -444,7 +505,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow }) {
             </Col> */}
         </Row>
 
-        {!totalShow && <> <Row className="mb-2">
+        {!totalShow && <> <Row className="mb-2 mt-3">
             <Col xs={6}> <div className="text-left"
                 style={{
                     marginTop: '5px',

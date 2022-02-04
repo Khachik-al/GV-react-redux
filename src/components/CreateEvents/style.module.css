@@ -14,7 +14,7 @@
 
 .dropdownContent {
   display: none;
-  right: 0;
+  left: 0;
   padding: 7px;
   position: absolute;
   background-color: #f9f9f9;
@@ -47,4 +47,7 @@
 .dropdown:hover .dropbtn {
   background-color: #EEF6FC;
   color: #029CF4;
+}
+.dropdown{
+  position: relative;
 }

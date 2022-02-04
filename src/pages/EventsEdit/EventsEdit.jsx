@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
+import { BsFileEarmarkPdfFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import { connect, useDispatch } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -346,19 +347,21 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                     <FixedBlock>
                         <Container>
                             <Row>
-                                <div className="text-right m-2"
-                                    style={{
-                                        color: '#51545D',
-                                        fontFamily: 'Poppins',
-                                        fontWeight: '500',
-                                        fontSize: '1rem',
-                                    }}
-                                >
-                                    <span
-                                        style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
-                                        Export pdf
-                                    </span>
-                                </div>
+                                <Col xs={12}>
+                                    <div className="text-right"
+                                        style={{
+                                            color: 'white',
+                                            fontFamily: 'Poppins',
+                                            fontWeight: '500',
+                                            fontSize: '12px',
+
+                                        }}
+                                    >
+                                        <span
+                                            style={{ padding: '5px 10px', borderRadius: '5px', fontWeight: 600, background: '#009EF7', cursor: 'pointer' }}>
+                                            Export <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
+                                        </span>
+                                    </div></Col>
                             </Row>
                             <Row className="pt-2">
                                 <Col xs={12} className="mb-4">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BsFillPlusSquareFill, BsFillDashSquareFill, BsChevronDown } from "react-icons/bs";
+import { BsFillPlusSquareFill, BsFillDashSquareFill, BsFileEarmarkPdfFill } from "react-icons/bs";
 import { connect, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -29,34 +29,10 @@ function EventsView({ isMobile, data, getEvent, match }) {
             })
         }
     }, []);
-
+    
     useEffect(() => {
         if (data) {
-
-            // let newState = {
-            //     name: data.name,
-            //     type_id: `${data.type.name} ${data.type.id}`,
-            //     created_at: data.created_at,
-            //     event_date: new Date(data.event_date).toISOString().slice(0, 10),
-            //     event_end: data.event_end,
-            //     event_start: data.event_start,
-            //     guests_number: data.guests_number,
-            //     id: data.id,
-            //     updated_at: data.updated_at,
-            //     notes: data.notes,
-            //     menu_id: `${data.contract.menu.name}&&&&&${data.contract.menu.id}`,
-            //     customer_id: data.customer.id,
-            //     cost_per_guest: data.contract.cost_per_guest,
-            //     deposit: data.contract.deposit,
-            //     payment: data.contract.payment,
-            //     balance_due: data.contract.balance_due,
-            //     payment_type: data.contract.payment_type,
-            //     status_id: `${data.status.id}`
-            // }
-
             let total = Number(data.guests_number) * Number(data.contract.cost_per_guest);
-
-
             let newDate = {
                 name: data.name,
                 type_id: `${data.type.name} ${data.type.id}`,
@@ -401,70 +377,25 @@ function EventsView({ isMobile, data, getEvent, match }) {
                             </Row>
 
                             <Row>
-                                {/* <Col xs={12} className='text-right pr-0 mb-2'>
-                                    <Button variant='success' className='pl-4 pr-4 pt-1 pb-1'>+</Button>
-                                </Col> */}
-                                <Col xs={12} style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
-                                    <TableRow gridCount={'22% 18.4% 18.4% 18.4% 18%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
+                                <Col xs={12}
+                                // style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}
+                                >
+                                    <TableRow gridCount={'25% 25% 25% 25%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
                                         {['Payment type', 'type', 'Date', 'Amount', ''].map(
-                                            tit => <TableCol key={tit}>{tit}</TableCol>)}
+                                            tit => <TableCol color='#469CF0' key={tit}>{tit}</TableCol>)}
                                     </TableRow>
-                                    <hr style={{ margin: '0px' }} />
+                                    {/* <hr style={{ margin: '0px' }} /> */}
                                     {[
                                         { payment_type: 'Deposit', type: 'cash', date: '10/20/21', amount: '1200' },
                                         { payment_type: 'Payment', type: 'check', date: '11/10/22', amount: '3200' }
                                     ].map(el => {
-                                        return <TableRow gridCount={'22% 18.4% 18.4% 17% 18%'} key={Math.random()} className='pl-4'>
+                                        return <TableRow gridCount='25% 25% 25% 25%' key={Math.random()} className='pl-4'>
                                             <TableCol>{el.payment_type}</TableCol>
                                             <TableCol>{el.type}</TableCol>
                                             <TableCol>{el.date}</TableCol>
                                             <TableCol >{el.amount}</TableCol>
-                                            <TableCol >
-                                                {/* <div className={style.dropdown}>
-                                                    <span className={style.dropbtn}>
-                                                        Actions
-                                                        <BsChevronDown size={14} className='ml-3' />
-                                                    </span>
-                                                    <div className={style.dropdownContent}>
-                                                        <span>Edit</span>
-                                                        <span>Delete</span>
-                                                    </div>
-                                                </div> */}
-                                            </TableCol>
                                         </TableRow>
                                     })}
-                                    {/* <TableRow
-                                        gridCount='22% 18.4% 18.4% 17% 18%'
-                                        className='pl-4'
-                                        style={{ boxShadow: '0 0 5px grey', borderRadius: '5px' }}>
-                                        <TableCol style={{position:'relative'}}>
-                                            <SelectComponent
-                                                value='Payment'
-                                                options={[
-                                                    { value: "deposit", title: "deposit" },
-                                                    { value: "payment", title: "payment" },
-                                                ]}
-                                                setValues={()=>{}}
-                                                name="payment_type"
-                                            />
-                                        </TableCol>
-                                        <TableCol style={{position:'relative'}}>
-                                            <SelectComponent
-                                                value='type'
-                                                options={[
-                                                    { value: "cash", title: "cash" },
-                                                    { value: "check", title: "check" },
-                                                ]}
-                                                setValues={()=>{}}
-                                                name="payment_type"
-                                            />
-                                        </TableCol>
-                                        <TableCol>date</TableCol>
-                                        <TableCol >amount</TableCol>
-                                        <TableCol >
-                                            < Button variant='success' className='pl-2 pr-2 pt-1 pb-1'>save</Button>
-                                        </TableCol>
-                                    </TableRow> */}
                                 </Col>
                             </Row>
                             {/* <Row>
@@ -499,17 +430,22 @@ function EventsView({ isMobile, data, getEvent, match }) {
                     <FixedBlock>
                         <Container>
                             <Row>
-                                <div className="text-right m-2"
-                                    style={{
-                                        color: '#51545D',
-                                        fontFamily: 'Poppins',
-                                        fontWeight: '500',
-                                        fontSize: '1rem',
-                                    }}
-                                ><span
-                                    style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}>
-                                        Export pdf
-                                    </span></div>
+                                <Col xs={12}>
+                                    <div className="text-right m-2"
+                                        style={{
+                                            color: 'white',
+                                            fontFamily: 'Poppins',
+                                            fontWeight: '500',
+                                            fontSize: '12px',
+
+                                        }}
+                                    >
+                                        <span
+                                            style={{ padding: '5px 10px', borderRadius: '5px', fontWeight: 600, background: '#009EF7', cursor: 'pointer' }}>
+                                            Export <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
+                                        </span>
+                                    </div></Col>
+
                             </Row>
                             <Row>
                                 <Col xs={12}>
