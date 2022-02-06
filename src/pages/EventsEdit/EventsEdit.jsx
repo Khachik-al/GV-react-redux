@@ -234,8 +234,8 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     }, []);/* eslint-disable-line */
 
     useEffect(() => {
-        if (data) {
-            let total = Number(data.guests_number) * Number(data.contract.cost_per_guest);
+        if (data && data.contract) {
+            let total = Number(data.guests_number) * Number(data.contract?.cost_per_guest);
 
             let newDate = {
                 menu_id: `${data.contract.menu.name}&&&&&${data.contract.menu.id}`,

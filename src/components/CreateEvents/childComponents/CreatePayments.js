@@ -14,7 +14,7 @@ const Payments = ({ state, addPayment, paymentRemove, paymentChange }) => {
                     onClick={() => addPayment({
                         "payment_type": "",
                         "payment_name": "payment",
-                        "amount": 0,
+                        "amount": '',
                         "payment_date": new Date()
                     })}
                     variant='primary'

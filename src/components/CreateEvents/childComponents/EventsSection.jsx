@@ -13,7 +13,9 @@ import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { DataPicBlock } from '../styles';
 import { InputTitle } from '../../../styles/globalStyles';
-
+const today = new Date();
+const dayAfterTomorrow = new Date(today);
+dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
 function EventsSection({ state, handleChange, requiredError, isMobile, contractState }) {
 
     const paintInputs = useCallback((name, requiredValue, placeholder = "",
@@ -51,7 +53,7 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                         onChange={(date) =>
                             handleChange({ target: { value: date, name: 'event_date' } })}
                         style={{ width: '100%' }}
-                        minDate={new Date()}
+                        minDate={dayAfterTomorrow}
                     />
                     {requiredError[1] && <div className="fs-7 text-danger mt-2">Event date is required</div>}
                 </DataPicBlock>
@@ -95,7 +97,7 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
             </Col>
 
             <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
-                <InputTitle> Date </InputTitle>
+                <InputTitle> Create Date </InputTitle>
                 <DataPicBlock>
                     <DatePicker
                         selected={state['date_created']}

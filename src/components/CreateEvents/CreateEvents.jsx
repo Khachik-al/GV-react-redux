@@ -18,7 +18,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     const dispatch = useDispatch();
     const createCustomerLoad = useSelector((state) => state.EventsReducer.pending_create_customer);
     const createEventLoad = useSelector((state) => state.EventsReducer.pending_create);
-    const [activeSection, setActiveSection] = useState(2);
+    const [activeSection, setActiveSection] = useState(0);
     const [requiredEvents, setRequiredEvents] = useState([false, false, false, false]);
     const [eventsState, setEventsState] = useState({
         name: '',
@@ -63,7 +63,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
             {
                 "payment_type": "",
                 "payment_name": "deposit",
-                "amount": 0,
+                "amount": '',
                 "payment_date": new Date().toISOString().slice(0, 10)
             }
         ]

@@ -140,7 +140,7 @@ const EditPayments = ({ state, match }) => {
                                 <BlockInputs
                                     onChange={({ target }) => handleChange(i, 'amount', target.value)}
                                     name="amount"
-                                    type="text"
+                                    type="number"
                                     placeholder="amount"
                                     value={el.amount}
                                 />

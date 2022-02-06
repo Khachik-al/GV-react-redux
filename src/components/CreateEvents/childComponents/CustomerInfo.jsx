@@ -5,7 +5,8 @@ import Modal from '../../Smart/Modal/Modal';
 import { DataPicBlock } from '../styles';
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import { span, InputTitle } from '../../../styles/globalStyles';
-
+let tomorrow = new Date()
+tomorrow.setDate(tomorrow.getDate()+1);
 function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalActive, closeModal, getButtEditMod, createActive }) {
 
     const paintInputs = useCallback((name, requiredValue, title, type, placeholder) => {
@@ -68,7 +69,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
                                 onChange={(date) =>
                                     handleChange({ target: { value: date, name: 'dl_expire_date' } })}
                                 style={{ width: '100%' }}
-                                minDate={new Date()}
+                                minDate={tomorrow}
                                 popperPlacement="top-start"
                             />
                             {requiredError[5] && <div className="fs-7 text-danger mt-2">Date Is required</div>}

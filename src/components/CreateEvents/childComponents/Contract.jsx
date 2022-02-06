@@ -75,7 +75,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
         </Row>
 
         <Row>
-            {menues && <Col xs={6} className="mb-3">
+            {/* {menues && <Col xs={6} className="mb-3">
                 <FormControl fullWidth className="mb-3">
                     <InputTitle className="mt-3"> Payment type <span>*</span></InputTitle>
                     <SelectComponent
@@ -88,7 +88,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                         title="Payment type"
                     />
                 </FormControl>
-            </Col>}
+            </Col>} */}
 
             <Col xs={6} className="pt-2"> <FormControl fullWidth className="mt-2 mb-3">
                 <InputTitle> Service fee </InputTitle>

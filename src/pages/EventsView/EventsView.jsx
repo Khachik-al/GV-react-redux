@@ -547,7 +547,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ {parseInt(state.payment_tes ? state.payment_tes : 0)}</div>
+                                    >$ {totalPayment()}</div>
                                 </Col>
                             </Row>
 
@@ -572,7 +572,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         }}
                                     >$
                                         {/* {parseInt(state.payment - state.deposit)} */}
-                                        {data.payments?.length && parseInt(data.payment - (Number(data.payments[0].amount) + Number(totalPayment())))}
+                                        {data?.payments?.length && parseInt(state.payment - (Number(data.payments[0].amount) + Number(totalPayment())))}
                                         {/* {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))} */}
                                     </div>
                                 </Col>
@@ -598,7 +598,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ {totalPayment()} </div>
+                                    >$ {state["payment"] ? parseInt(state["payment"]) : '0'} </div>
                                 </Col>
                             </Row>
 
