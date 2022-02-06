@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import debounce from 'lodash.debounce';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Pagination from '@material-ui/core/Pagination';
 import { ActionsBlock, CreateBlock } from './styles';
 import { Main, MainContent, PaginationMain } from '../../styles/globalStyles';
@@ -106,7 +106,7 @@ function Staff({ getUsers, deleteUsers, users, count, addUser, editUser, showToa
                     <Link to={`/staff/${list.id}`}>View</Link>
                 </div>}
         </div>
-    }, [onEdit, appState.userType, users, page, count, searchVal, pageSizes]);
+    }, [onEdit, appState.userType, users, page, count, searchVal, pageSizes]);/* eslint-disable-line */
 
     const changePage = (event, page) => {
         getUsers(page, pageSizes, searchVal);
@@ -189,12 +189,12 @@ function Staff({ getUsers, deleteUsers, users, count, addUser, editUser, showToa
                 </button>
             </Col>
         </Row>
-    }, [validations]);
+    }, [validations, resetPassword.id]);/* eslint-disable-line */
 
 
     useEffect(() => {
         getUsers(1, 10);
-    }, []);
+    }, []);/* eslint-disable-line */
 
     return users && <Main className="pb-4 pt-4">
         <MainContent className={!(appState.screenSize < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
@@ -215,7 +215,7 @@ function Staff({ getUsers, deleteUsers, users, count, addUser, editUser, showToa
             /> : <div className="p-5 text-center">No results were found for your search.</div>}
 
             {count > pageSizes && <PaginationMain>
-                <div style={{ position: 'relative', width: '60px'}}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
+                <div style={{ position: 'relative', width: '60px' }}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
                 <Pagination count={Math.ceil(count / pageSizes)} color="primary" page={page} onChange={changePage} size={appState.screenSize < 450 ? "small" : ""} />
             </PaginationMain>}
         </MainContent>

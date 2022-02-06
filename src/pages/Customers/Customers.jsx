@@ -166,7 +166,7 @@ function Customers({ getUsers,
                                 errorMessage: 'Log Out'
                             })
                         }
-        
+
                         if (err.response.status === 422) {
                             dispatch({
                                 type: 'TOAST_MESSAGE',
@@ -175,7 +175,7 @@ function Customers({ getUsers,
                             })
                         }
                     }
-        
+
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
@@ -229,7 +229,7 @@ function Customers({ getUsers,
                                 errorMessage: 'Log Out'
                             })
                         }
-        
+
                         if (err.response.status === 422) {
                             dispatch({
                                 type: 'TOAST_MESSAGE',
@@ -238,7 +238,7 @@ function Customers({ getUsers,
                             })
                         }
                     }
-        
+
                     dispatch({
                         type: 'TOAST_MESSAGE',
                         successMessage: null,
@@ -330,7 +330,7 @@ function Customers({ getUsers,
 
     useEffect(() => {
         getUsers(1, 10);
-    }, []);
+    }, []);/* eslint-disable-line */
 
     return users && <Main className="pb-4 pt-4">
         <MainContent className={!(appState.screenSize < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
@@ -356,7 +356,7 @@ function Customers({ getUsers,
             /> : <div className="p-5 text-center">No results.</div>}
 
             {users.length > pageSizes && <PaginationMain>
-                <div style={{ position: 'relative', width: '60px'}}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
+                <div style={{ position: 'relative', width: '60px' }}><SelectOfPagination value={pageSizes} setValues={setPageSizes} /></div>
                 <Pagination count={Math.ceil(users.length / pageSizes)} color="primary" page={page} onChange={changePage} size={appState.screenSize < 450 ? "small" : ""} />
             </PaginationMain>}
         </MainContent>

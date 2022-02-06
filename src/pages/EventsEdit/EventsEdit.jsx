@@ -26,15 +26,25 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     const [modalActive, closeModal] = useState(false);
     const [loadStart, setLoadStart] = useState(false);
 
+    const totalPayment = () => {
+        if (!contractState.payments) return
+        let a = 0;
+        contractState.payments.forEach((el, i) => {
+            if (i !== 0) {
+                a += el.amount
+            }
+        })
+        return a
+    }
     const onUpdate = useCallback(() => {
         let cloneReqArray = [...requiredValues];
         let cloneReqCon = [...requiredContract];
 
         ['name', 'event_date', 'event_start', 'guests_number']
-            .map((el, i) => {
+            .forEach((el, i) => {
                 state[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
             });
-        ['deposit', 'menu_id', 'cost_per_guest', 'payment_type'].map((el, i) => {
+        ['deposit', 'menu_id', 'cost_per_guest', 'payment_type'].forEach((el, i) => {
             contractState[el] ? cloneReqCon[i] = false : cloneReqCon[i] = true;
         });
         if (cloneReqArray.includes(true) || cloneReqCon.includes(true)) {
@@ -81,7 +91,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
             setRequiredContract([false, false, false, false]);
         }
 
-    }, [state, contractState]);
+    }, [state, contractState, editEvent, match.params.id, requiredContract, requiredValues]);
 
     const closeEditCust = useCallback(() => {
         closeModal(false);
@@ -101,22 +111,24 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     const getButtEditMod = useCallback(() => {
         return <Row>
             <Col xs={12} className="text-right">
-                <button type="button"
+                <button
+                    type="button"
                     onClick={closeEditCust}
-                    className="btn btn-light me-3" data-kt-stepper-action="previous">
-                    Cancel</button>
+                    className="btn btn-light me-3"
+                    data-kt-stepper-action="previous"
+                >
+                    Cancel
+                </button>
 
-                <button type="button" className="btn btn-primary"
+                <button
+                    type="button"
+                    className="btn btn-primary"
                     data-kt-stepper-action="next"
                     onClick={() => {
-
                         let cloneReqArray = [...requiredCustomerValues];
-                        ['fullName', 'address', 'phone_number', 'email',
-                            'dl_number', 'dl_expire_date'].map((el, i) => {
-                                customerState[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
-                            });
-
-
+                        ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
+                            customerState[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
+                        });
                         if (cloneReqArray.includes(true)) {
                             setRequiredCustomerValues(cloneReqArray);
                         } else {
@@ -139,14 +151,14 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                 </button>
             </Col>
         </Row>
-    }, [customerState, requiredCustomerValues]);
+    }, [customerState, requiredCustomerValues, closeEditCust, createCustomer]);
 
 
     const contractHandleChange = useCallback(({ target }) => {
         let newTotal = 0;
 
         ['gratitude', 'lightning', 'security', 'cocktail_hour', 'ceremony', 'tax', 'other'].forEach((el) => {
-            if (el == [target.name]) {
+            if (el == [target.name]) {/* eslint-disable-line */
                 newTotal = newTotal + Number(target.value);
             }
             else {
@@ -155,19 +167,16 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
         });
 
 
-        if (target.name == 'cost_per_guest') {
+        if (target.name == 'cost_per_guest') {/* eslint-disable-line */
             newTotal = newTotal + Number(target.value) * Number(state.guests_number);
         }
         else {
             newTotal = newTotal + contractState.cost_per_guest * Number(state.guests_number);
         }
 
-
-        if (target.name == 'serviceFee') {
-
+        if (target.name == 'serviceFee') {/* eslint-disable-line */
             let proc = Number(target.value.split(" ")[0]);
             newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
-
         } else {
             if (contractState.serviceFee) {
                 let proc = Number(contractState.serviceFee.split(" ")[0]);
@@ -183,7 +192,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
             payment: newTotal
         });
 
-    }, [contractState]);
+    }, [contractState, state]);
 
     const eventsSectHand = ({ target }) => {
         if (target.name === 'guests_number') {
@@ -222,12 +231,10 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                 payload: null
             })
         }
-    }, []);
+    }, []);/* eslint-disable-line */
 
     useEffect(() => {
         if (data) {
-
-
             let total = Number(data.guests_number) * Number(data.contract.cost_per_guest);
 
             let newDate = {
@@ -242,6 +249,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                 payment_type: data.contract.payment_type,
                 updated_at: data.contract.updated_at,
                 serviceFee: data.contract.service_fee ? `${data.contract.service_fee} %` : '',
+                payments: data.payments
             }
 
             if (data.contract.services && data.contract.services.length) {
@@ -290,7 +298,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                 guests_number: data.guests_number,
             });
         }
-    }, [data]);
+    }, [data]);/* eslint-disable-line */
 
 
     return state && <Main className="pb-4">
@@ -305,14 +313,16 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                         </Row>
                     </Container>
 
-                    <EventsSection requiredError={requiredValues} state={state} contractState={contractState}
+                    <EventsSection
+                        requiredError={requiredValues}
+                        state={state}
+                        contractState={contractState}
                         handleChange={eventsSectHand}
-
-
                         // handleChange={({ target }) => {
                         //     setState({ ...state, [target.name]: target.value })
                         // }}
-                        isMobile={isMobile} />
+                        isMobile={isMobile}
+                    />
 
                 </SectionsBlock>
                 <SectionsBlock>
@@ -324,7 +334,10 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                             <Col xs={4} className="text-right"><AiFillEdit className="cursorPointer" size={15} onClick={() => { closeModal(true) }} /></Col>
                         </Row>
                     </Container>
-                    <CustomerInfo requiredError={requiredCustomerValues} state={customerState} disabledAll={true}
+                    <CustomerInfo
+                        requiredError={requiredCustomerValues}
+                        state={customerState}
+                        disabledAll={true}
                         handleChange={({ target }) => { setCustomerState({ ...customerState, [target.name]: target.value }) }}
                         modalActive={modalActive} closeModal={closeEditCust} getButtEditMod={getButtEditMod} createActive={false}
                     />
@@ -338,8 +351,13 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                             </Col>
                         </Row>
                     </Container>
-                    <Contract requiredError={requiredContract} state={contractState}
-                        handleChange={contractHandleChange} totalShow={true} />
+                    <Contract
+                        requiredError={requiredContract}
+                        state={contractState}
+                        handleChange={contractHandleChange}
+                        totalShow={true}
+                        match={match}
+                    />
                 </SectionsBlock>
             </div>
 
@@ -354,7 +372,6 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                             fontFamily: 'Poppins',
                                             fontWeight: '500',
                                             fontSize: '12px',
-
                                         }}
                                     >
                                         <span
@@ -421,7 +438,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ {parseInt(contractState.deposit ? contractState.deposit : 0)}</div>
+                                    >$ {contractState.payments?.length ? parseInt(contractState.payments[0]?.amount) : '0'}</div>
                                 </Col>
 
                                 <Col xs={6}> <div className="text-left"
@@ -442,7 +459,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ {contractState["payment_tes"] ? parseInt(contractState["payment_tes"]) : '0'}</div>
+                                    >$ {totalPayment()}</div>
                                 </Col>
 
 
@@ -464,9 +481,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$
-                                        {/* {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))} */}
-                                        {parseInt(contractState.payment - (Number(contractState.deposit) + Number(contractState.payment_tes)))}</div>
+                                    >$ {contractState.payments?.length && parseInt(contractState.payment - (Number(contractState.payments[0].amount) + Number(totalPayment())))}</div>
                                 </Col>
 
 

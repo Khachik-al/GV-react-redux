@@ -48,7 +48,7 @@ function Dashboard(props) {
                 </Col>
             </Row>
         </>
-    }, [isMobile]);
+    }, []);
 
     const paintTasksSection = useCallback(() => {
         return <Row className="mb-4 pb-3">

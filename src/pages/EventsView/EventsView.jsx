@@ -18,6 +18,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
     const [state, setState] = useState(null);
     const [customerState, setCustomerState] = useState(null);
     const [accordIsOpen, setAccordIsOpen] = useState(false);
+    const [paymentsAccordIsOpen, setPaymentsAccordIsOpen] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -29,9 +30,19 @@ function EventsView({ isMobile, data, getEvent, match }) {
             })
         }
     }, []);
-    
+    const totalPayment = () => {
+        if (!data.payments) return
+        let a = 0;
+        data.payments.forEach((el, i) => {
+            if (i !== 0) {
+                a += el.amount
+            }
+        })
+        return a
+    }
+    console.log(data)
     useEffect(() => {
-        if (data) {
+        if (data && data.contract) {
             let total = Number(data.guests_number) * Number(data.contract.cost_per_guest);
             let newDate = {
                 name: data.name,
@@ -375,29 +386,36 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     <hr style={{ height: '0px' }} />
                                 </Col>
                             </Row>
+                            <Row className="mb-4">
+                                <Col xs={12}>
+                                    <AccordDown onClickAS={() => { setPaymentsAccordIsOpen(!paymentsAccordIsOpen) }}
+                                        title={<h5 className="text-gray-700 fw-bolder cursor-pointer mb-0">
+                                            <SpanIcon className="mr-3"> {paymentsAccordIsOpen ? <BsFillDashSquareFill size={18} /> : <BsFillPlusSquareFill
+                                                size={18} />} </SpanIcon>
+                                            Payments</h5>}>
+                                        <Col xs={12}
+                                        // style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}
+                                        >
+                                            <TableRow gridCount={'25% 25% 25% 25%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
+                                                {['Payment type', 'type', 'Date', 'Amount', ''].map(
+                                                    tit => <TableCol color='#469CF0' key={tit}>{tit}</TableCol>)}
+                                            </TableRow>
+                                            {/* <hr style={{ margin: '0px' }} /> */}
+                                            {data?.payments.map(el => {
+                                                return <TableRow gridCount='25% 25% 25% 25%' key={Math.random()} className='pl-4'>
+                                                    <TableCol>{el.payment_name}</TableCol>
+                                                    <TableCol>{el.payment_type}</TableCol>
+                                                    <TableCol>{el.payment_date}</TableCol>
+                                                    <TableCol >{el.amount}</TableCol>
+                                                </TableRow>
+                                            })}
+                                        </Col>
 
-                            <Row>
-                                <Col xs={12}
-                                // style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}
-                                >
-                                    <TableRow gridCount={'25% 25% 25% 25%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
-                                        {['Payment type', 'type', 'Date', 'Amount', ''].map(
-                                            tit => <TableCol color='#469CF0' key={tit}>{tit}</TableCol>)}
-                                    </TableRow>
-                                    {/* <hr style={{ margin: '0px' }} /> */}
-                                    {[
-                                        { payment_type: 'Deposit', type: 'cash', date: '10/20/21', amount: '1200' },
-                                        { payment_type: 'Payment', type: 'check', date: '11/10/22', amount: '3200' }
-                                    ].map(el => {
-                                        return <TableRow gridCount='25% 25% 25% 25%' key={Math.random()} className='pl-4'>
-                                            <TableCol>{el.payment_type}</TableCol>
-                                            <TableCol>{el.type}</TableCol>
-                                            <TableCol>{el.date}</TableCol>
-                                            <TableCol >{el.amount}</TableCol>
-                                        </TableRow>
-                                    })}
+                                    </AccordDown>
+                                    <hr style={{ height: '0px' }} />
                                 </Col>
                             </Row>
+
                             {/* <Row>
                                 <Col xs={6} className="mb-4">
                                     <InputTitle>Deposit</InputTitle>
@@ -506,7 +524,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ {parseInt(state.deposit)}</div>
+                                    >$ {parseInt(data?.payments[0]?.amount)}</div>
                                 </Col>
                             </Row>
 
@@ -554,7 +572,8 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         }}
                                     >$
                                         {/* {parseInt(state.payment - state.deposit)} */}
-                                        {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))}
+                                        {data.payments?.length && parseInt(data.payment - (Number(data.payments[0].amount) + Number(totalPayment())))}
+                                        {/* {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))} */}
                                     </div>
                                 </Col>
                             </Row>
@@ -579,7 +598,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ {state["payment"] ? parseInt(state["payment"]) : '0'} </div>
+                                    >$ {totalPayment()} </div>
                                 </Col>
                             </Row>
 

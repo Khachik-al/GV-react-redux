@@ -90,6 +90,7 @@ export const getEvent = (id) => {
 
 
 export const createEvent = (body, onClose, setPage) => {
+    console.log(body);
     return async (dispatch) => {
         try {
 

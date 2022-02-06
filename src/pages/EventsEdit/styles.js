@@ -4,7 +4,7 @@ import StyleConstants from '../../styles/StyleConstants';
 export const GridMain = styled.div`
 display: grid;
 grid-template-columns: 80% 18%;
-@media (max-width: 900px) {
+@media (max-width: 1400px) {
   display: block;
 }
 `
@@ -34,7 +34,7 @@ background-color: white;
 width: auto;
 max-width: 300px;
 height: auto;
-@media (max-width: 900px) {
+@media (max-width: 1400px) {
   display: block;
   position: static;
   width: 100%;
