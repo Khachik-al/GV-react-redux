@@ -79,24 +79,24 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                     />
                 </FormControl>
             </Col>
-            <Col xs={isMobile > 600 ? 6 : 12}>
+            {/* <Col xs={isMobile > 600 ? 6 : 12}>
                 <InputTitle>Phone </InputTitle>
                 {paintInputs("phone_number", '', '', 'tel', true)}
-            </Col>
-            <Col xs={isMobile > 600 ? 6 : 12}>
+            </Col> */}
+            {/* <Col xs={isMobile > 600 ? 6 : 12}>
                 <InputTitle> Amount of deposit collected </InputTitle>
                 {paintInputs("deposit", '', '$', 'number', true)}
-            </Col>
-            <Col xs={isMobile > 600 ? 6 : 12}>
+            </Col> */}
+            {/* <Col xs={isMobile > 600 ? 6 : 12}>
                 <InputTitle>Email </InputTitle>
                 {paintInputs("email", '', '', 'email', true)}
-            </Col>
-            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
+            </Col> */}
+            {/* <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
                 <InputTitle>Fax</InputTitle>
                 {paintInputs("fax", '', '', 'number', true)}
-            </Col>
+            </Col> */}
 
-            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
+            {/* <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
                 <InputTitle> Create Date </InputTitle>
                 <DataPicBlock>
                     <DatePicker
@@ -108,16 +108,16 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                         disabled
                         popperPlacement="top-start"
                     />
-                    {/* {requiredError[7] && <div className="fs-7 text-danger mt-2">Date Is required</div>} */}
+                    {requiredError[7] && <div className="fs-7 text-danger mt-2">Date Is required</div>}
                 </DataPicBlock>
-            </Col>
+            </Col> */}
 
-            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
+            <Col xs={isMobile > 600 ? 6 : 12} >
                 <InputTitle> Minimum of # Guests <span>*</span></InputTitle>
                 {paintInputs("guests_number", requiredError[3], "", "number", false, "Guests number")}
             </Col>
             
-            <Col xs={isMobile > 600 ? 6 : 12} className="mt-4">
+            <Col xs={isMobile > 600 ? 6 : 12}>
                 <InputTitle>Number of Guests Expected </InputTitle>
                 {paintInputs("guests_number_expected", false, '', 'number', true)}
             </Col>
