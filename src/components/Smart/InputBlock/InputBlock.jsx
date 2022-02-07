@@ -23,7 +23,7 @@ function BlockInputs({ title,
             min="0"
             // inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number"
             name={name}
-            onKeyDown={type === 'number' ? blockInvalidChar : ''}
+            onKeyDown={type === 'number' ? blockInvalidChar : () => { }}
             placeholder={placeholder}
             onKeyPress={onKeyPress}
             value={value}

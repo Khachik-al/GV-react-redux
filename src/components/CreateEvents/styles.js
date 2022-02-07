@@ -13,7 +13,7 @@ font-size: 14px;
 font-family: ${StyleConstants.FONT_FAMILY};
 font-weight: 600;
 display: flex;
-justify-content: space-between;
+justify-content: flex-end;
 margin-bottom: 10px;
 @media (max-width: 650px) {
   padding: 10px 10px;
