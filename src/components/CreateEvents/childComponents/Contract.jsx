@@ -14,7 +14,7 @@ import EditPayments from './EditPayments';
 function Contract({ state, handleChange, requiredError, editSet, totalShow, match }) {
     const menues = useSelector((state) => state.SettingsReducer.menues);
     const [accordIsOpen, setAccordIsOpen] = useState(false);
-    const [paymentAccordIsOpen, setPaymentAccordIsOpen] = useState(false);
+    // const [paymentAccordIsOpen, setPaymentAccordIsOpen] = useState(false);
 
     const paymentReplace = useCallback((newArr) => {
         handleChange({ target: { name: 'payments', value: newArr } })
@@ -121,7 +121,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                 <hr style={{ height: '0px' }} />
             </Col>
             <Col xs={12} className="mb-3 mt-2">
-                <AccordDown
+                {/* <AccordDown
                     onClickAS={() => { setPaymentAccordIsOpen(!paymentAccordIsOpen) }}
                     // defaultExpanded={requiredError[0] || requiredError[3] ? true : false}
                     title={<h5
@@ -133,12 +133,12 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                                 <BsFillPlusSquareFill size={18} />}
                         </SpanIcon>
                         Payments
-                    </h5>}>
+                    </h5>}> */}
                     {match?.params.id ?
                         <EditPayments payments={state.payments} match={match} paymentReplace={paymentReplace} /> :
                         <CreatePayments payments={state.payments} requiredError={requiredError} paymentReplace={paymentReplace} />
                     }
-                </AccordDown>
+                {/* </AccordDown> */}
                 <hr style={{ height: '0px' }} />
             </Col>
         </Row>

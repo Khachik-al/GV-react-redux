@@ -18,7 +18,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
     const [state, setState] = useState(null);
     const [customerState, setCustomerState] = useState(null);
     const [accordIsOpen, setAccordIsOpen] = useState(false);
-    const [paymentsAccordIsOpen, setPaymentsAccordIsOpen] = useState(false);
+    // const [paymentsAccordIsOpen, setPaymentsAccordIsOpen] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -388,11 +388,11 @@ function EventsView({ isMobile, data, getEvent, match }) {
                             </Row>
                             <Row className="mb-4">
                                 <Col xs={12}>
-                                    <AccordDown onClickAS={() => { setPaymentsAccordIsOpen(!paymentsAccordIsOpen) }}
+                                    {/* <AccordDown onClickAS={() => { setPaymentsAccordIsOpen(!paymentsAccordIsOpen) }}
                                         title={<h5 className="text-gray-700 fw-bolder cursor-pointer mb-0">
                                             <SpanIcon className="mr-3"> {paymentsAccordIsOpen ? <BsFillDashSquareFill size={18} /> : <BsFillPlusSquareFill
                                                 size={18} />} </SpanIcon>
-                                            Payments</h5>}>
+                                            Payments</h5>}> */}
                                         <Col xs={12}
                                         // style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}
                                         >
@@ -411,7 +411,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             })}
                                         </Col>
 
-                                    </AccordDown>
+                                    {/* </AccordDown> */}
                                     <hr style={{ height: '0px' }} />
                                 </Col>
                             </Row>

@@ -11,7 +11,7 @@ function RadioGro({ title, value, name, values, onChange }) {
 
     const getValues = useCallback(() => {
         return values.map((el, i) => {
-            return <Col xs={6}><FormControlLabel value={el.value} control={<Radio />} label={el.label} /></Col>
+            return <Col xs={6} key={i}><FormControlLabel value={el.value} control={<Radio />} label={el.label} /></Col>
         })
     }, [values, value])
 
