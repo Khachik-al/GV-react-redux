@@ -112,14 +112,14 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
                 </DataPicBlock>
             </Col> */}
 
-            <Col xs={isMobile > 600 ? 6 : 12} >
-                <InputTitle> Minimum of # Guests <span>*</span></InputTitle>
-                {paintInputs("guests_number", requiredError[3], "", "number", false, "Guests number")}
-            </Col>
             
             <Col xs={isMobile > 600 ? 6 : 12}>
                 <InputTitle>Number of Guests Expected </InputTitle>
                 {paintInputs("guests_number_expected", false, '', 'number', true)}
+            </Col>
+            <Col xs={isMobile > 600 ? 6 : 12} >
+                <InputTitle> Minimum of # Guests <span>*</span></InputTitle>
+                {paintInputs("guests_number", requiredError[3], "", "number", false, "Guests number")}
             </Col>
 
             {/* <Col xs={4} className="mb-4">
