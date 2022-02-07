@@ -1,16 +1,13 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { BsFillPlusSquareFill, BsFillDashSquareFill, BsChevronDown } from "react-icons/bs";
+import { BsFillPlusSquareFill, BsFillDashSquareFill } from "react-icons/bs";
 import FormControl from '@material-ui/core/FormControl';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { InputTitle } from '../../../styles/globalStyles';
-import { DataPicBlock, SpanIcon } from '../styles';
+import { SpanIcon } from '../styles';
 import AccordDown from '../../Smart/AccordDown/AccordDown';
-import { TableCol, TableRow } from '../../Table/styles';
-import DatePicker from "react-datepicker";
-import style from '../style.module.css'
 import CreatePayments from './CreatePayments';
 import EditPayments from './EditPayments';
 
@@ -19,21 +16,9 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
     const [accordIsOpen, setAccordIsOpen] = useState(false);
     const [paymentAccordIsOpen, setPaymentAccordIsOpen] = useState(false);
 
-
-    const paymentChange = useCallback((index, name, value) => {
-        let newArr = [...state.payments]
-        newArr[index][name] = value
+    const paymentReplace = useCallback((newArr) => {
         handleChange({ target: { name: 'payments', value: newArr } })
-    }, [state?.payments, handleChange])
-    const paymentAdd = useCallback((obj) => {
-        let newArr = [...state.payments, obj]
-        handleChange({ target: { name: 'payments', value: newArr } })
-    }, [state?.payments, handleChange])
-    const paymentRemove = useCallback(() => {
-        let newArr = [...state.payments]
-        newArr.pop()
-        handleChange({ target: { name: 'payments', value: newArr } })
-    }, [state?.payments, handleChange])
+    }, [handleChange])
 
     const paintInputs = useCallback((name, requiredValue, title, type) => {
         return <BlockInputs title={title}
@@ -70,7 +55,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
 
             <Col xs={6} className="mb-3 mt-3">
                 <InputTitle> Cost per guest <span>*</span></InputTitle>
-                {paintInputs("cost_per_guest", requiredError[2], 'Deposit', "number")}
+                {paintInputs("cost_per_guest", requiredError[2], 'Cost_per_guest', "number")}
             </Col>
         </Row>
 
@@ -136,8 +121,12 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                 <hr style={{ height: '0px' }} />
             </Col>
             <Col xs={12} className="mb-3 mt-2">
-                <AccordDown onClickAS={() => { setPaymentAccordIsOpen(!paymentAccordIsOpen) }}
-                    title={<h5 className="text-gray-700 fw-bolder cursor-pointer mb-0">
+                <AccordDown
+                    onClickAS={() => { setPaymentAccordIsOpen(!paymentAccordIsOpen) }}
+                    // defaultExpanded={requiredError[0] || requiredError[3] ? true : false}
+                    title={<h5
+                        className="text-gray-700 fw-bolder cursor-pointer mb-0"
+                    >
                         <SpanIcon className="mr-3">
                             {paymentAccordIsOpen ?
                                 <BsFillDashSquareFill size={18} /> :
@@ -146,8 +135,8 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                         Payments
                     </h5>}>
                     {match?.params.id ?
-                        <EditPayments state={state} match={match} /> :
-                        <CreatePayments state={state} addPayment={paymentAdd} paymentRemove={paymentRemove} paymentChange={paymentChange} />
+                        <EditPayments payments={state.payments} match={match} paymentReplace={paymentReplace} /> :
+                        <CreatePayments payments={state.payments} requiredError={requiredError} paymentReplace={paymentReplace} />
                     }
                 </AccordDown>
                 <hr style={{ height: '0px' }} />

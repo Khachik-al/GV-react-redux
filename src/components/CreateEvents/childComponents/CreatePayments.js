@@ -6,20 +6,35 @@ import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { DataPicBlock } from '../styles';
 import { Button, Col, Row } from 'react-bootstrap';
 
-const Payments = ({ state, addPayment, paymentRemove, paymentChange }) => {
+const Payments = ({ payments, paymentReplace, requiredError }) => {
+
+    const paymentChange = (index, name, value) => {
+        let newArr = [...payments]
+        newArr[index][name] = value
+        paymentReplace(newArr)
+    }
+    const paymentAdd = () => {
+        let newArr = [...payments, {
+            "payment_type": "cash",
+            "payment_name": "payment",
+            "amount": '',
+            "payment_date": new Date()
+        }]
+        paymentReplace(newArr)
+    }
+    const paymentRemove = () => {
+        let newArr = [...payments]
+        newArr.pop()
+        paymentReplace(newArr)
+    }
     return (
         <Row>
             <Col xs={12} className='text-right pr-4 mb-2'>
                 <Button
-                    onClick={() => addPayment({
-                        "payment_type": "",
-                        "payment_name": "payment",
-                        "amount": '',
-                        "payment_date": new Date()
-                    })}
+                    onClick={paymentAdd}
                     variant='primary'
                     className='pl-4 pr-4 pt-1 pb-1'
-                    disabled={state.payments.length === 2}
+                    disabled={payments.length === 2}
                 >
                     Add Payment
                 </Button>
@@ -34,8 +49,8 @@ const Payments = ({ state, addPayment, paymentRemove, paymentChange }) => {
                         </TableCol>
                     )}
                 </TableRow>
-                
-                {state.payments.map((el, i) =>
+
+                {payments.map((el, i) =>
                     <TableRow
                         gridCount='21% 25% 25% 21% 5%'
                         className='pl-4'
@@ -64,13 +79,15 @@ const Payments = ({ state, addPayment, paymentRemove, paymentChange }) => {
                                 />
                             </DataPicBlock>
                         </TableCol>
-                        <TableCol >
+                        <TableCol>
                             <BlockInputs
+                                title='amount'
                                 onChange={({ target }) => { paymentChange(i, 'amount', target.value) }}
                                 name="amount"
                                 type="number"
                                 placeholder="amount"
                                 value={el.amount}
+                                borderColor={el.payment_name === 'payment' ? requiredError[3] : requiredError[0]}
                             />
                         </TableCol>
                         {el.payment_name === 'payment' && <TableCol>
@@ -95,16 +112,16 @@ export default memo(Payments);
 // import { DataPicBlock } from '../styles';
 // import { Button } from 'react-bootstrap';
 
-// const Payments = ({ state, match }) => {
+// const Payments = ({  match }) => {
 //     const [addPaymentView, setAddPaymentView] = useState(false);
 //     const [addPayment, setAddPayment] = useState([]);
 //     const [addDeposit, setAddDeposit] = useState([]);
 //     const [addPaymentInputs, setAddPaymentInputs] = useState({ type: '', date: '', amount: '' });
-//     console.log(state);
+//     console.log(;
 //     return (
 //         <div>
-//             {state.payments.length ?
-//                 state.payments.map(el => {
+//             {payments.length ?
+//                 payments.map(el => {
 //                     return <TableRow gridCount={'20% 20% 20% 20% 18%'} key={Math.random()} className='pl-4'>
 //                         <TableCol>{el.payment_name}</TableCol>
 //                         <TableCol>{el.payment_type}</TableCol>
@@ -171,7 +188,7 @@ export default memo(Payments);
 //                             variant='primary' className='pl-2 pr-2 pt-1 pb-1'>save</Button>
 //                     </TableCol>}
 //                 </TableRow>}
-//             {/* {state.payments.map(el => {
+//             {/* {payments.map(el => {
 //                                 return <TableRow gridCount={'20% 20% 20% 20% 18%'} key={Math.random()} className='pl-4'>
 //                                     <TableCol>Payment</TableCol>
 //                                     <TableCol>{el.type}</TableCol>

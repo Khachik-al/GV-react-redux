@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const InputBlock = styled.input`
     background-color: #f5f8fa;
-    /* border: ${props => props.require ? '1px solid red' : 'none'}; */
-    border: none;
+    border: ${props => props.borderColor ? '1px solid red' : 'none'};
+    /* border: none; */
     border-radius: 0.475rem;
     padding-right: 40px;
     color: #5E6278;

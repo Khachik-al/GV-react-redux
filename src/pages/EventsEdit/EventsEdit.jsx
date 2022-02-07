@@ -18,7 +18,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
 
     const [state, setState] = useState(null);
     const [customerState, setCustomerState] = useState(null);
-    const [contractState, setContractState] = useState(null);
+    const [contractState, setContractState] = useState({});
     const dispatch = useDispatch();
     const [requiredValues, setRequiredValues] = useState([false, false, false, false, false]);
     const [requiredCustomerValues, setRequiredCustomerValues] = useState([false, false, false, false, false, false, false]);
@@ -26,16 +26,19 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     const [modalActive, closeModal] = useState(false);
     const [loadStart, setLoadStart] = useState(false);
 
-    const totalPayment = () => {
+    const totalPayment = useCallback(() => {
         if (!contractState.payments) return
         let a = 0;
         contractState.payments.forEach((el, i) => {
-            if (i !== 0) {
-                a += el.amount
+            if (el.payment_name === 'payment') {
+                a += Number(el.amount)
             }
         })
         return a
-    }
+    }, [contractState.payments])
+    const balanceDue = useCallback(() => {
+        return contractState.payments?.length && parseInt(contractState.payment - (Number(contractState.payments[0].amount) + Number(totalPayment())))
+    }, [contractState.payments])
     const onUpdate = useCallback(() => {
         let cloneReqArray = [...requiredValues];
         let cloneReqCon = [...requiredContract];
@@ -481,7 +484,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$ {contractState.payments?.length && parseInt(contractState.payment - (Number(contractState.payments[0].amount) + Number(totalPayment())))}</div>
+                                    >$ {balanceDue()}</div>
                                 </Col>
 
 

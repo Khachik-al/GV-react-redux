@@ -61,7 +61,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
         other: "",
         payments: [
             {
-                "payment_type": "",
+                "payment_type": "cash",
                 "payment_name": "deposit",
                 "amount": '',
                 "payment_date": new Date().toISOString().slice(0, 10)
@@ -288,8 +288,8 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
 
     const createEvenet = useCallback(() => {
         let cloneContractRequired = [...contractRequired];
-        // contractState.deposit ? cloneContractRequired[0] = false : cloneContractRequired[0] = true;
-        // contractState.payment_type ? cloneContractRequired[3] = false : cloneContractRequired[3] = true;
+        contractState.payments[0].amount ? cloneContractRequired[0] = false : cloneContractRequired[0] = true;
+        contractState.payments[1] && (contractState.payments[1].amount ? cloneContractRequired[3] = false : cloneContractRequired[3] = true);
         contractState.menu_id ? cloneContractRequired[1] = false : cloneContractRequired[1] = true;
         contractState.cost_per_guest ? cloneContractRequired[2] = false : cloneContractRequired[2] = true;
 
