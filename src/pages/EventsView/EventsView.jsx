@@ -40,7 +40,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
         })
         return a
     }
-    console.log(data)
+    
     useEffect(() => {
         if (data && data.contract) {
             let total = Number(data.guests_number) * Number(data.contract.cost_per_guest);
@@ -59,7 +59,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                 balance_due: data.contract.balance_due,
                 cost_per_guest: data.contract.cost_per_guest,
                 deposit: data.contract.deposit,
-                id: data.contract.id,
+                // id: data.contract.id,
                 payment_type: data.contract.payment_type,
                 updated_at: data.contract.updated_at,
                 serviceFee: data.contract.service_fee ? `${data.contract.service_fee} %` : '',
