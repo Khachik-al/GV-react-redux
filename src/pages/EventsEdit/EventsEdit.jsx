@@ -20,7 +20,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     const [customerState, setCustomerState] = useState(null);
     const [contractState, setContractState] = useState({});
     const dispatch = useDispatch();
-    const [requiredValues, setRequiredValues] = useState([false, false, false, false, false]);
+    const [requiredValues, setRequiredValues] = useState([ false, false]);
     const [requiredCustomerValues, setRequiredCustomerValues] = useState([false, false, false, false, false, false, false]);
     const [requiredContract, setRequiredContract] = useState([false, false, false, false]);
     const [modalActive, closeModal] = useState(false);
@@ -47,7 +47,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
             .forEach((el, i) => {
                 state[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
             });
-        ['deposit', 'menu_id', 'cost_per_guest', 'payment_type'].forEach((el, i) => {
+        [ 'menu_id', 'cost_per_guest'].forEach((el, i) => {
             contractState[el] ? cloneReqCon[i] = false : cloneReqCon[i] = true;
         });
         if (cloneReqArray.includes(true) || cloneReqCon.includes(true)) {

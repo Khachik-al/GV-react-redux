@@ -31,7 +31,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
         }
     }, []);
     const totalPayment = () => {
-        if (!data.payments) return
+        if (!data?.payments) return
         let a = 0;
         data.payments.forEach((el, i) => {
             if (i !== 0) {
