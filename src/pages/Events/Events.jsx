@@ -28,7 +28,6 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
     const dispatch = useDispatch();
     const [filterValues, setFilterValues] = useState({ status: '', event_type: '', name: '', month: '' });
     const [sortVal, setSortVal] = useState([false, false, false]);
-
     const handleChange = debounce(() => {
         getData({
             status: filterValues.status ? filterValues.status.split(' ')[1] : '',
@@ -58,7 +57,8 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
             <div className={style.dropdownContent}>
                 <Link to={`/eventsview/${id}`}>View</Link>
                 <Link to={`/eventsedit/${id}`}>Edit</Link>
-                <span>Export</span>
+                <a style={{ textDecoration: 'none' }} href={`http://188.225.57.14/api/api/customer-events/agreement-download/${id}`} target='_blank' rel='noopener noreferrer'>Export</a>
+                {/* <span onClick={() => eventExport(id)}>Export</span> */}
                 <span onClick={() => {
                     warningAlert(() => {
                         deleteEvent(id, page, Math.ceil(count / pageSizes),
@@ -165,6 +165,7 @@ function Events({ getData, getMenu, data, count, createEvent, deleteEvent, pendi
 
     return data ? <Main className="pb-4 pt-4">
         <MainContent className={!(isMobile < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
+            {/* <a href={'http://188.225.57.14/api/api/customer-events/agreement-download/62'} target='_blank' rel='noopener noreferrer'>pdf</a> */}
             <ActionsBlock className='mb-5'>
                 <SearchBlock
                     onChange={search}

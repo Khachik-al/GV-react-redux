@@ -393,23 +393,23 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             <SpanIcon className="mr-3"> {paymentsAccordIsOpen ? <BsFillDashSquareFill size={18} /> : <BsFillPlusSquareFill
                                                 size={18} />} </SpanIcon>
                                             Payments</h5>}> */}
-                                        <Col xs={12}
-                                        // style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}
-                                        >
-                                            <TableRow gridCount={'25% 25% 25% 25%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
-                                                {['Payment type', 'type', 'Date', 'Amount', ''].map(
-                                                    tit => <TableCol color='#469CF0' key={tit}>{tit}</TableCol>)}
+                                    <Col xs={12}
+                                    // style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}
+                                    >
+                                        <TableRow gridCount={'25% 25% 25% 25%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
+                                            {['Payment type', 'type', 'Date', 'Amount', ''].map(
+                                                tit => <TableCol color='#469CF0' key={tit}>{tit}</TableCol>)}
+                                        </TableRow>
+                                        {/* <hr style={{ margin: '0px' }} /> */}
+                                        {data?.payments.map(el => {
+                                            return <TableRow gridCount='25% 25% 25% 25%' key={Math.random()} className='pl-4'>
+                                                <TableCol>{el.payment_name}</TableCol>
+                                                <TableCol>{el.payment_type}</TableCol>
+                                                <TableCol>{el.payment_date}</TableCol>
+                                                <TableCol >{el.amount}</TableCol>
                                             </TableRow>
-                                            {/* <hr style={{ margin: '0px' }} /> */}
-                                            {data?.payments.map(el => {
-                                                return <TableRow gridCount='25% 25% 25% 25%' key={Math.random()} className='pl-4'>
-                                                    <TableCol>{el.payment_name}</TableCol>
-                                                    <TableCol>{el.payment_type}</TableCol>
-                                                    <TableCol>{el.payment_date}</TableCol>
-                                                    <TableCol >{el.amount}</TableCol>
-                                                </TableRow>
-                                            })}
-                                        </Col>
+                                        })}
+                                    </Col>
 
                                     {/* </AccordDown> */}
                                     <hr style={{ height: '0px' }} />
@@ -458,9 +458,17 @@ function EventsView({ isMobile, data, getEvent, match }) {
 
                                         }}
                                     >
+                                        {/* <a
+                                            rel='noopener noreferrer'
+                                            target='_blank'
+                                            href={`http://188.225.57.14/api/api/customer-events/agreement-download/${state.id}`}
+                                            style={{ textDecoration: 'none', padding: '5px 10px', borderRadius: '5px', fontWeight: 600, background: '#009EF7', cursor: 'pointer' }}>
+                                            Export <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
+                                        </a> */}
                                         <span
                                             style={{ padding: '5px 10px', borderRadius: '5px', fontWeight: 600, background: '#009EF7', cursor: 'pointer' }}>
-                                            Export <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
+                                            <a style={{ textDecoration: 'none', color: 'white' }} href={`http://188.225.57.14/api/api/customer-events/agreement-download/${state.id}`} target='_blank' rel='noopener noreferrer'>Export</a>
+                                            <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
                                         </span>
                                     </div></Col>
 
@@ -617,7 +625,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                     </FixedBlock>
                 </div>
             </GridMain>
-        </div>
+        </div >
     </Main >
 };
 

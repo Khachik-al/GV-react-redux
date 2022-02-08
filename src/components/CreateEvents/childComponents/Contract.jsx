@@ -81,6 +81,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                     disabled={editSet}
                     value={state.serviceFee}
                     options={[
+                        { value: "", title: "N/A" },
                         { value: "10 %", title: "10%" },
                         { value: "15 %", title: "15%" },
                         { value: "18 %", title: "18%" }]}
@@ -134,10 +135,10 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                         </SpanIcon>
                         Payments
                     </h5>}> */}
-                    {match?.params.id ?
-                        <EditPayments payments={state.payments} match={match} paymentReplace={paymentReplace} /> :
-                        <CreatePayments payments={state.payments} requiredError={requiredError} paymentReplace={paymentReplace} />
-                    }
+                {match?.params.id ?
+                    <EditPayments payments={state.payments} match={match} paymentReplace={paymentReplace} /> :
+                    <CreatePayments payments={state.payments} requiredError={requiredError} paymentReplace={paymentReplace} />
+                }
                 {/* </AccordDown> */}
                 <hr style={{ height: '0px' }} />
             </Col>

@@ -377,13 +377,15 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                             fontSize: '12px',
                                         }}
                                     >
-                                        <span
+                                       <span
                                             style={{ padding: '5px 10px', borderRadius: '5px', fontWeight: 600, background: '#009EF7', cursor: 'pointer' }}>
-                                            Export <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
+                                            <a style={{ textDecoration: 'none', color:'white' }} href={`http://188.225.57.14/api/api/customer-events/agreement-download/${state.id}`} target='_blank' rel='noopener noreferrer'>Export</a>
+                                            <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
                                         </span>
                                     </div></Col>
                             </Row>
-                            <Row className="pt-2">
+                            <Row 
+                            className="pt-2">
                                 <Col xs={12} className="mb-4">
                                     <RadioGro
                                         title="Status"
