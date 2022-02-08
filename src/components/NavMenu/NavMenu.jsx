@@ -54,8 +54,8 @@ const NavMenu = ({
 
             {[
                 { path: '/customers', title: 'Customers', icon: <BsFillPeopleFill size={20} className="menu-list-icon" /> },
-                { path: '/event', title: 'Finance Event', icon: <GiCubes size={20} className="menu-list-icon" /> },
-                { path: '/vendor', title: 'Finance Vendor', icon: <FaCubes size={20} className="menu-list-icon" /> },
+                // { path: '/event', title: 'Finance Event', icon: <GiCubes size={20} className="menu-list-icon" /> },
+                // { path: '/vendor', title: 'Finance Vendor', icon: <FaCubes size={20} className="menu-list-icon" /> },
                 { path: '/reports', title: 'Reports', icon: <BiBarChart size={20} className="menu-list-icon" /> },
                 { path: '/catering', title: 'Catering', icon: <MdFastfood size={20} className="menu-list-icon" /> }].map((el => {
                     return <MenuListLi className="list-item" key={el.title} onClick={() => { isMobileView < 801 && setIsOpen(false) }}>

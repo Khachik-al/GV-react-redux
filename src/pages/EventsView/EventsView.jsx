@@ -405,7 +405,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             return <TableRow gridCount='25% 25% 25% 25%' key={Math.random()} className='pl-4'>
                                                 <TableCol>{el.payment_name}</TableCol>
                                                 <TableCol>{el.payment_type}</TableCol>
-                                                <TableCol>{el.payment_date}</TableCol>
+                                                <TableCol>{new Date(el.payment_date).toISOString().split('T')[0]}</TableCol>
                                                 <TableCol >{el.amount}</TableCol>
                                             </TableRow>
                                         })}
