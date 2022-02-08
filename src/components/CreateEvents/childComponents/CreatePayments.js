@@ -87,7 +87,7 @@ const Payments = ({ payments, paymentReplace, requiredError }) => {
                                 type="number"
                                 placeholder="amount"
                                 value={el.amount}
-                                borderColor={el.payment_name === 'payment' ? requiredError[3] : requiredError[0]}
+                                borderColor={el.payment_name === 'payment' ? requiredError[3] : requiredError[2]}
                             />
                         </TableCol>
                         {el.payment_name === 'payment' && <TableCol>

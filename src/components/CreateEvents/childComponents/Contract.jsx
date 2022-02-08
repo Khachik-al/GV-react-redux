@@ -43,7 +43,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                     <SelectComponent
                         maxHeight='200px'
                         disabled={editSet}
-                        require={requiredError[1]}
+                        require={requiredError[0]}
                         value={state.menu_id.split("&&&&&")[0]}
                         options={paintMenues()}
                         setValues={handleChange}
@@ -55,7 +55,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
 
             <Col xs={6} className="mb-3 mt-3">
                 <InputTitle> Cost per guest <span>*</span></InputTitle>
-                {paintInputs("cost_per_guest", requiredError[2], 'Cost_per_guest', "number")}
+                {paintInputs("cost_per_guest", requiredError[1], 'Cost per guest', "number")}
             </Col>
         </Row>
 

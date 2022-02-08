@@ -18,7 +18,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     const dispatch = useDispatch();
     const createCustomerLoad = useSelector((state) => state.EventsReducer.pending_create_customer);
     const createEventLoad = useSelector((state) => state.EventsReducer.pending_create);
-    const [activeSection, setActiveSection] = useState(0);
+    const [activeSection, setActiveSection] = useState(2);
     const [requiredEvents, setRequiredEvents] = useState([false, false, false, false]);
     const [eventsState, setEventsState] = useState({
         name: '',
@@ -288,10 +288,10 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
 
     const createEvenet = useCallback(() => {
         let cloneContractRequired = [...contractRequired];
-        contractState.payments[0].amount ? cloneContractRequired[0] = false : cloneContractRequired[0] = true;
+        contractState.payments[0].amount ? cloneContractRequired[2] = false : cloneContractRequired[2] = true;
         contractState.payments[1] && (contractState.payments[1].amount ? cloneContractRequired[3] = false : cloneContractRequired[3] = true);
-        contractState.menu_id ? cloneContractRequired[1] = false : cloneContractRequired[1] = true;
-        contractState.cost_per_guest ? cloneContractRequired[2] = false : cloneContractRequired[2] = true;
+        contractState.menu_id ? cloneContractRequired[0] = false : cloneContractRequired[0] = true;
+        contractState.cost_per_guest ? cloneContractRequired[1] = false : cloneContractRequired[1] = true;
 
         if (cloneContractRequired.includes(true)) {
             setContractRequired(cloneContractRequired);
