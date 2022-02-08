@@ -37,7 +37,7 @@ const EditPayments = ({ payments, match, paymentReplace }) => {
             .then((res) => {
                 if (!id) {
                     setAddPaymentsView(false)
-                    setAddPayments({ payment_type: "", payment_name: "payment", amount: '', payment_date: new Date().toISOString().split('T')[0] })
+                    setAddPayments({ payment_type: "cash", payment_name: "payment", amount: '', payment_date: new Date().toISOString().split('T')[0] })
                     let newArr = [...payments]
                     paymentReplace([...newArr,
                     {
@@ -243,7 +243,7 @@ const EditPayments = ({ payments, match, paymentReplace }) => {
                         </Button>
                         < Button
                             onClick={() => {
-                                setAddPayments({ payment_type: "", payment_name: "payment", amount: '', payment_date: new Date().toISOString().split('T')[0] })
+                                setAddPayments({ payment_type: "cash", payment_name: "payment", amount: '', payment_date: new Date().toISOString().split('T')[0] })
                                 setAddPaymentsView(false)
                             }}
                             variant='secondary' className='pl-2 pr-2 pt-1 pb-1'
