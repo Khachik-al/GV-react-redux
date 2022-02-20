@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { TableCol, TableRow } from '../../Table/styles';
 import DatePicker from "react-datepicker";
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
@@ -6,10 +6,10 @@ import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { DataPicBlock } from '../styles';
 import { Button, Col, Row } from 'react-bootstrap';
 
-const Payments = ({ payments, paymentReplace, requiredError }) => {
+const Payments = ({ payments, paymentReplace, requiredError, total }) => {
 
     const paymentChange = (index, name, value) => {
-        let newArr = [...payments]
+        let newArr = JSON.parse(JSON.stringify(payments))
         newArr[index][name] = value
         paymentReplace(newArr)
     }
@@ -23,9 +23,23 @@ const Payments = ({ payments, paymentReplace, requiredError }) => {
         paymentReplace(newArr)
     }
     const paymentRemove = () => {
-        let newArr = [...payments]
+        let newArr = JSON.parse(JSON.stringify(payments))
         newArr.pop()
         paymentReplace(newArr)
+    }
+    const balanceDue = useCallback((totalValue, deposit, payment) => {
+        return parseInt(totalValue - (Number(deposit) + Number(payment)))
+    }, [])
+    let amountChange = (target, i) => {
+        if (!!payments[1]) {
+            if (balanceDue(total, payments[0].amount, target.value) >= 0) {
+                paymentChange(i, 'amount', target.value)
+            }
+        } else {
+            if (balanceDue(total, target.value, 0) >= 0) {
+                paymentChange(i, 'amount', target.value)
+            }
+        }
     }
     return (
         <Row>
@@ -43,7 +57,7 @@ const Payments = ({ payments, paymentReplace, requiredError }) => {
                 <TableRow
                     gridCount={'21% 25% 25% 25%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'
                 >
-                    {['Payment type', 'type', 'Date', 'Amount'].map(tit =>
+                    {['Payment type', 'Type', 'Date', 'Amount'].map(tit =>
                         <TableCol color='#469CF0' key={tit}>
                             {tit}
                         </TableCol>
@@ -82,10 +96,10 @@ const Payments = ({ payments, paymentReplace, requiredError }) => {
                         <TableCol>
                             <BlockInputs
                                 title='amount'
-                                onChange={({ target }) => { paymentChange(i, 'amount', target.value) }}
+                                onChange={({ target }) => amountChange(target, i)}
                                 name="amount"
                                 type="number"
-                                placeholder="amount"
+                                placeholder="$"
                                 value={el.amount}
                                 borderColor={el.payment_name === 'payment' ? requiredError[3] : requiredError[2]}
                             />

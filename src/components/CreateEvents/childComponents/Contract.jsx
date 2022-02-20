@@ -20,12 +20,12 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
         handleChange({ target: { name: 'payments', value: newArr } })
     }, [handleChange])
 
-    const paintInputs = useCallback((name, requiredValue, title, type) => {
+    const paintInputs = useCallback((name, requiredValue, title, type, placeholder) => {
         return <BlockInputs title={title}
             disabled={editSet}
             onChange={handleChange}
             name={name}
-            placeholder=""
+            placeholder={placeholder}
             value={state[name]}
             type={type}
             require={requiredValue} />
@@ -55,7 +55,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
 
             <Col xs={6} className="mb-3 mt-3">
                 <InputTitle> Cost per guest <span>*</span></InputTitle>
-                {paintInputs("cost_per_guest", requiredError[1], 'Cost per guest', "number")}
+                {paintInputs("cost_per_guest", requiredError[1], 'Cost per guest', "number", '$')}
             </Col>
         </Row>
 
@@ -100,23 +100,23 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                                 <BsFillDashSquareFill size={18} /> :
                                 <BsFillPlusSquareFill size={18} />}
                         </SpanIcon>
-                        Other Services
+                        <span style={{ fontFamily: 'Poppins' }}>Other Services</span>
                     </h5>}>
                     <Row>
                         <Col xs={6}> <InputTitle className="mt-4"> Gratitude </InputTitle>
-                            {paintInputs("gratitude", null, null, "number")} </Col>
+                            {paintInputs("gratitude", null, null, "number", '$')} </Col>
                         <Col xs={6}> <InputTitle className="mt-4"> Lighting </InputTitle>
-                            {paintInputs("lightning", null, null, "number")} </Col>
+                            {paintInputs("lightning", null, null, "number", '$')} </Col>
                         <Col xs={6}><InputTitle className="mt-4"> Security </InputTitle>
-                            {paintInputs("security", null, null, "number")}</Col>
+                            {paintInputs("security", null, null, "number", '$')}</Col>
                         <Col xs={6}><InputTitle className="mt-4"> Cocktail hour </InputTitle>
-                            {paintInputs("cocktail_hour", null, null, "number")}</Col>
+                            {paintInputs("cocktail_hour", null, null, "number", '$')}</Col>
                         <Col xs={6}> <InputTitle className="mt-4"> Ceremony </InputTitle>
-                            {paintInputs("ceremony", null, null, "number")}</Col>
+                            {paintInputs("ceremony", null, null, "number", '$')}</Col>
                         <Col xs={6}><InputTitle className="mt-4"> Tax </InputTitle>
-                            {paintInputs("tax", null, null, "number")}</Col>
+                            {paintInputs("tax", null, null, "number", '$')}</Col>
                         <Col xs={12}><InputTitle className="mt-4"> Other </InputTitle>
-                            {paintInputs("other", null, null, "number")}</Col>
+                            {paintInputs("other", null, null, "number", '$')}</Col>
                     </Row>
                 </AccordDown>
                 <hr style={{ height: '0px' }} />
@@ -136,8 +136,8 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                         Payments
                     </h5>}> */}
                 {match?.params.id ?
-                    <EditPayments payments={state.payments} match={match} paymentReplace={paymentReplace} /> :
-                    <CreatePayments payments={state.payments} requiredError={requiredError} paymentReplace={paymentReplace} />
+                    <EditPayments payments={state.payments} match={match} paymentReplace={paymentReplace} total={state.payment} /> :
+                    <CreatePayments payments={state.payments} requiredError={requiredError} paymentReplace={paymentReplace} total={state.payment} />
                 }
                 {/* </AccordDown> */}
                 <hr style={{ height: '0px' }} />
@@ -188,8 +188,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                             fontWeight: '500',
                             fontSize: '1.15rem'
                         }}
-                    >$
-                        {state.payment || '0'}
+                    >$ {state.payment || '0'}
                     </div>
                 </Col>
             </Row> </>}

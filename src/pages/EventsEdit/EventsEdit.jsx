@@ -38,7 +38,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     }, [contractState.payments])
     const balanceDue = useCallback(() => {
         return contractState.payments?.length && parseInt(contractState.payment - (Number(contractState.payments[0].amount) + Number(totalPayment())))
-    }, [contractState.payments])
+    }, [contractState.payments, contractState.payment, totalPayment])
     const onUpdate = useCallback(() => {
         let cloneReqArray = [...requiredValues];
         let cloneReqCon = [...requiredContract];
