@@ -20,7 +20,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     const [customerState, setCustomerState] = useState(null);
     const [contractState, setContractState] = useState({});
     const dispatch = useDispatch();
-    const [requiredValues, setRequiredValues] = useState([ false, false]);
+    const [requiredValues, setRequiredValues] = useState([false, false]);
     const [requiredCustomerValues, setRequiredCustomerValues] = useState([false, false, false, false, false, false, false]);
     const [requiredContract, setRequiredContract] = useState([false, false, false, false]);
     const [modalActive, closeModal] = useState(false);
@@ -47,7 +47,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
             .forEach((el, i) => {
                 state[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true;
             });
-        [ 'menu_id', 'cost_per_guest'].forEach((el, i) => {
+        ['menu_id', 'cost_per_guest'].forEach((el, i) => {
             contractState[el] ? cloneReqCon[i] = false : cloneReqCon[i] = true;
         });
         if (cloneReqArray.includes(true) || cloneReqCon.includes(true)) {
@@ -158,6 +158,13 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
 
 
     const contractHandleChange = useCallback(({ target }) => {
+        let cloneReqCon = [...requiredContract];
+        ['menu_id', 'cost_per_guest'].forEach((el, i) => {
+            if (target.name === el) {
+                target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+            }
+        });
+        setRequiredContract(cloneReqCon);
         let newTotal = 0;
 
         ['gratitude', 'lightning', 'security', 'cocktail_hour', 'ceremony', 'tax', 'other'].forEach((el) => {
@@ -177,11 +184,11 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
             newTotal = newTotal + contractState.cost_per_guest * Number(state.guests_number);
         }
 
-        if (target.name == 'serviceFee') {/* eslint-disable-line */
+        if (target.name == 'serviceFee' && !isNaN(Number(target.value.split(" ")[0]))) {/* eslint-disable-line */
             let proc = Number(target.value.split(" ")[0]);
             newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
         } else {
-            if (contractState.serviceFee) {
+            if (contractState.serviceFee && !isNaN(Number(contractState.serviceFee))) {
                 let proc = Number(contractState.serviceFee.split(" ")[0]);
                 // newTotal = newTotal ? newTotal + newTotal / proc : 0;
                 newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
@@ -198,6 +205,14 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     }, [contractState, state]);
 
     const eventsSectHand = ({ target }) => {
+        let cloneReqArray = [...requiredValues];
+        ['name', 'event_date', 'event_start', 'guests_number']
+            .forEach((el, i) => {
+                if (target.name === el) {
+                    target.value ? cloneReqArray[i] = false : cloneReqArray[i] = true;
+                }
+            });
+        setRequiredValues(cloneReqArray)
         if (target.name === 'guests_number') {
 
             let newTotal = 0;
@@ -341,7 +356,16 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                         requiredError={requiredCustomerValues}
                         state={customerState}
                         disabledAll={true}
-                        handleChange={({ target }) => { setCustomerState({ ...customerState, [target.name]: target.value }) }}
+                        handleChange={({ target }) => {
+                            let cloneReqCon = [...requiredContract];
+                            ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
+                                if (target.name === el) {
+                                    target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+                                }
+                            });                            
+                            setRequiredCustomerValues(cloneReqCon)
+                            setCustomerState({ ...customerState, [target.name]: target.value })
+                        }}
                         modalActive={modalActive} closeModal={closeEditCust} getButtEditMod={getButtEditMod} createActive={false}
                     />
                 </SectionsBlock>
@@ -377,15 +401,15 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                                             fontSize: '12px',
                                         }}
                                     >
-                                       <span
+                                        <span
                                             style={{ padding: '5px 10px', borderRadius: '5px', fontWeight: 600, background: '#009EF7', cursor: 'pointer' }}>
-                                            <a style={{ textDecoration: 'none', color:'white' }} href={`http://188.225.57.14/api/api/customer-events/agreement-download/${state.id}`} target='_blank' rel='noopener noreferrer'>Export</a>
+                                            <a style={{ textDecoration: 'none', color: 'white' }} href={`http://188.225.57.14/api/api/customer-events/agreement-download/${state.id}`} target='_blank' rel='noopener noreferrer'>Export</a>
                                             <span style={{ color: '#f8dfe7' }}><BsFileEarmarkPdfFill size={15} /></span>
                                         </span>
                                     </div></Col>
                             </Row>
-                            <Row 
-                            className="pt-2">
+                            <Row
+                                className="pt-2">
                                 <Col xs={12} className="mb-4">
                                     <RadioGro
                                         title="Status"

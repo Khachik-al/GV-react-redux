@@ -81,7 +81,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                     disabled={editSet}
                     value={state.serviceFee}
                     options={[
-                        { value: "", title: "N/A" },
+                        { value: "N/A", title: "N/A" },
                         { value: "10 %", title: "10%" },
                         { value: "15 %", title: "15%" },
                         { value: "18 %", title: "18%" }]}

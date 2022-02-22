@@ -18,7 +18,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     const dispatch = useDispatch();
     const createCustomerLoad = useSelector((state) => state.EventsReducer.pending_create_customer);
     const createEventLoad = useSelector((state) => state.EventsReducer.pending_create);
-    const [activeSection, setActiveSection] = useState(0);
+    const [activeSection, setActiveSection] = useState(2);
     const [requiredEvents, setRequiredEvents] = useState([false, false, false, false]);
     const [eventsState, setEventsState] = useState({
         name: '',
@@ -117,6 +117,13 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     }, [activeSection]);/* eslint-disable-line */
 
     const contractHandleChange = useCallback(({ target }) => {
+        let cloneReqCon = [...contractRequired];
+        ['menu_id', 'cost_per_guest'].forEach((el, i) => {
+            if (target.name === el) {
+                target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+            }
+        });
+        setContractRequired(cloneReqCon);
         let newTotal = 0;
 
         ['gratitude', 'lightning', 'security', 'cocktail_hour', 'ceremony', 'tax', 'other'].forEach((el) => {
@@ -135,11 +142,11 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
             newTotal = newTotal + contractState.cost_per_guest * Number(eventsState.guests_number);
         }
 
-        if (target.name == 'serviceFee') {/* eslint-disable-line */
+        if (target.name == 'serviceFee' && !isNaN(Number(target.value.split(" ")[0]))) {/* eslint-disable-line */
             let proc = Number(target.value.split(" ")[0]);
             newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
         } else {
-            if (contractState.serviceFee) {
+            if (contractState.serviceFee  && !isNaN(Number(contractState.serviceFee))) {
                 let proc = Number(contractState.serviceFee.split(" ")[0]);
                 newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
             }
@@ -161,7 +168,16 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                     state={customerInfo}
                     disabledAll={contractState.hasOwnProperty('customer_id')}
                     createActive={true}
-                    handleChange={({ target }) => { setCustomerInfo({ ...customerInfo, [target.name]: target.value }) }}
+                    handleChange={({ target }) => {
+                        let cloneReqCon = [...customerRequired];
+                        ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
+                            if (target.name === el) {
+                                target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+                            }
+                        });
+                        setCustomerRequired(cloneReqCon)
+                        setCustomerInfo({ ...customerInfo, [target.name]: target.value })
+                    }}
                 />;
             case 1:
                 return <EventsSection
@@ -169,6 +185,14 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                     state={eventsState}
                     isMobile={isMobile}
                     handleChange={({ target }) => {
+                        let cloneReqArray = [...requiredEvents];
+                        ['name', 'event_date', 'event_start', 'guests_number']
+                            .forEach((el, i) => {
+                                if (target.name === el) {
+                                    target.value ? cloneReqArray[i] = false : cloneReqArray[i] = true;
+                                }
+                            });
+                        setRequiredEvents(cloneReqArray)
                         if (target.name === 'guests_number') {
 
                             let newTotal = 0;

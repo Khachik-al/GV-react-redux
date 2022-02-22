@@ -160,10 +160,10 @@ function Login({ login, forgotPassw }) {
                                 <span className="indicator-label">Cancel</span>
                             </button>
                         </>}
-                        {!forgotPass && <div className="text-center text-muted text-uppercase fw-bolder mb-5">or</div>}
+                        {/* {!forgotPass && <div className="text-center text-muted text-uppercase fw-bolder mb-5">or</div>}
                         {!forgotPass && <a className="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
                             <FcGoogle size={23} className="mr-2" />
-                            Continue with Google</a>}
+                            Continue with Google</a>} */}
                     </div>
                 </div>
             </div>

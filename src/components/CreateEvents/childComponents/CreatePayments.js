@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { TableCol, TableRow } from '../../Table/styles';
 import DatePicker from "react-datepicker";
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
@@ -7,7 +7,7 @@ import { DataPicBlock } from '../styles';
 import { Button, Col, Row } from 'react-bootstrap';
 
 const Payments = ({ payments, paymentReplace, requiredError, total }) => {
-
+    const [required, setRequired] = useState({ deposit: false, payment: false })
     const paymentChange = (index, name, value) => {
         let newArr = JSON.parse(JSON.stringify(payments))
         newArr[index][name] = value
@@ -32,10 +32,12 @@ const Payments = ({ payments, paymentReplace, requiredError, total }) => {
     }, [])
     let amountChange = (target, i) => {
         if (!!payments[1]) {
+            !!target.value && target.value != 0 ? setRequired({ ...required, payment: false }) : setRequired({ ...required, payment: true })
             if (balanceDue(total, payments[0].amount, target.value) >= 0) {
                 paymentChange(i, 'amount', target.value)
             }
         } else {
+            !!target.value && target.value != 0 ? setRequired({ ...required, deposit: false }) : setRequired({ ...required, deposit: true })
             if (balanceDue(total, target.value, 0) >= 0) {
                 paymentChange(i, 'amount', target.value)
             }
@@ -101,7 +103,7 @@ const Payments = ({ payments, paymentReplace, requiredError, total }) => {
                                 type="number"
                                 placeholder="$"
                                 value={el.amount}
-                                borderColor={el.payment_name === 'payment' ? requiredError[3] : requiredError[2]}
+                                borderColor={el.payment_name === 'payment' ? requiredError[3] || required.payment : requiredError[2] || required.deposit}
                             />
                         </TableCol>
                         {el.payment_name === 'payment' && <TableCol>
