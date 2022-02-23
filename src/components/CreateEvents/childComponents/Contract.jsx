@@ -78,6 +78,7 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
             <Col xs={6} className="pt-2"> <FormControl fullWidth className="mt-2 mb-3">
                 <InputTitle> Service fee </InputTitle>
                 <SelectComponent
+                    maxHeight='200'
                     disabled={editSet}
                     value={state.serviceFee}
                     options={[

@@ -397,7 +397,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     // style={{ boxShadow: '0 0 5px grey', padding: '5px', borderRadius: '5px' }}
                                     >
                                         <TableRow gridCount={'25% 25% 25% 25%'} className='pl-4' background='rgba(245, 248, 250, 0.5)'>
-                                            {['Payment type', 'type', 'Date', 'Amount', ''].map(
+                                            {['Payment type', 'Type', 'Date', 'Amount', ''].map(
                                                 tit => <TableCol color='#469CF0' key={tit}>{tit}</TableCol>)}
                                         </TableRow>
                                         {/* <hr style={{ margin: '0px' }} /> */}

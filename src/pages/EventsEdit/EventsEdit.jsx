@@ -158,13 +158,16 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
 
 
     const contractHandleChange = useCallback(({ target }) => {
-        let cloneReqCon = [...requiredContract];
-        ['menu_id', 'cost_per_guest'].forEach((el, i) => {
-            if (target.name === el) {
-                target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
-            }
+
+        setRequiredContract(prevState => {
+            let cloneReqCon = [...prevState];
+            ['menu_id', 'cost_per_guest'].forEach((el, i) => {
+                if (target.name === el) {
+                    target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+                }
+            });
+            return cloneReqCon
         });
-        setRequiredContract(cloneReqCon);
         let newTotal = 0;
 
         ['gratitude', 'lightning', 'security', 'cocktail_hour', 'ceremony', 'tax', 'other'].forEach((el) => {
@@ -205,14 +208,17 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     }, [contractState, state]);
 
     const eventsSectHand = ({ target }) => {
-        let cloneReqArray = [...requiredValues];
-        ['name', 'event_date', 'event_start', 'guests_number']
-            .forEach((el, i) => {
-                if (target.name === el) {
-                    target.value ? cloneReqArray[i] = false : cloneReqArray[i] = true;
-                }
-            });
-        setRequiredValues(cloneReqArray)
+
+        setRequiredValues(prevState => {
+            let cloneReqArray = [...prevState];
+            ['name', 'event_date', 'event_start', 'guests_number']
+                .forEach((el, i) => {
+                    if (target.name === el) {
+                        target.value ? cloneReqArray[i] = false : cloneReqArray[i] = true;
+                    }
+                });
+            return cloneReqArray
+        })
         if (target.name === 'guests_number') {
 
             let newTotal = 0;
@@ -357,13 +363,15 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                         state={customerState}
                         disabledAll={true}
                         handleChange={({ target }) => {
-                            let cloneReqCon = [...requiredContract];
-                            ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
-                                if (target.name === el) {
-                                    target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
-                                }
-                            });                            
-                            setRequiredCustomerValues(cloneReqCon)
+                            setRequiredCustomerValues(prevState => {
+                                let cloneReqCon = [...prevState];
+                                ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
+                                    if (target.name === el) {
+                                        target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+                                    }
+                                });
+                                return cloneReqCon
+                            })
                             setCustomerState({ ...customerState, [target.name]: target.value })
                         }}
                         modalActive={modalActive} closeModal={closeEditCust} getButtEditMod={getButtEditMod} createActive={false}

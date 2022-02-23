@@ -18,7 +18,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     const dispatch = useDispatch();
     const createCustomerLoad = useSelector((state) => state.EventsReducer.pending_create_customer);
     const createEventLoad = useSelector((state) => state.EventsReducer.pending_create);
-    const [activeSection, setActiveSection] = useState(2);
+    const [activeSection, setActiveSection] = useState(0);
     const [requiredEvents, setRequiredEvents] = useState([false, false, false, false]);
     const [eventsState, setEventsState] = useState({
         name: '',
@@ -35,6 +35,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     });
 
     const [customerRequired, setCustomerRequired] = useState([false, false, false, false, false, false]);
+
     const [customerInfo, setCustomerInfo] = useState({
         fullName: '',
         address: '',
@@ -117,13 +118,16 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     }, [activeSection]);/* eslint-disable-line */
 
     const contractHandleChange = useCallback(({ target }) => {
-        let cloneReqCon = [...contractRequired];
-        ['menu_id', 'cost_per_guest'].forEach((el, i) => {
-            if (target.name === el) {
-                target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
-            }
+
+        setContractRequired(prevState => {
+            let cloneReqCon = [...prevState];
+            ['menu_id', 'cost_per_guest'].forEach((el, i) => {
+                if (target.name === el) {
+                    target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+                }
+            });
+            return cloneReqCon
         });
-        setContractRequired(cloneReqCon);
         let newTotal = 0;
 
         ['gratitude', 'lightning', 'security', 'cocktail_hour', 'ceremony', 'tax', 'other'].forEach((el) => {
@@ -146,7 +150,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
             let proc = Number(target.value.split(" ")[0]);
             newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
         } else {
-            if (contractState.serviceFee  && !isNaN(Number(contractState.serviceFee))) {
+            if (contractState.serviceFee && !isNaN(Number(contractState.serviceFee))) {
                 let proc = Number(contractState.serviceFee.split(" ")[0]);
                 newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
             }
@@ -169,13 +173,16 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                     disabledAll={contractState.hasOwnProperty('customer_id')}
                     createActive={true}
                     handleChange={({ target }) => {
-                        let cloneReqCon = [...customerRequired];
-                        ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
-                            if (target.name === el) {
-                                target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
-                            }
-                        });
-                        setCustomerRequired(cloneReqCon)
+                        setCustomerRequired(prevStat => {
+                            console.log(prevStat)
+                            let cloneReqCon = [...prevStat];
+                            ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
+                                if (target.name === el) {
+                                    target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+                                }
+                            })
+                            return cloneReqCon
+                        })
                         setCustomerInfo({ ...customerInfo, [target.name]: target.value })
                     }}
                 />;
@@ -185,14 +192,16 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                     state={eventsState}
                     isMobile={isMobile}
                     handleChange={({ target }) => {
-                        let cloneReqArray = [...requiredEvents];
-                        ['name', 'event_date', 'event_start', 'guests_number']
-                            .forEach((el, i) => {
-                                if (target.name === el) {
-                                    target.value ? cloneReqArray[i] = false : cloneReqArray[i] = true;
-                                }
-                            });
-                        setRequiredEvents(cloneReqArray)
+                        setRequiredEvents(prevState => {
+                            let cloneReqArray = [...prevState];
+                            ['name', 'event_date', 'event_start', 'guests_number']
+                                .forEach((el, i) => {
+                                    if (target.name === el) {
+                                        target.value ? cloneReqArray[i] = false : cloneReqArray[i] = true;
+                                    }
+                                });
+                            return cloneReqArray
+                        })
                         if (target.name === 'guests_number') {
 
                             let newTotal = 0;
