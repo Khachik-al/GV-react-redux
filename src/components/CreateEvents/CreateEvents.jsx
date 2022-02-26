@@ -18,7 +18,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
     const dispatch = useDispatch();
     const createCustomerLoad = useSelector((state) => state.EventsReducer.pending_create_customer);
     const createEventLoad = useSelector((state) => state.EventsReducer.pending_create);
-    const [activeSection, setActiveSection] = useState(0);
+    const [activeSection, setActiveSection] = useState(2);
     const [requiredEvents, setRequiredEvents] = useState([false, false, false, false]);
     const [eventsState, setEventsState] = useState({
         name: '',
@@ -174,7 +174,6 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                     createActive={true}
                     handleChange={({ target }) => {
                         setCustomerRequired(prevStat => {
-                            console.log(prevStat)
                             let cloneReqCon = [...prevStat];
                             ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
                                 if (target.name === el) {
@@ -220,7 +219,7 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                             }
 
                             setEventsState({ ...eventsState, [target.name]: target.value })
-                            setContractState({ ...contractState, payment: newTotal, balance_due: Number(newTotal) - Number(contractState.payments[0]?.amount) })
+                            setContractState({ ...contractState, payment: newTotal, balance_due: Number(newTotal) - Number(contractState.payments[0].amount) })
                         }
                         else {
                             setEventsState({ ...eventsState, [target.name]: target.value })
@@ -344,11 +343,11 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                     cost_per_guest: contractState.cost_per_guest,
                     // deposit: contractState.deposit,
                     // payment: contractState.payment_tes,
-                    balance_due: contractState.balance_due,
+                    balance_due: parseInt(Number(contractState.payment) - (Number(contractState.payments[0].amount) + (contractState.payments[1] ? Number(contractState.payments[1].amount) : 0))),
                     payment_type: contractState.payment_type,
                     grand_total: contractState.payment,
                     menu_id: contractState.menu_id.split("&&&&&")[1],
-                    service_fee: contractState.serviceFee ? Number(contractState.serviceFee.split(" ")[0]) : 0,
+                    service_fee: contractState.serviceFee && !isNaN(Number(contractState.serviceFee.split(" ")[0])) ? Number(contractState.serviceFee.split(" ")[0]) : 0,
                     services: {
                         lightning: contractState.lightning,
                         cocktail_hour: contractState.cocktail_hour,

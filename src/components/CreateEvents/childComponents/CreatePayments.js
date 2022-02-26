@@ -18,7 +18,7 @@ const Payments = ({ payments, paymentReplace, requiredError, total }) => {
             "payment_type": "cash",
             "payment_name": "payment",
             "amount": '',
-            "payment_date": new Date()
+            "payment_date": new Date().toISOString().slice(0, 10)
         }]
         paymentReplace(newArr)
     }
