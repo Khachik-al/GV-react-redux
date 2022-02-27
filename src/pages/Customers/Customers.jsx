@@ -6,10 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 // import debounce from 'lodash.debounce';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import Pagination from '@material-ui/core/Pagination';
 import { ActionsBlock, CreateBlock } from './styles';
-import { Main, MainContent, PaginationMain } from '../../styles/globalStyles';
+import { InputTitle, Main, MainContent, PaginationMain } from '../../styles/globalStyles';
 import CustomerInfo from '../../components/CreateEvents/childComponents/CustomerInfo';
 import AddButton from '../../components/AddButton/AddButton';
 import warningAlert from '../../utils/warningAlert';
@@ -26,6 +26,7 @@ import {
 import { showToastMeassage } from '../../store/appActions';
 import { BsChevronDown } from 'react-icons/bs';
 import { logout } from '../../utils/auth';
+import BlockInputs from '../../components/Smart/InputBlock/InputBlock';
 import SelectOfPagination from '../../components/Smart/SelectOfPagination/SelectForPagination';
 
 let searchVal = '';
@@ -37,6 +38,7 @@ function Customers({ getUsers,
     showToastMeassage }) {
 
     const [showModal, setShowModal] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [resetPassword, setResetPassword] = useState(false);
     const [page, setPage] = useState(1);
@@ -80,6 +82,11 @@ function Customers({ getUsers,
             <span className={style.dropbtn}>Actions <BsChevronDown size={appState.screenSize < 1100 ? 12 : 20} className='ml-3' /></span>
             {appState.userType === "1" ?
                 <div className={style.dropdownContent}>
+                    <span
+                        onClick={() => { 
+                            console.log(list)
+                            setViewModal(list) }}
+                    >View</span>
                     <span
                         onClick={() => { onEdit(list) }}
                     >Edit</span>
@@ -387,6 +394,81 @@ function Customers({ getUsers,
                 title={`Do you want to delete ${deleteModal.name}?`}
                 getButtons={getButtons}
             ></Modal>}
+        {!!viewModal &&
+            <Modal
+                handleOpen={() => { setViewModal(false) }}
+                title={viewModal.full_name}
+                getButtons={()=>{}}
+            >
+                <Container fluid>
+                    {/* <Row>
+                        <Col className="pl-2">
+                            <SectionsTitle className="mb-4 pl-2">Customer Info</SectionsTitle>
+                        </Col>
+                    </Row> */}
+                    <Row>{
+                        [{
+                            title: 'Full Name', name: "full_name"
+                        },
+                        {
+                            title: 'Home Address', name: "address"
+                        }
+                        ].map((el, ind) => {
+                            return <Col xs={12} className="mb-4" key={ind}>
+                                <InputTitle>{el.title}</InputTitle>
+                                <div style={{ borderColor: '1px solid red' }}>
+                                    <BlockInputs
+                                        value={viewModal[el.name]}
+                                        disabled={true}
+                                    />
+                                </div>
+                            </Col>
+                        })
+                    }</Row>
+                    <Row>{
+                        [
+                            {
+                                title: 'Home Phone', name: "phone_number"
+                            },
+                            {
+                                title: 'Alternate Phone', name: "alt_phone_number"
+                            },
+                            {
+                                title: 'Email', name: "email"
+                            }].map((el, ind) => {
+                                return <Col xs={4} className="mb-4" key={ind}>
+                                    <InputTitle>{el.title}</InputTitle>
+                                    <div style={{ borderColor: '1px solid red' }}>
+                                        <BlockInputs
+                                            value={viewModal[el.name]}
+                                            disabled={true}
+                                        />
+                                    </div>
+                                </Col>
+                            })
+                    }</Row>
+                    <Row>{
+                        [
+                            {
+                                title: 'DL number', name: "dl_number"
+                            },
+                            {
+                                title: 'DL expiration data', name: "dl_expire_date"
+                            }
+                        ].map((el, ind) => {
+                            return <Col xs={6} className="mb-4" key={ind}>
+                                <InputTitle>{el.title}</InputTitle>
+                                <div style={{ borderColor: '1px solid red' }}>
+                                    <BlockInputs
+                                        value={viewModal[el.name]}
+                                        disabled={true}
+                                    />
+                                </div>
+                            </Col>
+                        })
+                    }</Row>
+                </Container>
+            </Modal>}
 
         {resetPassword &&
             <Modal
