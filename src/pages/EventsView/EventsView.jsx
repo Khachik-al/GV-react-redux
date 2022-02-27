@@ -179,7 +179,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         title: 'Fax', name: ""
                                     },
                                     {
-                                        title: 'Date', name: "created_at"
+                                        title: 'Create Date', name: "created_at"
                                     },
                                     {
                                         title: 'Minimum of # Guests', name: "guests_number"
