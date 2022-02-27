@@ -3,8 +3,9 @@ import { TableCol, TableRow } from '../../Table/styles';
 import DatePicker from "react-datepicker";
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
-import { DataPicBlock } from '../styles';
+import { DataPicBlock, DollarIconBlock, InputWithDollar } from '../styles';
 import { Button, Col, Row } from 'react-bootstrap';
+import { BiDollar } from 'react-icons/bi';
 
 const Payments = ({ payments, paymentReplace, requiredError, total }) => {
     const [required, setRequired] = useState({ deposit: false, payment: false })
@@ -96,15 +97,17 @@ const Payments = ({ payments, paymentReplace, requiredError, total }) => {
                             </DataPicBlock>
                         </TableCol>
                         <TableCol>
-                            <BlockInputs
-                                title='amount'
-                                onChange={({ target }) => amountChange(target, i)}
-                                name="amount"
-                                type="number"
-                                placeholder="$"
-                                value={el.amount}
-                                borderColor={el.payment_name === 'payment' ? requiredError[3] || required.payment : requiredError[2] || required.deposit}
-                            />
+                            <InputWithDollar>
+                                <BlockInputs
+                                    title='amount'
+                                    onChange={({ target }) => amountChange(target, i)}
+                                    name="amount"
+                                    type="number"
+                                    value={el.amount}
+                                    borderColor={el.payment_name === 'payment' ? requiredError[3] || required.payment : requiredError[2] || required.deposit}
+                                />
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
                         </TableCol>
                         {el.payment_name === 'payment' && <TableCol>
                             < Button

@@ -188,3 +188,15 @@ border-radius: 10px;
   background-color: #009EF7;  
 }
 `
+
+export const DollarIconBlock = styled.span`
+  position: absolute;
+  left: 7px;
+  top: 12px;
+`
+export const InputWithDollar = styled.div`
+  position: relative;
+  input{
+    padding-left: 30px;
+  }
+`

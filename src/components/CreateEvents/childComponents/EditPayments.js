@@ -6,10 +6,11 @@ import { Button, Col, Row } from 'react-bootstrap';
 import config from '../../../configs.json'
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
-import { DataPicBlock } from '../styles';
+import { DataPicBlock, DollarIconBlock, InputWithDollar } from '../styles';
 import style from '../style.module.css'
 import { TableCol, TableRow } from '../../Table/styles';
 import { useDispatch } from 'react-redux';
+import { BiDollar } from 'react-icons/bi';
 
 const EditPayments = ({ payments, match, paymentReplace, total }) => {
     const dispatch = useDispatch()
@@ -173,13 +174,15 @@ const EditPayments = ({ payments, match, paymentReplace, total }) => {
                                 </DataPicBlock>
                             </TableCol>
                             <TableCol >
-                                <BlockInputs
-                                    onChange={({ target }) => amountChange(target, i)}
-                                    name="amount"
-                                    type="number"
-                                    placeholder="$"
-                                    value={el.amount}
-                                />
+                                <InputWithDollar>
+                                    <BlockInputs
+                                        onChange={({ target }) => amountChange(target, i)}
+                                        name="amount"
+                                        type="number"
+                                        value={el.amount}
+                                    />
+                                    <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                                </InputWithDollar>
                             </TableCol>
                             <TableCol className='pl-2'>
                                 < Button
@@ -256,13 +259,15 @@ const EditPayments = ({ payments, match, paymentReplace, total }) => {
                         </DataPicBlock>
                     </TableCol>
                     <TableCol >
-                        <BlockInputs
-                            onChange={({ target }) => addPaymentAmountChange(target, payments.length)}
-                            name="amount"
-                            type="number"
-                            placeholder="$"
-                            value={addPayments.amount}
-                        />
+                        <InputWithDollar>
+                            <BlockInputs
+                                onChange={({ target }) => addPaymentAmountChange(target, payments.length)}
+                                name="amount"
+                                type="number"
+                                value={addPayments.amount}
+                            />
+                            <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                        </InputWithDollar>
                     </TableCol>
                     <TableCol className='pl-2'>
                         < Button

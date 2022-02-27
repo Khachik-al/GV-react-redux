@@ -6,10 +6,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 import BlockInputs from '../../Smart/InputBlock/InputBlock';
 import SelectComponent from '../../Smart/SelectComponent/SelectComponent';
 import { InputTitle } from '../../../styles/globalStyles';
-import { SpanIcon } from '../styles';
+import { DollarIconBlock, InputWithDollar, SpanIcon } from '../styles';
 import AccordDown from '../../Smart/AccordDown/AccordDown';
 import CreatePayments from './CreatePayments';
 import EditPayments from './EditPayments';
+import { BiDollar } from 'react-icons/bi';
 
 function Contract({ state, handleChange, requiredError, editSet, totalShow, match }) {
     const menues = useSelector((state) => state.SettingsReducer.menues);
@@ -55,7 +56,10 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
 
             <Col xs={6} className="mb-3 mt-3">
                 <InputTitle> Cost per guest <span>*</span></InputTitle>
-                {paintInputs("cost_per_guest", requiredError[1], 'Cost per guest', "number", '$')}
+                <InputWithDollar>
+                    {paintInputs("cost_per_guest", requiredError[1], 'Cost per guest', "number")}
+                    <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                </InputWithDollar>
             </Col>
         </Row>
 
@@ -105,19 +109,47 @@ function Contract({ state, handleChange, requiredError, editSet, totalShow, matc
                     </h5>}>
                     <Row>
                         <Col xs={6}> <InputTitle className="mt-4"> Gratitude </InputTitle>
-                            {paintInputs("gratitude", null, null, "number", '$')} </Col>
+                            <InputWithDollar>
+                                {paintInputs("gratitude", null, null, "number")}
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
+                        </Col>
                         <Col xs={6}> <InputTitle className="mt-4"> Lighting </InputTitle>
-                            {paintInputs("lightning", null, null, "number", '$')} </Col>
+                            <InputWithDollar>
+                                {paintInputs("lightning", null, null, "number")}
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
+                        </Col>
                         <Col xs={6}><InputTitle className="mt-4"> Security </InputTitle>
-                            {paintInputs("security", null, null, "number", '$')}</Col>
+                            <InputWithDollar>
+                                {paintInputs("security", null, null, "number")}
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
+                        </Col>
                         <Col xs={6}><InputTitle className="mt-4"> Cocktail hour </InputTitle>
-                            {paintInputs("cocktail_hour", null, null, "number", '$')}</Col>
+                            <InputWithDollar>
+                                {paintInputs("cocktail_hour", null, null, "number")}
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
+                        </Col>
                         <Col xs={6}> <InputTitle className="mt-4"> Ceremony </InputTitle>
-                            {paintInputs("ceremony", null, null, "number", '$')}</Col>
+                            <InputWithDollar>
+                                {paintInputs("ceremony", null, null, "number")}
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
+                        </Col>
                         <Col xs={6}><InputTitle className="mt-4"> Tax </InputTitle>
-                            {paintInputs("tax", null, null, "number", '$')}</Col>
+                            <InputWithDollar>
+                                {paintInputs("tax", null, null, "number")}
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
+                        </Col>
                         <Col xs={12}><InputTitle className="mt-4"> Other </InputTitle>
-                            {paintInputs("other", null, null, "number", '$')}</Col>
+                            <InputWithDollar>
+                                {paintInputs("other", null, null, "number")}
+                                <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                            </InputWithDollar>
+                        </Col>
                     </Row>
                 </AccordDown>
                 <hr style={{ height: '0px' }} />
