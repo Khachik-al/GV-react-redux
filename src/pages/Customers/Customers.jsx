@@ -44,8 +44,7 @@ function Customers({ getUsers,
 
     const [customerRequired, setCustomerRequired] = useState([false, false, false, false, false, false, false]);
     const [customerInfo, setCustomerInfo] = useState({
-        firstName: '',
-        lastName: '',
+        fullName: '',
         email: '',
         address: '',
         phone_number: '',
@@ -71,8 +70,7 @@ function Customers({ getUsers,
         setShowModal(list.id.toString());
         setCustomerInfo({
             ...list,
-            firstName: list.full_name.split(" ")[0],
-            lastName: list.full_name.split(" ")[1],
+            fullName: list.full_name,
             dl_expire_date: new Date(list.dl_expire_date),
         });
     }, []);
@@ -106,8 +104,7 @@ function Customers({ getUsers,
         setShowModal(false);
         setCustomerRequired([false, false, false, false, false, false, false]);
         setCustomerInfo({
-            firstName: '',
-            lastName: '',
+            fullName: '',
             email: '',
             address: '',
             phone_number: '',
@@ -119,7 +116,7 @@ function Customers({ getUsers,
 
     const createOrEdit = useCallback(() => {
         let cloneReqArray = [...customerRequired];
-        ['firstName', 'lastName', 'address', 'email',
+        ['fullName', 'address', 'email',
             'phone_number', 'dl_number', 'dl_expire_date'].forEach((el, i) => customerInfo[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true);
         if (cloneReqArray.includes(true)) {
             setCustomerRequired(cloneReqArray);
@@ -128,7 +125,7 @@ function Customers({ getUsers,
             if (showModal === true) {
                 axios.post(`${config["API"]}api/api/customers`,
                     {
-                        full_name: customerInfo.firstName + ' ' + customerInfo.lastName,
+                        full_name: customerInfo.fullName,
                         email: customerInfo.email,
                         address: customerInfo.address,
                         phone_number: customerInfo.phone_number,
@@ -185,7 +182,7 @@ function Customers({ getUsers,
             }
             else {
                 axios.put(`${config["API"]}api/api/customers/${showModal}`, {
-                    full_name: customerInfo.firstName + ' ' + customerInfo.lastName,
+                    full_name: customerInfo.fullName,
                     email: customerInfo.email,
                     address: customerInfo.address,
                     phone_number: customerInfo.phone_number,
@@ -368,7 +365,18 @@ function Customers({ getUsers,
         >
             <CustomerInfo requiredError={customerRequired} state={customerInfo}
                 disabledAll={false} createActive={true}
-                handleChange={({ target }) => { setCustomerInfo({ ...customerInfo, [target.name]: target.value }) }} />
+                handleChange={({ target }) => {
+                    setCustomerRequired(prevStat => {
+                        let cloneReqCon = [...prevStat];
+                        ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
+                            if (target.name === el) {
+                                target.value ? cloneReqCon[i] = false : cloneReqCon[i] = true;
+                            }
+                        })
+                        return cloneReqCon
+                    })
+                    setCustomerInfo({ ...customerInfo, [target.name]: target.value })
+                }} />
         </Modal>
 
         }

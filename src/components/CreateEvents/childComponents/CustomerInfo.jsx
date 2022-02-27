@@ -47,7 +47,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
                     </Col>
                     <Col xs={4}>
                         <InputTitle>Alternate Phone </InputTitle>
-                        {paintInputs("alt_phone_number", null, null, 'tel')}
+                        {paintInputs("alt_phone_number", null, null, 'number')}
                     </Col>
                     <Col xs={4}>
                         <InputTitle>Email <span>*</span></InputTitle>
