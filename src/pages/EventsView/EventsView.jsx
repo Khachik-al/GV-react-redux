@@ -52,6 +52,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                 event_end: data.event_end,
                 event_start: data.event_start,
                 guests_number: data.guests_number,
+                guests_number_expected: data.guests_number_expected,
                 id: data.id,
                 updated_at: data.updated_at,
                 notes: data.notes,
@@ -146,7 +147,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         <InputTitle>{el.title}</InputTitle>
                                         <div style={{ borderColor: '1px solid red' }}>
                                             <BlockInputs
-                                                value={state[el.name]}
+                                                value={state[el.name]?.split(" ")[0]}
                                                 disabled={true}
                                             />
                                         </div>
@@ -185,7 +186,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         title: 'Minimum of # Guests', name: "guests_number"
                                     },
                                     {
-                                        title: 'Number of Guests Expected', name: ""
+                                        title: 'Number of Guests Expected', name: "guests_number_expected"
                                     }
                                 ].map((el, ind) => {
                                     return <Col xs={6} className="mb-4" key={ind}>
