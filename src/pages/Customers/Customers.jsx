@@ -30,6 +30,7 @@ import BlockInputs from '../../components/Smart/InputBlock/InputBlock';
 import SelectOfPagination from '../../components/Smart/SelectOfPagination/SelectForPagination';
 import DatePicker from "react-datepicker";
 import { DataPicBlock } from '../../components/CreateEvents/styles';
+import { debounce } from 'lodash-es';
 
 let searchVal = '';
 
@@ -38,7 +39,6 @@ function Customers({ getUsers,
     users, count,
     // addUser, editUser, 
     showToastMeassage }) {
-
     const [showModal, setShowModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
@@ -79,6 +79,7 @@ function Customers({ getUsers,
         });
     }, []);
 
+   
     const ActionComponent = useCallback((style, list) => {
         return <div className={style.dropdown}>
             <span className={style.dropbtn}>Actions <BsChevronDown size={appState.screenSize < 1100 ? 12 : 20} className='ml-3' /></span>
@@ -334,7 +335,16 @@ function Customers({ getUsers,
         </div>
     }, [validations]);
 
+ const handleChange = debounce(() => {
+        // console.log(page, pageSizes, searchVal)
+        getUsers(page, pageSizes, searchVal);
+        setPage(1)
+    }, 300);
 
+    const search = (e) => {
+        searchVal = e.target.value
+        handleChange()
+    };
     useEffect(() => {
         getUsers(1, 10);
     }, []);/* eslint-disable-line */
@@ -346,7 +356,7 @@ function Customers({ getUsers,
             </h1> */}
             <ActionsBlock className='mb-3 mt-3'>
                 <SearchBlock
-                // onChange={search}
+                    onChange={search}
                 />
                 {appState.userType === "1" && <CreateBlock>
                     <AddButton clickFunc={(() => { setShowModal(true) })} title="ADD CUSTOMER" />

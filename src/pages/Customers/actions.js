@@ -3,6 +3,7 @@ import config from '../../configs.json';
 import { logout } from '../../utils/auth';
 
 export const getUsers = (page, limit, serachValue = "") => {
+    console.log(serachValue)
     return async (dispatch) => {
         try {
             dispatch({ type: 'PENDING', payload: true })
@@ -13,6 +14,7 @@ export const getUsers = (page, limit, serachValue = "") => {
                     }
                 }
             );
+            console.log(data)
 
             dispatch({
                 type: 'GET_CUSTOMERS',
