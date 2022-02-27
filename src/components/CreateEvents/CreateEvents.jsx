@@ -173,6 +173,8 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                     disabledAll={contractState.hasOwnProperty('customer_id')}
                     createActive={true}
                     handleChange={({ target }) => {
+                        let reg= new RegExp('[0-9]')
+                        if (target.name === 'fullName' && reg.test(target.value)) return
                         setCustomerRequired(prevStat => {
                             let cloneReqCon = [...prevStat];
                             ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) => {
