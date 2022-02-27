@@ -115,7 +115,7 @@ function EventsSection({ state, handleChange, requiredError, isMobile, contractS
             
             <Col xs={isMobile > 600 ? 6 : 12}>
                 <InputTitle>Number of Guests Expected </InputTitle>
-                {paintInputs("guests_number_expected", false, '', 'number', true)}
+                {paintInputs("guests_number_expected", false, '', 'number', false)}
             </Col>
             <Col xs={isMobile > 600 ? 6 : 12} >
                 <InputTitle> Minimum of # Guests <span>*</span></InputTitle>

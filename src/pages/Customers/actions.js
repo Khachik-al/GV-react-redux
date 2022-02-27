@@ -57,24 +57,27 @@ export const deleteUsers = (id) => {
 
     return async (dispatch) => {
         try {
-            axios.delete(`${config["API"]}api/api/customers/${id}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }).then(res => {
-                axios.get(`${config["API"]}api/api/customers`,
-                    { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
-                ).then(re => {
-                    dispatch({
-                        type: 'GET_CUSTOMERS',
-                        payload: Object.values(re.data),
-                    });
-                    dispatch({
-                        type: 'TOAST_MESSAGE',
-                        successMessage: 'seccessfuly deleted',
-                        errorMessage: null
+            await axios.delete(`${config["API"]}api/api/customers/${id}`,
+                { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
+                .then(res => {
+                    axios.get(`${config["API"]}api/api/customers`,
+                        { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
+                    ).then(re => {
+                        dispatch({
+                            type: 'GET_CUSTOMERS',
+                            payload: Object.values(re.data),
+                        });
+                        dispatch({
+                            type: 'TOAST_MESSAGE',
+                            successMessage: 'seccessfuly deleted',
+                            errorMessage: null
+                        })
                     })
                 })
-            })
         } catch (err) {
+            console.log(err.response)
             if (err.response && err.response.hasOwnProperty('status')) {
-                if (err.response.status === 401) {
+                if (err.response.status === 401 && localStorage.getItem('token')) {
                     logout();
                     dispatch({ type: 'saveToken', token: '' });
                     dispatch({

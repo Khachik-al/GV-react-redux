@@ -12,6 +12,7 @@ import EventsSection from './childComponents/EventsSection';
 import CustomerInfo from './childComponents/CustomerInfo';
 import Contract from './childComponents/Contract';
 import { DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { logout } from '../../utils/auth';
 
 function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
 
@@ -170,10 +171,9 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                 return <CustomerInfo
                     requiredError={customerRequired}
                     state={customerInfo}
-                    disabledAll={contractState.hasOwnProperty('customer_id')}
                     createActive={true}
                     handleChange={({ target }) => {
-                        let reg= new RegExp('[0-9]')
+                        let reg = new RegExp('[0-9]')
                         if (target.name === 'fullName' && reg.test(target.value)) return
                         setCustomerRequired(prevStat => {
                             let cloneReqCon = [...prevStat];
@@ -263,7 +263,47 @@ function CreateEvents({ onClose, isMobile, createEvent, setPage }) {
                 } else {
 
                     if (contractState.hasOwnProperty('customer_id')) {
-                        setActiveSection(activeSection + 1);
+                        axios.put(`${config["API"]}api/api/customers/${contractState.customer_id}`, {
+                            full_name: customerInfo.fullName,
+                            email: customerInfo.email,
+                            address: customerInfo.address,
+                            phone_number: customerInfo.phone_number,
+                            alt_phone_number: customerInfo.alt_phone_number,
+                            dl_number: customerInfo.dl_number,
+                            dl_expire_date: customerInfo.dl_expire_date,
+                        }, {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            }
+                        }).then(res => {
+                            setActiveSection(activeSection + 1);
+                            dispatch({
+                                type: 'TOAST_MESSAGE',
+                                successMessage: `${res.data.full_name} has been edited`
+                            });
+                        }).catch(err => {
+                            if (err.response && err.response.hasOwnProperty('status')) {
+                                if (err.response.status === 401) {
+                                    logout();
+                                    dispatch({ type: 'saveToken', token: '' });
+                                    dispatch({
+                                        type: 'TOAST_MESSAGE',
+                                        errorMessage: 'Log Out'
+                                    })
+                                }
+                                if (err.response.status === 422) {
+                                    dispatch({
+                                        type: 'TOAST_MESSAGE',
+                                        errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
+                                    })
+                                }
+                            }
+                            dispatch({
+                                type: 'TOAST_MESSAGE',
+                                successMessage: null,
+                                errorMessage: 'Error'
+                            })
+                        })
                     } else {
                         dispatch({ type: 'PENDING_CREATE_CUSTOMER', payload: true });
                         axios.post(`${config["API"]}api/api/customers`,
