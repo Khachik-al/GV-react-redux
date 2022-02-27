@@ -69,7 +69,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                 status_id: state.status_id,
                 contract: {
                     ...contractState,
-                    balance_due: contractState.balance_due,
+                    balance_due: balanceDue(),
                     cost_per_guest: contractState.cost_per_guest,
                     created_at: contractState.created_at,
                     deposit: contractState.deposit,
@@ -237,7 +237,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
                 newTotal = newTotal ? newTotal + ((newTotal * proc) / 100) : 0;
             }
 
-            setContractState({ ...contractState, payment: newTotal, balance_due: Number(newTotal) - Number(contractState.deposit) })
+            setContractState({ ...contractState, payment: newTotal})
             setState({ ...state, [target.name]: target.value })
         }
         else {
