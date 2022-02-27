@@ -341,9 +341,9 @@ function Customers({ getUsers,
 
     return users && <Main className="pb-4 pt-4">
         <MainContent className={!(appState.screenSize < 800) ? 'pt-5 pb-4 pr-4 pl-5' : 'p-3 pb-4'}>
-            <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+            {/* <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
                 Customers
-            </h1>
+            </h1> */}
             <ActionsBlock className='mb-3 mt-3'>
                 <SearchBlock
                 // onChange={search}
@@ -370,7 +370,7 @@ function Customers({ getUsers,
 
         {showModal && <Modal
             handleOpen={cancleBtn}
-            title="Create Customer"
+            title={typeof (showModal) === 'boolean' ? "Create Customer" : 'Edit Customer'}
             getButtons={getButtons}
         >
             <CustomerInfo requiredError={customerRequired} state={customerInfo}
