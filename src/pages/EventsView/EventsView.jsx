@@ -153,13 +153,11 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     </Col>
                                 })
                             }</Row>
-                            <Row>{
-                                [{
-                                    title: 'Amount of deposit collected', name: ""
-                                },
-                                {
-                                    title: 'Email', name: ""
-                                }
+                            {/* <Row>{
+                                [
+                                    {
+                                        title: 'Email', name: ""
+                                    }
                                 ].map((el, ind) => {
                                     return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
@@ -171,33 +169,24 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                         </div>
                                     </Col>
                                 })
-                            }</Row>
+                            }</Row> */}
                             <Row>{
-                                [{
-                                    title: 'Fax', name: ""
-                                },
-                                {
-                                    title: 'Date', name: "created_at"
-                                }
-                                ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4" key={ind}>
-                                        <InputTitle>{el.title}</InputTitle>
-                                        <div style={{ borderColor: '1px solid red' }}>
-                                            <BlockInputs
-                                                value={state[el.name]}
-                                                disabled={true}
-                                            />
-                                        </div>
-                                    </Col>
-                                })
-                            }</Row>
-                            <Row>{
-                                [{
-                                    title: 'Minimum of # Guests', name: "guests_number"
-                                },
-                                {
-                                    title: 'Number of Guests Expected', name: ""
-                                }
+                                [
+                                    {
+                                        title: 'Email', name: ""
+                                    },
+                                    {
+                                        title: 'Fax', name: ""
+                                    },
+                                    {
+                                        title: 'Date', name: "created_at"
+                                    },
+                                    {
+                                        title: 'Minimum of # Guests', name: "guests_number"
+                                    },
+                                    {
+                                        title: 'Number of Guests Expected', name: ""
+                                    }
                                 ].map((el, ind) => {
                                     return <Col xs={6} className="mb-4" key={ind}>
                                         <InputTitle>{el.title}</InputTitle>
@@ -220,10 +209,6 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                     <SectionsTitle className="mb-4 pl-2">Customer Info</SectionsTitle>
                                 </Col>
                             </Row>
-
-
-
-
                             <Row>{
                                 [{
                                     title: 'Full Name', name: "fullName"
@@ -313,9 +298,6 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                 },
                                 {
                                     title: 'Cost per guest', name: "cost_per_guest"
-                                },
-                                {
-                                    title: 'Payment type', name: "payment_type"
                                 },
                                 {
                                     title: 'Service fee', name: "serviceFee"
