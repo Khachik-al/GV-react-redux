@@ -28,6 +28,8 @@ import { BsChevronDown } from 'react-icons/bs';
 import { logout } from '../../utils/auth';
 import BlockInputs from '../../components/Smart/InputBlock/InputBlock';
 import SelectOfPagination from '../../components/Smart/SelectOfPagination/SelectForPagination';
+import DatePicker from "react-datepicker";
+import { DataPicBlock } from '../../components/CreateEvents/styles';
 
 let searchVal = '';
 
@@ -83,9 +85,10 @@ function Customers({ getUsers,
             {appState.userType === "1" ?
                 <div className={style.dropdownContent}>
                     <span
-                        onClick={() => { 
+                        onClick={() => {
                             console.log(list)
-                            setViewModal(list) }}
+                            setViewModal(list)
+                        }}
                     >View</span>
                     <span
                         onClick={() => { onEdit(list) }}
@@ -398,7 +401,7 @@ function Customers({ getUsers,
             <Modal
                 handleOpen={() => { setViewModal(false) }}
                 title={viewModal.full_name}
-                getButtons={()=>{}}
+                getButtons={() => { }}
             >
                 <Container fluid>
                     {/* <Row>
@@ -447,26 +450,33 @@ function Customers({ getUsers,
                                 </Col>
                             })
                     }</Row>
-                    <Row>{
-                        [
-                            {
-                                title: 'DL number', name: "dl_number"
-                            },
-                            {
-                                title: 'DL expiration data', name: "dl_expire_date"
-                            }
-                        ].map((el, ind) => {
-                            return <Col xs={6} className="mb-4" key={ind}>
-                                <InputTitle>{el.title}</InputTitle>
-                                <div style={{ borderColor: '1px solid red' }}>
-                                    <BlockInputs
-                                        value={viewModal[el.name]}
-                                        disabled={true}
+                    <Row>
+                        <Col xs={6} className="mb-4">
+                            <InputTitle>DL number</InputTitle>
+                            <div style={{ borderColor: '1px solid red' }}>
+                                <BlockInputs
+                                    value={viewModal['dl_number']}
+                                    disabled={true}
+                                />
+                            </div>
+                        </Col>
+                        <Col xs={6} className="mb-4">
+                            <InputTitle>DL expiration data</InputTitle>
+                            <div style={{ borderColor: '1px solid red' }}>
+                                {/* <BlockInputs
+                                    value={viewModal['dl_expire_date']}
+                                    disabled={true}
+                                /> */}
+                                <DataPicBlock>
+                                    <DatePicker
+                                        selected={new Date(viewModal['dl_expire_date'])}
+                                        style={{ width: '100%' }}
+                                        disabled
                                     />
-                                </div>
-                            </Col>
-                        })
-                    }</Row>
+                                </DataPicBlock>
+                            </div>
+                        </Col>
+                    </Row>
                 </Container>
             </Modal>}
 

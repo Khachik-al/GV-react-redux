@@ -258,7 +258,7 @@ function EventsEdit({ isMobile, data, getEvent, match, getMenu, editEvent, creat
     }, []);/* eslint-disable-line */
     console.log(data)
     useEffect(() => {
-        if (data && data.contract) {
+        if (data && data.contract && data.customer) {
             let total = Number(data.guests_number) * Number(data.contract?.cost_per_guest);
 
             let newDate = {
