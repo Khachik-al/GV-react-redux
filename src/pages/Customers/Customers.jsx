@@ -116,8 +116,8 @@ function Customers({ getUsers,
 
     const createOrEdit = useCallback(() => {
         let cloneReqArray = [...customerRequired];
-        ['fullName', 'address', 'email',
-            'phone_number', 'dl_number', 'dl_expire_date'].forEach((el, i) => customerInfo[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true);
+        ['fullName', 'address', 'phone_number', 'email', 'dl_number', 'dl_expire_date'].forEach((el, i) =>
+            customerInfo[el] ? cloneReqArray[i] = false : cloneReqArray[i] = true);
         if (cloneReqArray.includes(true)) {
             setCustomerRequired(cloneReqArray);
         }
@@ -171,13 +171,13 @@ function Customers({ getUsers,
                                 errorMessage: err.response.data.errors[Object.keys(err.response.data.errors)[0]][0]
                             })
                         }
+                    } else {
+                        dispatch({
+                            type: 'TOAST_MESSAGE',
+                            successMessage: null,
+                            errorMessage: 'Error'
+                        })
                     }
-
-                    dispatch({
-                        type: 'TOAST_MESSAGE',
-                        successMessage: null,
-                        errorMessage: 'Error'
-                    })
                 })
             }
             else {
