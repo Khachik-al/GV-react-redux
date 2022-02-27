@@ -43,7 +43,7 @@ function CustomerInfo({ state, handleChange, requiredError, disabledAll, modalAc
                 <Row className="mb-4">
                     <Col xs={4}>
                         <InputTitle>Home Phone <span>*</span></InputTitle>
-                        {paintInputs("phone_number", requiredError[2], 'Home phone', 'tel')}
+                        {paintInputs("phone_number", requiredError[2], 'Home phone', 'number')}
                     </Col>
                     <Col xs={4}>
                         <InputTitle>Alternate Phone </InputTitle>
