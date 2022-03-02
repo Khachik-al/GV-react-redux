@@ -4,7 +4,7 @@ import { connect, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import AccordDown from '../../components/Smart/AccordDown/AccordDown';
-import { SpanIcon } from '../../components/CreateEvents/styles';
+import { DollarIconBlock, InputWithDollar, SpanIcon } from '../../components/CreateEvents/styles';
 import { GridMain, FixedBlock } from '../EventsEdit/styles';
 import RadioGro from '../../components/Smart/Radio/Radio';
 import { TableCol, TableRow, TextWithBack } from '../../components/Table/styles';
@@ -13,6 +13,7 @@ import { UpdateButton } from '../EventsEdit/styles';
 import { SectionsBlock, SectionsTitle } from '../EventsEdit/styles';
 import { Main, InputTitle } from '../../styles/globalStyles';
 import { getEvent } from '../Events/actions';
+import { BiDollar } from 'react-icons/bi';
 
 function EventsView({ isMobile, data, getEvent, match }) {
     const [state, setState] = useState(null);
@@ -293,28 +294,38 @@ function EventsView({ isMobile, data, getEvent, match }) {
 
 
 
-                            <Row>{
-                                [{
-                                    title: 'Menu', name: "menu_id"
-                                },
-                                {
-                                    title: 'Cost per guest', name: "cost_per_guest"
-                                },
-                                {
-                                    title: 'Service fee', name: "serviceFee"
-                                },
-                                ].map((el, ind) => {
-                                    return <Col xs={6} className="mb-4" key={ind}>
-                                        <InputTitle>{el.title}</InputTitle>
-                                        <div style={{ borderColor: '1px solid red' }}>
+                            <Row>
+                                <Col xs={6} className="mb-4">
+                                    <InputTitle>Menu</InputTitle>
+                                    <div style={{ borderColor: '1px solid red' }}>
+                                        <BlockInputs
+                                            value={state['menu_id']}
+                                            disabled={true}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col xs={6} className="mb-4">
+                                    <InputTitle>Cost per guest</InputTitle>
+                                    <div style={{ borderColor: '1px solid red' }}>
+                                        <InputWithDollar>
                                             <BlockInputs
-                                                value={state[el.name]}
+                                                value={state['cost_per_guest']}
                                                 disabled={true}
                                             />
-                                        </div>
-                                    </Col>
-                                })
-                            }</Row>
+                                            <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                                        </InputWithDollar>
+                                    </div>
+                                </Col>
+                                <Col xs={6} className="mb-4">
+                                    <InputTitle>Service fee</InputTitle>
+                                    <div style={{ borderColor: '1px solid red' }}>
+                                        <BlockInputs
+                                            value={state['serviceFee']}
+                                            disabled={true}
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
 
 
                             <Row className="mb-4">
@@ -347,10 +358,13 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                                 return <Col xs={6} className="mb-4" key={ind}>
                                                     <InputTitle>{el.title}</InputTitle>
                                                     <div style={{ borderColor: '1px solid red' }}>
-                                                        <BlockInputs
-                                                            value={state[el.name]}
-                                                            disabled={true}
-                                                        />
+                                                        <InputWithDollar>
+                                                            <BlockInputs
+                                                                value={state[el.name]}
+                                                                disabled={true}
+                                                            />
+                                                            <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                                                        </InputWithDollar>
                                                     </div>
                                                 </Col>
                                             })}
@@ -358,10 +372,13 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             <Col xs={12} className="mb-4">
                                                 <InputTitle>Other</InputTitle>
                                                 <div style={{ borderColor: '1px solid red' }}>
-                                                    <BlockInputs
-                                                        value={state.other}
-                                                        disabled={true}
-                                                    />
+                                                    <InputWithDollar>
+                                                        <BlockInputs
+                                                            value={state.other}
+                                                            disabled={true}
+                                                        />
+                                                        <DollarIconBlock><BiDollar size={18} color='#5E6278' /></DollarIconBlock>
+                                                    </InputWithDollar>
                                                 </div>
                                             </Col>
                                         </Row>
@@ -389,7 +406,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                                 <TableCol>{el.payment_name}</TableCol>
                                                 <TableCol>{el.payment_type}</TableCol>
                                                 <TableCol>{new Date(el.payment_date).toISOString().split('T')[0]}</TableCol>
-                                                <TableCol >{el.amount}</TableCol>
+                                                <TableCol >{'$ ' + el.amount}</TableCol>
                                             </TableRow>
                                         })}
                                     </Col>
@@ -561,9 +578,7 @@ function EventsView({ isMobile, data, getEvent, match }) {
                                             fontWeight: '500',
                                             fontSize: '1.15rem'
                                         }}
-                                    >$
-                                        {/* {parseInt(state.payment - state.deposit)} */}
-                                        {data?.payments?.length && parseInt(state.payment - (Number(data.payments[0].amount) + Number(totalPayment())))}
+                                    >$ {data?.payments?.length && parseInt(state.payment - (Number(data.payments[0].amount) + Number(totalPayment())))}
                                         {/* {parseInt(state.payment - (Number(state.deposit) + Number(state.payment_tes)))} */}
                                     </div>
                                 </Col>
