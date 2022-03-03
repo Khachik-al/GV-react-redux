@@ -211,7 +211,7 @@ const EditPayments = ({ payments, match, paymentReplace, total }) => {
                             <TableCol>{el.payment_name}</TableCol>
                             <TableCol>{el.payment_type}</TableCol>
                             <TableCol>{new Date(el.payment_date).toISOString().split('T')[0]}</TableCol>
-                            <TableCol >{el.amount}</TableCol>
+                            <TableCol >{'$ ' + el.amount}</TableCol>
                             <TableCol >
                                 <span className={style.dropdown}>
                                     <span className={style.dropbtn}>
